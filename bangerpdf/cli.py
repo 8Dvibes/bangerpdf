@@ -89,6 +89,16 @@ def cmd_qa(args: argparse.Namespace) -> int:
             except ValueError:
                 print(f"WARNING: invalid --expected entry: {pair}", file=sys.stderr)
 
+    # Parse --headlines as "label=value,label=value"
+    headlines = None
+    if args.headlines:
+        headlines = {}
+        for pair in args.headlines.split(","):
+            if "=" not in pair:
+                continue
+            label, value = pair.split("=", 1)
+            headlines[label.strip()] = value.strip()
+
     only = set(args.only.split(",")) if args.only else None
 
     runner = QARunner(
@@ -96,6 +106,11 @@ def cmd_qa(args: argparse.Namespace) -> int:
         expected_pages=expected_pages,
         only=only,
         data_path=args.data,
+        headlines=headlines,
+        bleed_in=args.bleed_in,
+        require_pdfx=args.require_pdfx,
+        require_pdfa=args.require_pdfa,
+        check_links=args.check_links,
     )
     report = runner.run()
 
@@ -255,6 +270,16 @@ def build_parser() -> argparse.ArgumentParser:
                       help="Comma-separated check names to run (default: all active)")
     p_qa.add_argument("--data",
                       help="Path to data.json (enables Jinja2 dict.items collision check)")
+    p_qa.add_argument("--headlines",
+                      help="Cross-doc headline consistency: 'bid_total=$445000,client=Acme Corp'")
+    p_qa.add_argument("--bleed-in", type=float, default=0.0,
+                      help="Expected bleed in inches (0=skip, 0.125=standard print bleed)")
+    p_qa.add_argument("--require-pdfx", action="store_true",
+                      help="Treat missing PDF/X markers as an error (commercial tier)")
+    p_qa.add_argument("--require-pdfa", action="store_true",
+                      help="Treat missing PDF/A markers as an error (archival tier)")
+    p_qa.add_argument("--check-links", action="store_true",
+                      help="Ping every external URL (HEAD with cache, slow)")
     p_qa.set_defaults(func=cmd_qa)
 
     # Stubs for later phases (registered so --help shows them)

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bangerpdf"
+version = "0.1.0"
+description = "Make banger PDFs from HTML or data — print-ready output across desktop, digital press, and commercial offset tiers, with built-in QA and HTML Review Bundles"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "AI Build Lab", email = "tyler@aibuildlab.com"},
+]
+keywords = ["pdf", "html-to-pdf", "weasyprint", "print", "cmyk", "jinja2", "blueprint"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Office/Business",
+    "Topic :: Printing",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
+dependencies = [
+    "weasyprint>=67.0",
+    "pymupdf>=1.27.0",
+    "jinja2>=3.1.0",
+    "pyyaml>=6.0",
+    "pillow>=10.0.0",
+    "pdf2image>=1.17.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+
+[project.scripts]
+bangerpdf = "bangerpdf.cli:main"
+banger = "bangerpdf.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/8Dvibes/bangerpdf"
+Issues = "https://github.com/8Dvibes/bangerpdf/issues"
+Documentation = "https://github.com/8Dvibes/bangerpdf#readme"
+
+[tool.setuptools.packages.find]
+include = ["bangerpdf*"]
+
+[tool.setuptools.package-data]
+"bangerpdf.skills_data" = ["**/*.md", "**/*.yaml", "**/*.yml", "**/*.html", "**/*.css", "**/*.json"]
+"bangerpdf.packs_data" = ["**/*.md", "**/*.yaml", "**/*.yml", "**/*.html", "**/*.css", "**/*.json", "**/*.png", "**/*.jpg", "**/*.svg"]
+"bangerpdf.print_profiles" = ["**/*.yaml", "**/*.icc"]

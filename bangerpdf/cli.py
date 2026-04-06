@@ -71,6 +71,42 @@ def cmd_proof(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_qa(args: argparse.Namespace) -> int:
+    """Run the QA checker against a directory of PDFs (or a single PDF)."""
+    from bangerpdf.qa.runner import QARunner
+    from bangerpdf.qa.dashboard import render_dashboard, render_json
+
+    # Parse --expected as "filename=N,filename=N"
+    expected_pages = None
+    if args.expected:
+        expected_pages = {}
+        for pair in args.expected.split(","):
+            if "=" not in pair:
+                continue
+            name, count = pair.split("=", 1)
+            try:
+                expected_pages[name.strip()] = int(count.strip())
+            except ValueError:
+                print(f"WARNING: invalid --expected entry: {pair}", file=sys.stderr)
+
+    only = set(args.only.split(",")) if args.only else None
+
+    runner = QARunner(
+        corpus_dir=args.input,
+        expected_pages=expected_pages,
+        only=only,
+        data_path=args.data,
+    )
+    report = runner.run()
+
+    if args.json:
+        print(render_json(report))
+    else:
+        print(render_dashboard(report))
+
+    return report.exit_code(strict=args.strict)
+
+
 def cmd_doctor(args: argparse.Namespace) -> int:
     """Verify dependencies and installation."""
     print(f"bangerpdf {__version__}")
@@ -205,11 +241,26 @@ def build_parser() -> argparse.ArgumentParser:
     p_doctor = sub.add_parser("doctor", help="Verify dependencies and installation")
     p_doctor.set_defaults(func=cmd_doctor)
 
+    # qa
+    p_qa = sub.add_parser("qa", help="Run the QA checker against rendered PDFs")
+    p_qa.add_argument("input", nargs="?", default=".",
+                      help="PDF file or directory of PDFs (default: current dir)")
+    p_qa.add_argument("--strict", action="store_true",
+                      help="Exit nonzero on warnings as well as errors")
+    p_qa.add_argument("--json", action="store_true",
+                      help="Emit machine-readable JSON instead of the dashboard")
+    p_qa.add_argument("--expected",
+                      help="Expected page counts as 'file.pdf=2,other.pdf=7'")
+    p_qa.add_argument("--only",
+                      help="Comma-separated check names to run (default: all active)")
+    p_qa.add_argument("--data",
+                      help="Path to data.json (enables Jinja2 dict.items collision check)")
+    p_qa.set_defaults(func=cmd_qa)
+
     # Stubs for later phases (registered so --help shows them)
     for cmd_name, helptext in [
         ("init", "Scaffold a new pack from a starter (Phase 4)"),
         ("build", "Render data + templates → PDFs across tiers (Phase 4)"),
-        ("qa", "Run the QA checker against rendered PDFs (Phase 3)"),
         ("review", "Manage Review Bundles (Phase 7)"),
         ("brand", "Show or edit brand-kit.yaml (Phase 4)"),
         ("list-packs", "Inspect installed starter packs (Phase 5)"),

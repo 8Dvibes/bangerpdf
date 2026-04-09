@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+{% for section in sections %}
+{% set section_num = loop.index %}
+{% if not loop.first %}
+<div class="page-break"></div>
+{% endif %}
+
+<p class="section-num">Section {{ section_num }}</p>
+<h2 class="section-divider">{{ section_num }}. {{ section.title }}</h2>
+
+<p>{{ section.content }}</p>
+
+{% if section.subsections %}
+{% for sub in section.subsections %}
+<h3>{{ section_num }}.{{ loop.index }} {{ sub.title }}</h3>
+<p>{{ sub.content }}</p>
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+<div class="doc-footer">
+  {{ author }} &bull; {{ title }} &bull; {{ date }}
+</div>
+
+</body>
+</html>

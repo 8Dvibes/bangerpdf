@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Review Bundle -- {{ project_name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="page-container">
+
+<div class="review-header">
+  <h1>Review Bundle: {{ project_name }}</h1>
+  <p class="meta-line">
+    {{ version }} &bull; {{ client_name }}
+    {% if review_date %} &bull; Initiated {{ review_date }}{% endif %}
+  </p>
+</div>
+
+<div class="info-grid">
+  <div class="info-item">
+    <div class="info-label">Client</div>
+    <div class="info-value">{{ client_name }}</div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Reviewer</div>
+    <div class="info-value">{{ reviewer }}</div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Source Pack</div>
+    <div class="info-value">{{ pack_source }}</div>
+  </div>
+  <div class="info-item">
+    <div class="info-label">Version</div>
+    <div class="info-value">{{ version }}</div>
+  </div>
+  {% if due_date %}
+  <div class="info-item">
+    <div class="info-label">Review Deadline</div>
+    <div class="info-value">{{ due_date }}</div>
+  </div>
+  {% endif %}
+  {% if approval_status %}
+  <div class="info-item">
+    <div class="info-label">Overall Status</div>
+    <div class="info-value"><span class="status-badge {{ approval_status }}">{{ approval_status | replace('_', ' ') }}</span></div>
+  </div>
+  {% endif %}
+</div>
+
+{% if documents %}
+<h2>Documents in This Bundle</h2>
+
+<div class="doc-list">
+  {% for doc in documents %}
+  <div class="doc-item">
+    <div class="doc-info">
+      <div class="doc-name">{{ doc.name }}</div>
+      <div class="doc-pages">{{ doc.pages }} page{{ "s" if doc.pages > 1 else "" }}</div>
+      {% if doc.notes %}
+      <div class="doc-notes">{{ doc.notes }}</div>
+      {% endif %}
+    </div>
+    {% if doc.status %}
+    <span class="status-badge {{ doc.status }}">{{ doc.status | replace('_', ' ') }}</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<h2>Review Summary</h2>
+
+<div class="stats-row">
+  <div class="stat-box success">
+    <div class="stat-num">{{ decisions | selectattr('resolved', 'equalto', true) | list | length }}</div>
+    <div class="stat-label">Resolved</div>
+  </div>
+  <div class="stat-box warning">
+    <div class="stat-num">{{ decisions | selectattr('resolved', 'equalto', false) | list | length }}</div>
+    <div class="stat-label">Open</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">{{ decisions | length }}</div>
+    <div class="stat-label">Total Notes</div>
+  </div>
+</div>
+
+{% if summary_notes %}
+<div class="summary-callout">
+  <p class="callout-label">Reviewer Notes</p>
+  <p>{{ summary_notes }}</p>
+</div>
+{% endif %}
+
+<div class="doc-footer">
+  Review Bundle &bull; {{ project_name }} &bull; {{ version }}
+</div>
+
+</div>
+
+</body>
+</html>

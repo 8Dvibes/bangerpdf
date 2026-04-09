@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Table of Contents -- {{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>Table of Contents</h1>
+</div>
+
+<div class="toc">
+  <p class="toc-section-label">Front Matter</p>
+  <div class="toc-entry">
+    <span class="toc-title">Executive Summary</span>
+    <span class="toc-page"></span>
+  </div>
+
+  <p class="toc-section-label">Report Body</p>
+  {% for section in sections %}
+  {% set section_num = loop.index %}
+  <div class="toc-entry">
+    <span class="toc-title">{{ section_num }}. {{ section.title }}</span>
+    <span class="toc-page"></span>
+  </div>
+  {% if section.subsections %}
+  {% for sub in section.subsections %}
+  <div class="toc-entry sub">
+    <span class="toc-title">{{ section_num }}.{{ loop.index }} {{ sub.title }}</span>
+    <span class="toc-page"></span>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+
+  {% if appendices %}
+  <p class="toc-section-label">Appendices</p>
+  {% for appendix in appendices %}
+  <div class="toc-entry">
+    <span class="toc-title">{{ appendix.title }}</span>
+    <span class="toc-page"></span>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if references %}
+  <p class="toc-section-label">References</p>
+  <div class="toc-entry">
+    <span class="toc-title">References</span>
+    <span class="toc-page"></span>
+  </div>
+  {% endif %}
+</div>
+
+</body>
+</html>

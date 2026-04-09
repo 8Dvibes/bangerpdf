@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Appendices -- {{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+{% if appendices %}
+{% for appendix in appendices %}
+<div class="appendix-header">{{ appendix.title }}</div>
+<p>{{ appendix.content }}</p>
+{% endfor %}
+{% endif %}
+
+{% if references %}
+<div class="page-break"></div>
+
+<div class="doc-header">
+  <h1>References</h1>
+</div>
+
+<ol class="reference-list">
+  {% for ref in references %}
+  <li>{{ ref }}</li>
+  {% endfor %}
+</ol>
+{% endif %}
+
+<div class="doc-footer">
+  {{ author }} &bull; {{ title }} &bull; {{ date }}
+</div>
+
+</body>
+</html>

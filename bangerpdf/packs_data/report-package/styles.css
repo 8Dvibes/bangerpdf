@@ -1,0 +1,358 @@
+/* Report Package — Academic/research report CSS
+ * All colors use CSS custom properties set by brand-kit.yaml.
+ * Designed for WeasyPrint US Letter, long-form report output.
+ */
+
+:root {
+  --primary: #2D3748;
+  --secondary: #4299E1;
+  --accent: #4299E1;
+  --neutral-dark: #1a202c;
+  --neutral-mid: #718096;
+  --neutral-light: #f7fafc;
+  --neutral-border: #e2e8f0;
+  --neutral-border-dark: #cbd5e1;
+  --surface: #f7fafc;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.75in 0.85in 0.85in 0.85in;
+
+  @top-right {
+    content: "{{ classification | default('') }}";
+    font-family: var(--font-family);
+    font-size: 7pt;
+    color: var(--neutral-mid);
+    font-style: italic;
+  }
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+@page :first {
+  @top-right { content: none; }
+  @bottom-center { content: none; }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 10pt;
+  line-height: 1.55;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === COVER PAGE === */
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 85vh;
+  text-align: center;
+}
+
+.cover-page .cover-title {
+  font-size: 30pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.5pt;
+  line-height: 1.15;
+}
+
+.cover-page .cover-subtitle {
+  font-size: 14pt;
+  color: var(--secondary);
+  margin-top: 8pt;
+  font-weight: 600;
+}
+
+.cover-page .cover-divider {
+  width: 80pt;
+  height: 3pt;
+  background: var(--secondary);
+  margin: 24pt auto;
+  border-radius: 2pt;
+}
+
+.cover-page .cover-author {
+  font-size: 12pt;
+  color: var(--neutral-dark);
+  font-weight: 700;
+  margin-top: 8pt;
+}
+
+.cover-page .cover-meta {
+  font-size: 9pt;
+  color: var(--neutral-mid);
+  margin-top: 20pt;
+  line-height: 1.6;
+}
+
+/* === TABLE OF CONTENTS === */
+
+.toc {
+  margin: 12pt 0;
+}
+
+.toc-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4pt 0;
+  border-bottom: 0.5pt dotted var(--neutral-border-dark);
+}
+
+.toc-entry.sub {
+  padding-left: 16pt;
+}
+
+.toc-entry .toc-title {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.toc-entry.sub .toc-title {
+  font-weight: 400;
+  font-size: 9pt;
+  color: var(--neutral-dark);
+}
+
+.toc-entry .toc-page {
+  font-size: 9pt;
+  color: var(--neutral-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.toc-section-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  margin-top: 10pt;
+  margin-bottom: 2pt;
+}
+
+/* === DOCUMENT HEADER === */
+
+.doc-header {
+  border-bottom: 3pt solid var(--primary);
+  padding-bottom: 10pt;
+  margin-bottom: 16pt;
+}
+
+.doc-header h1 {
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3pt;
+  line-height: 1.2;
+}
+
+.doc-header .subtitle {
+  font-size: 11pt;
+  color: var(--secondary);
+  margin-top: 4pt;
+  font-weight: 600;
+}
+
+.doc-header .meta-line {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  margin-top: 4pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+}
+
+/* === SECTION NUMBERING === */
+
+.section-num {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 1pt;
+  margin-bottom: 2pt;
+}
+
+/* === HEADINGS === */
+
+h1 {
+  font-size: 18pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0 0 8pt 0;
+  letter-spacing: -0.3pt;
+}
+
+h2 {
+  font-size: 13pt;
+  font-weight: 800;
+  color: var(--primary);
+  border-bottom: 2pt solid var(--secondary);
+  padding-bottom: 4pt;
+  margin: 18pt 0 8pt 0;
+  page-break-after: avoid;
+}
+
+h2.section-divider {
+  background: var(--primary);
+  color: white;
+  padding: 6pt 12pt;
+  margin-top: 14pt;
+  margin-bottom: 8pt;
+  border: none;
+  border-radius: 3pt;
+  font-size: 11pt;
+}
+
+h3 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 12pt 0 4pt 0;
+  page-break-after: avoid;
+}
+
+h4 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  margin: 8pt 0 3pt 0;
+}
+
+p {
+  margin: 4pt 0 6pt 0;
+  text-align: justify;
+}
+
+ul, ol {
+  margin: 4pt 0 8pt 0;
+  padding-left: 20pt;
+}
+
+li {
+  margin-bottom: 3pt;
+}
+
+/* === CALLOUT === */
+
+.callout {
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 10pt 14pt;
+  margin: 10pt 0;
+  background: var(--surface);
+  border-radius: 3pt;
+}
+
+.callout.highlight {
+  background: linear-gradient(135deg, var(--primary) 0%, #4a5568 100%);
+  color: white;
+  border-left-color: var(--secondary);
+}
+
+.callout-label {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6pt;
+  color: var(--secondary);
+  margin-bottom: 4pt;
+}
+
+.callout.highlight .callout-label {
+  color: #90cdf4;
+}
+
+/* === REFERENCE LIST === */
+
+.reference-list {
+  margin: 8pt 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: ref-counter;
+}
+
+.reference-list li {
+  counter-increment: ref-counter;
+  padding-left: 24pt;
+  position: relative;
+  font-size: 9pt;
+  margin-bottom: 4pt;
+}
+
+.reference-list li::before {
+  content: "[" counter(ref-counter) "]";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--secondary);
+  font-size: 8pt;
+}
+
+/* === APPENDIX HEADER === */
+
+.appendix-header {
+  background: var(--neutral-light);
+  border-left: 4pt solid var(--secondary);
+  padding: 8pt 12pt;
+  margin: 16pt 0 8pt 0;
+  border-radius: 0 3pt 3pt 0;
+  font-size: 12pt;
+  font-weight: 800;
+  color: var(--primary);
+  page-break-before: always;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.appendix-header:first-of-type {
+  page-break-before: avoid;
+}
+
+/* === FOOTER === */
+
+.doc-footer {
+  margin-top: 24pt;
+  padding-top: 8pt;
+  border-top: 1pt solid var(--neutral-border);
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-small { font-size: 8pt; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.spacer-sm { height: 6pt; }
+.spacer-md { height: 12pt; }
+.spacer-lg { height: 24pt; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }

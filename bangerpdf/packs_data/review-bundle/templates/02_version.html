@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Annotations -- {{ project_name }} {{ version }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="page-container">
+
+<div class="review-header">
+  <h1>Annotations &amp; Notes</h1>
+  <p class="meta-line">{{ project_name }} &bull; {{ version }} &bull; Reviewer: {{ reviewer }}</p>
+</div>
+
+<h2>Open Items</h2>
+
+<div class="annotation-list">
+  {% for decision in decisions %}
+  {% if not decision.resolved %}
+  <div class="annotation-card">
+    <div class="annotation-header">
+      <span class="annotation-doc">{{ decision.doc }}</span>
+      {% if decision.page %}
+      <span class="annotation-page">Page {{ decision.page }}</span>
+      {% endif %}
+    </div>
+    <p class="annotation-note">{{ decision.note }}</p>
+    <span class="open-badge">Open</span>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<h2>Resolved Items</h2>
+
+<div class="annotation-list">
+  {% for decision in decisions %}
+  {% if decision.resolved %}
+  <div class="annotation-card resolved">
+    <div class="annotation-header">
+      <span class="annotation-doc">{{ decision.doc }}</span>
+      {% if decision.page %}
+      <span class="annotation-page">Page {{ decision.page }}</span>
+      {% endif %}
+    </div>
+    <p class="annotation-note">{{ decision.note }}</p>
+    <span class="resolved-badge">Resolved</span>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<div class="doc-footer">
+  Annotations &bull; {{ project_name }} &bull; {{ version }}
+</div>
+
+</div>
+
+</body>
+</html>

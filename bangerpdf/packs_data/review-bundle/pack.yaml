@@ -1,0 +1,17 @@
+name: review-bundle
+description: >-
+  HTML approval document bundle for client review. Produces self-contained
+  HTML pages (not PDF) with an index, document version view, and approval
+  tracker. Includes a lightweight CSS-only annotation UI for inline notes.
+version: "1.0"
+documents:
+  - name: 01_Index
+    template: templates/01_index.html
+    expected_pages: 1
+  - name: 02_Version
+    template: templates/02_version.html
+    expected_pages: 3
+  - name: 03_Approval
+    template: templates/03_approval.html
+    expected_pages: 2
+default_tier: desktop

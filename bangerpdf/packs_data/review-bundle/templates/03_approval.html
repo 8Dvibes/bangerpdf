@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Approval -- {{ project_name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="page-container">
+
+<div class="review-header">
+  <h1>Approval &amp; Sign-Off</h1>
+  <p class="meta-line">{{ project_name }} &bull; {{ version }} &bull; {{ client_name }}</p>
+</div>
+
+<div class="approval-block">
+  <div class="approval-status">
+    <h3 style="margin: 0 0 8px 0;">Document Review Status</h3>
+    {% if approval_status %}
+    <span class="status-badge {{ approval_status }}" style="font-size: 14px; padding: 6px 16px;">{{ approval_status | replace('_', ' ') | upper }}</span>
+    {% else %}
+    <span class="status-badge pending" style="font-size: 14px; padding: 6px 16px;">PENDING REVIEW</span>
+    {% endif %}
+  </div>
+
+  {% if documents %}
+  <h3>Per-Document Status</h3>
+  <div class="doc-list">
+    {% for doc in documents %}
+    <div class="doc-item">
+      <div class="doc-info">
+        <div class="doc-name">{{ doc.name }}</div>
+      </div>
+      {% if doc.status %}
+      <span class="status-badge {{ doc.status }}">{{ doc.status | replace('_', ' ') }}</span>
+      {% else %}
+      <span class="status-badge pending">pending</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <h3>Open Items Requiring Resolution</h3>
+  <p>{{ decisions | selectattr('resolved', 'equalto', false) | list | length }} item(s) remain open and must be resolved before final approval.</p>
+
+  {% if summary_notes %}
+  <div class="summary-callout">
+    <p class="callout-label">Reviewer Summary</p>
+    <p>{{ summary_notes }}</p>
+  </div>
+  {% endif %}
+
+  <h3>Signatures</h3>
+
+  <div class="approval-signatures">
+    <div class="sig-block">
+      <p class="text-small text-muted" style="text-transform: uppercase; letter-spacing: 0.5px;">Reviewer</p>
+      <div class="sig-line">
+        <p class="sig-name">{{ reviewer }}</p>
+        <p class="sig-title">{{ client_name }}</p>
+      </div>
+      <div class="date-field">Date: ____________________</div>
+    </div>
+
+    <div class="sig-block">
+      <p class="text-small text-muted" style="text-transform: uppercase; letter-spacing: 0.5px;">Provider</p>
+      <div class="sig-line">
+        <p class="sig-name">&nbsp;</p>
+        <p class="sig-title">&nbsp;</p>
+      </div>
+      <div class="date-field">Date: ____________________</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  Approval &bull; {{ project_name }} &bull; {{ version }}
+  {% if due_date %} &bull; Deadline: {{ due_date }}{% endif %}
+</div>
+
+</div>
+
+</body>
+</html>

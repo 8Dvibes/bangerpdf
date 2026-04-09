@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Review Bundle",
+  "description": "Schema for HTML approval document bundles. Produces self-contained HTML pages for client review with inline annotation support.",
+  "type": "object",
+  "required": ["pack_source", "project_name", "version", "client_name", "reviewer", "decisions"],
+  "properties": {
+    "pack_source": {
+      "type": "string",
+      "description": "Source pack that generated the documents being reviewed, e.g. 'proposal-package'"
+    },
+    "project_name": {
+      "type": "string",
+      "description": "Project name for this review"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version identifier for the documents being reviewed, e.g. 'v1.0'"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Client company name"
+    },
+    "reviewer": {
+      "type": "string",
+      "description": "Name of the assigned reviewer"
+    },
+    "review_date": {
+      "type": "string",
+      "description": "Date review was initiated"
+    },
+    "due_date": {
+      "type": "string",
+      "description": "Review deadline"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "pages"],
+        "properties": {
+          "name": {"type": "string", "description": "Document name"},
+          "pages": {"type": "integer", "minimum": 1, "description": "Number of pages"},
+          "status": {
+            "type": "string",
+            "enum": ["pending", "approved", "revision_needed"],
+            "description": "Review status"
+          },
+          "notes": {"type": "string", "description": "General notes on this document"}
+        }
+      },
+      "description": "List of documents included in this review bundle"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["doc", "note"],
+        "properties": {
+          "doc": {"type": "string", "description": "Document name this decision applies to"},
+          "page": {"type": "integer", "description": "Page number (optional)"},
+          "note": {"type": "string", "description": "Review note or annotation"},
+          "resolved": {"type": "boolean", "description": "Whether this note has been resolved"}
+        }
+      },
+      "description": "Review decisions, notes, and annotations"
+    },
+    "summary_notes": {
+      "type": "string",
+      "description": "Overall review summary notes"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending", "approved", "approved_with_changes", "rejected"],
+      "description": "Overall approval status"
+    }
+  }
+}

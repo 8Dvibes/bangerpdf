@@ -1,0 +1,385 @@
+/* Review Bundle — HTML approval document CSS
+ * Self-contained HTML output (not PDF). All colors via CSS custom properties.
+ * Includes lightweight CSS-only annotation UI.
+ */
+
+:root {
+  --primary: #374151;
+  --secondary: #3B82F6;
+  --accent: #3B82F6;
+  --neutral-dark: #111827;
+  --neutral-mid: #6B7280;
+  --neutral-light: #F9FAFB;
+  --neutral-border: #E5E7EB;
+  --neutral-border-dark: #D1D5DB;
+  --surface: #F9FAFB;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.6in 0.7in 0.7in 0.7in;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+/* === PAGE CONTAINER (for HTML viewing) === */
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* === HEADER === */
+
+.review-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.review-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.review-header .meta-line {
+  font-size: 12px;
+  color: var(--neutral-mid);
+  margin-top: 4px;
+}
+
+/* === STATUS BADGES === */
+
+.status-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  color: white;
+}
+
+.status-badge.pending { background: var(--warning); }
+.status-badge.approved { background: var(--success); }
+.status-badge.revision_needed { background: var(--danger); }
+.status-badge.approved_with_changes { background: var(--secondary); }
+.status-badge.rejected { background: var(--danger); }
+
+/* === HEADINGS === */
+
+h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 6px;
+  margin: 28px 0 12px 0;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 16px 0 8px 0;
+}
+
+p {
+  margin: 6px 0 10px 0;
+}
+
+/* === INFO GRID === */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.info-item {
+  background: var(--neutral-light);
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 3px solid var(--secondary);
+}
+
+.info-item .info-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--neutral-mid);
+}
+
+.info-item .info-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+/* === DOCUMENT LIST === */
+
+.doc-list {
+  margin: 12px 0;
+}
+
+.doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid var(--neutral-border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.doc-item .doc-info {
+  flex: 1;
+}
+
+.doc-item .doc-name {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.doc-item .doc-pages {
+  font-size: 12px;
+  color: var(--neutral-mid);
+  margin-top: 2px;
+}
+
+.doc-item .doc-notes {
+  font-size: 12px;
+  color: var(--neutral-mid);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* === ANNOTATION / DECISION CARDS === */
+
+.annotation-list {
+  margin: 12px 0;
+}
+
+.annotation-card {
+  border: 1px solid var(--neutral-border);
+  border-left: 4px solid var(--warning);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 0 6px 6px 0;
+  background: white;
+}
+
+.annotation-card.resolved {
+  border-left-color: var(--success);
+  background: #f0fdf4;
+}
+
+.annotation-card .annotation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.annotation-card .annotation-doc {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.annotation-card .annotation-page {
+  font-size: 11px;
+  color: var(--neutral-mid);
+  background: var(--neutral-light);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.annotation-card .annotation-note {
+  font-size: 13px;
+  color: var(--neutral-dark);
+  margin: 0;
+}
+
+.annotation-card .resolved-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+.annotation-card .open-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--warning);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+/* === SUMMARY CALLOUT === */
+
+.summary-callout {
+  background: var(--neutral-light);
+  border: 1px solid var(--neutral-border);
+  border-left: 4px solid var(--secondary);
+  padding: 16px 20px;
+  border-radius: 0 6px 6px 0;
+  margin: 16px 0;
+}
+
+.summary-callout .callout-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--secondary);
+  margin-bottom: 6px;
+}
+
+/* === APPROVAL SECTION === */
+
+.approval-block {
+  border: 2px solid var(--neutral-border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.approval-block .approval-status {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.approval-signatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 16px;
+}
+
+.sig-block {
+  text-align: center;
+}
+
+.sig-line {
+  border-top: 1px solid var(--neutral-dark);
+  margin-top: 48px;
+  padding-top: 6px;
+}
+
+.sig-line .sig-name {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.sig-line .sig-title {
+  font-size: 12px;
+  color: var(--neutral-mid);
+}
+
+.date-field {
+  border-top: 1px solid var(--neutral-dark);
+  margin-top: 24px;
+  padding-top: 4px;
+  font-size: 12px;
+  color: var(--neutral-mid);
+  width: 60%;
+}
+
+/* === STATS ROW === */
+
+.stats-row {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.stat-box {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--neutral-light);
+  border-top: 3px solid var(--secondary);
+}
+
+.stat-box .stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.stat-box .stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--neutral-mid);
+  margin-top: 4px;
+}
+
+.stat-box.success { border-top-color: var(--success); }
+.stat-box.warning { border-top-color: var(--warning); }
+.stat-box.danger { border-top-color: var(--danger); }
+
+/* === FOOTER === */
+
+.doc-footer {
+  margin-top: 32px;
+  padding-top: 12px;
+  border-top: 1px solid var(--neutral-border);
+  font-size: 12px;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-small { font-size: 12px; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }

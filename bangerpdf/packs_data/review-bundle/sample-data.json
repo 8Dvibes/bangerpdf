@@ -1,0 +1,75 @@
+{
+  "pack_source": "proposal-package",
+  "project_name": "Summit Outdoor Gear E-Commerce Redesign",
+  "version": "v1.0",
+  "client_name": "Summit Outdoor Gear",
+  "reviewer": "Karen Huang",
+  "review_date": "April 8, 2026",
+  "due_date": "April 15, 2026",
+  "documents": [
+    {
+      "name": "Cover Letter",
+      "pages": 1,
+      "status": "approved",
+      "notes": "Clean and professional. No changes needed."
+    },
+    {
+      "name": "Proposal",
+      "pages": 7,
+      "status": "revision_needed",
+      "notes": "Strong overall but needs pricing clarification and timeline adjustment."
+    },
+    {
+      "name": "Signature Page",
+      "pages": 2,
+      "status": "pending",
+      "notes": "Waiting on legal review of terms section."
+    }
+  ],
+  "decisions": [
+    {
+      "doc": "Proposal",
+      "page": 3,
+      "note": "The scope section mentions 'all core user flows' but does not explicitly list account creation and password reset flows. Please confirm these are included.",
+      "resolved": false
+    },
+    {
+      "doc": "Proposal",
+      "page": 5,
+      "note": "Essential tier at $85K does not include post-launch optimization. Can a 15-day optimization period be added to this tier for an additional fee?",
+      "resolved": false
+    },
+    {
+      "doc": "Proposal",
+      "page": 5,
+      "note": "Payment schedule shows 30% at kickoff. Our standard vendor terms are 20% at kickoff. Can this be adjusted?",
+      "resolved": true
+    },
+    {
+      "doc": "Proposal",
+      "page": 4,
+      "note": "Timeline shows 14 weeks total. Our internal launch deadline is September 1. Starting May 1, that gives us 17 weeks of buffer. Acceptable.",
+      "resolved": true
+    },
+    {
+      "doc": "Cover Letter",
+      "page": 1,
+      "note": "Approved as-is. Good job referencing the Healthcare Summit conversation.",
+      "resolved": true
+    },
+    {
+      "doc": "Signature Page",
+      "page": 1,
+      "note": "Legal is reviewing the termination clause (term #7). Expected response by April 12.",
+      "resolved": false
+    },
+    {
+      "doc": "Proposal",
+      "page": 6,
+      "note": "Term #5 mentions $250/hour for additional revisions. Is this negotiable for a retainer arrangement?",
+      "resolved": false
+    }
+  ],
+  "summary_notes": "Overall strong proposal. Redline Digital clearly understands our needs and the outdoor e-commerce space. Main open items: (1) scope clarification on account flows, (2) pricing flexibility on Essential tier, (3) legal review of termination clause. Targeting approval by April 15 if open items are resolved.",
+  "approval_status": "approved_with_changes"
+}

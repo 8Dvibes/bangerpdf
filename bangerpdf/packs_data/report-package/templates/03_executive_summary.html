@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Executive Summary -- {{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<p class="section-num">Executive Summary</p>
+<div class="doc-header">
+  <h1>{{ title }}</h1>
+  {% if subtitle %}
+  <p class="subtitle">{{ subtitle }}</p>
+  {% endif %}
+  <p class="meta-line">{{ author }} &bull; {{ date }}{% if version %} &bull; {{ version }}{% endif %}</p>
+</div>
+
+<div class="callout highlight">
+  <p class="callout-label">Executive Summary</p>
+  <p style="margin: 0;">{{ exec_summary }}</p>
+</div>
+
+<h2>Report Structure</h2>
+<p>This report is organized into {{ sections | length }} sections:</p>
+
+<ol>
+  {% for section in sections %}
+  <li><strong>{{ section.title }}</strong>{% if section.subsections %} ({{ section.subsections | length }} subsections){% endif %}</li>
+  {% endfor %}
+</ol>
+
+{% if appendices %}
+<p>Additionally, {{ appendices | length }} appendix document{{ "s" if appendices | length > 1 else "" }} {% if appendices | length > 1 %}are{% else %}is{% endif %} included with supporting material.</p>
+{% endif %}
+
+<div class="doc-footer">
+  {{ author }} &bull; {{ title }} &bull; {{ date }}
+</div>
+
+</body>
+</html>

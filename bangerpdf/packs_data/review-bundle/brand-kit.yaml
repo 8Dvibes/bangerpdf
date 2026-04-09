@@ -1,0 +1,27 @@
+name: Neutral Review Bundle
+description: >-
+  Neutral palette for HTML review/approval documents. Clean and functional
+  with status-indicating colors for approval workflows.
+
+colors:
+  primary: "#374151"
+  secondary: "#3B82F6"
+  accent: "#3B82F6"
+  neutral-dark: "#111827"
+  neutral-mid: "#6B7280"
+  neutral-light: "#F9FAFB"
+  neutral-border: "#E5E7EB"
+  neutral-border-dark: "#D1D5DB"
+  surface: "#F9FAFB"
+  success: "#10B981"
+  warning: "#F59E0B"
+  danger: "#EF4444"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "14px"
+  line_height: 1.5
+
+page:
+  size: Letter
+  margin: "0"

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="cover-page">
+  {% if logo %}
+  <img src="{{ logo }}" alt="{{ author }}" style="width: 100pt; margin: 0 auto 20pt auto;">
+  {% endif %}
+
+  <h1 class="cover-title">{{ title }}</h1>
+
+  {% if subtitle %}
+  <p class="cover-subtitle">{{ subtitle }}</p>
+  {% endif %}
+
+  <div class="cover-divider"></div>
+
+  <p class="cover-author">{{ author }}</p>
+
+  <div class="cover-meta">
+    {{ date }}<br>
+    {% if version %}Version {{ version }}<br>{% endif %}
+    {% if classification %}<br><em>{{ classification }}</em>{% endif %}
+  </div>
+</div>
+
+</body>
+</html>

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bangerpdf"
-version = "0.1.0"
+version = "1.0.0"
 description = "Make banger PDFs from HTML or data — print-ready output across desktop, digital press, and commercial offset tiers, with built-in QA and HTML Review Bundles"
 readme = "README.md"
 license = {text = "MIT"}

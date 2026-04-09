@@ -591,6 +591,35 @@ def cmd_review_status(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Skills commands
+# ---------------------------------------------------------------------------
+
+def cmd_skills_list(args: argparse.Namespace) -> int:
+    from bangerpdf.skills import cmd_list
+    cmd_list(as_json=getattr(args, "as_json", False))
+    return 0
+
+
+def cmd_skills_install(args: argparse.Namespace) -> int:
+    from bangerpdf.skills import cmd_install
+    names = args.names if args.names else None
+    cmd_install(names=names, force=args.force, as_json=getattr(args, "as_json", False))
+    return 0
+
+
+def cmd_skills_uninstall(args: argparse.Namespace) -> int:
+    from bangerpdf.skills import cmd_uninstall
+    cmd_uninstall(names=args.names, as_json=getattr(args, "as_json", False))
+    return 0
+
+
+def cmd_skills_path(args: argparse.Namespace) -> int:
+    from bangerpdf.skills import cmd_path
+    cmd_path(as_json=getattr(args, "as_json", False))
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Parser
 # ---------------------------------------------------------------------------
 
@@ -765,12 +794,30 @@ def build_parser() -> argparse.ArgumentParser:
     # Default: show help when just "bangerpdf review" is run
     p_review.set_defaults(func=lambda args: (p_review.print_help(), 0)[-1])
 
-    # --- Stubs for later phases ---
-    for cmd_name, helptext in [
-        ("skills", "Install/uninstall bundled Claude Code skills (Phase 9)"),
-    ]:
-        p_stub = sub.add_parser(cmd_name, help=helptext)
-        p_stub.set_defaults(func=cmd_not_yet_implemented, _command=cmd_name)
+    # --- skills ---
+    p_skills = sub.add_parser("skills", help="Install/uninstall bundled Claude Code skills")
+    skills_sub = p_skills.add_subparsers(dest="skills_action", metavar="ACTION")
+
+    p_skills_list = skills_sub.add_parser("list", help="List bundled skills and install status")
+    p_skills_list.add_argument("--json", dest="as_json", action="store_true")
+    p_skills_list.set_defaults(func=cmd_skills_list)
+
+    p_skills_install = skills_sub.add_parser("install", help="Install skills to ~/.claude/skills/")
+    p_skills_install.add_argument("names", nargs="*", help="Skill name(s) (default: all)")
+    p_skills_install.add_argument("--force", action="store_true", help="Overwrite existing")
+    p_skills_install.add_argument("--json", dest="as_json", action="store_true")
+    p_skills_install.set_defaults(func=cmd_skills_install)
+
+    p_skills_uninstall = skills_sub.add_parser("uninstall", help="Remove installed skills")
+    p_skills_uninstall.add_argument("names", nargs="+", help="Skill name(s) to remove")
+    p_skills_uninstall.add_argument("--json", dest="as_json", action="store_true")
+    p_skills_uninstall.set_defaults(func=cmd_skills_uninstall)
+
+    p_skills_path = skills_sub.add_parser("path", help="Show the skills install directory")
+    p_skills_path.add_argument("--json", dest="as_json", action="store_true")
+    p_skills_path.set_defaults(func=cmd_skills_path)
+
+    p_skills.set_defaults(func=lambda args: (p_skills.print_help(), 0)[-1])
 
     return parser
 

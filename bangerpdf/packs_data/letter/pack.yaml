@@ -1,0 +1,11 @@
+name: letter
+description: >-
+  Formal 1-2 page business letter with branded letterhead, sender/recipient
+  address blocks, subject line, body paragraphs, signature block, and
+  optional enclosures and CC list.
+version: "1.0"
+documents:
+  - name: 01_Letter
+    template: templates/01_letter.html
+    expected_pages: 2
+default_tier: desktop

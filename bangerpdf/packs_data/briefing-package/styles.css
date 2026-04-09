@@ -1,0 +1,282 @@
+/* Briefing Package — Minimal dark executive briefing CSS
+ * All colors use CSS custom properties set by brand-kit.yaml.
+ * Designed for WeasyPrint US Letter output.
+ */
+
+:root {
+  --primary: #1a202c;
+  --secondary: #4a5568;
+  --accent: #3182ce;
+  --neutral-dark: #1a202c;
+  --neutral-mid: #718096;
+  --neutral-light: #f7fafc;
+  --neutral-border: #e2e8f0;
+  --neutral-border-dark: #cbd5e1;
+  --surface: #f7fafc;
+  --warning-bg: #fefce8;
+  --warning-text: #854d0e;
+  --warning-border: #ca8a04;
+  --critical-bg: #fef2f2;
+  --critical-text: #991b1b;
+  --critical-border: #dc2626;
+  --info-bg: #eff6ff;
+  --info-text: #1e40af;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.75in 0.85in 0.85in 0.85in;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+@page :first {
+  @top-right { content: none; }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === DOCUMENT HEADER === */
+
+.doc-header {
+  border-bottom: 3pt solid var(--primary);
+  padding-bottom: 10pt;
+  margin-bottom: 14pt;
+}
+
+.doc-header h1 {
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3pt;
+  line-height: 1.2;
+}
+
+.doc-header .meta-line {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  margin-top: 4pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+}
+
+.doc-header .classification {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  padding: 2pt 8pt;
+  border-radius: 2pt;
+  margin-top: 6pt;
+}
+
+/* === TLDR BOX === */
+
+.tldr-box {
+  background: var(--primary);
+  color: white;
+  padding: 12pt 16pt;
+  border-radius: 4pt;
+  margin: 12pt 0;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.tldr-box .tldr-label {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1pt;
+  opacity: 0.8;
+  margin-bottom: 4pt;
+}
+
+.tldr-box p {
+  margin: 0;
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+/* === HEADINGS === */
+
+h2 {
+  font-size: 12pt;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  border-bottom: 1.5pt solid var(--neutral-border-dark);
+  padding-bottom: 4pt;
+  margin: 16pt 0 8pt 0;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 10pt 0 4pt 0;
+}
+
+p {
+  margin: 4pt 0 6pt 0;
+}
+
+ul, ol {
+  margin: 4pt 0 8pt 0;
+  padding-left: 18pt;
+}
+
+li {
+  margin-bottom: 3pt;
+}
+
+/* === FINDING CARDS === */
+
+.finding-card {
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  border-radius: 3pt;
+  page-break-inside: avoid;
+}
+
+.finding-card.info {
+  border-left-color: var(--accent);
+  background: var(--info-bg);
+}
+
+.finding-card.warning {
+  border-left-color: var(--warning-border);
+  background: var(--warning-bg);
+}
+
+.finding-card.critical {
+  border-left-color: var(--critical-border);
+  background: var(--critical-bg);
+}
+
+.finding-card .finding-title {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 3pt 0;
+}
+
+.finding-card.warning .finding-title { color: var(--warning-text); }
+.finding-card.critical .finding-title { color: var(--critical-text); }
+
+.finding-card .finding-detail {
+  font-size: 9pt;
+  margin: 0;
+  color: var(--neutral-dark);
+}
+
+.finding-card .severity-badge {
+  display: inline-block;
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+  padding: 1pt 6pt;
+  border-radius: 8pt;
+  color: white;
+  margin-bottom: 4pt;
+}
+
+.finding-card.info .severity-badge { background: var(--accent); }
+.finding-card.warning .severity-badge { background: var(--warning-border); }
+.finding-card.critical .severity-badge { background: var(--critical-border); }
+
+/* === ACTION TABLE === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 12pt 0;
+  font-size: 9pt;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  text-align: left;
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  padding: 6pt 10pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+td {
+  padding: 6pt 10pt;
+  border-bottom: 0.5pt solid var(--neutral-border);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+tr:nth-child(even) td {
+  background: var(--surface);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* === FOOTER === */
+
+.doc-footer {
+  margin-top: 20pt;
+  padding-top: 8pt;
+  border-top: 1pt solid var(--neutral-border);
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-small { font-size: 8pt; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.spacer-sm { height: 6pt; }
+.spacer-md { height: 12pt; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }

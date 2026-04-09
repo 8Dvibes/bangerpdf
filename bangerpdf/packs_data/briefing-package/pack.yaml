@@ -1,0 +1,11 @@
+name: briefing-package
+description: >-
+  1-2 page executive briefing document. Concise, scannable format designed for
+  senior leadership consumption. Covers situation context, key findings,
+  recommendations, and next actions.
+version: "1.0"
+documents:
+  - name: 01_Briefing
+    template: templates/01_briefing.html
+    expected_pages: 2
+default_tier: desktop

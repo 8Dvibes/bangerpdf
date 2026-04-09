@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "One-Pager",
+  "description": "Schema for single-page overview documents with headline stats, body sections, and a call-to-action.",
+  "type": "object",
+  "required": ["title", "subtitle", "headline_stats", "body_sections", "cta"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Primary title displayed at the top of the page"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Subtitle or tagline below the title"
+    },
+    "logo": {
+      "type": "string",
+      "description": "Path to logo image file (relative to pack root)"
+    },
+    "headline_stats": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["label", "value"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Stat label, e.g. 'Students Enrolled'"
+          },
+          "value": {
+            "type": "string",
+            "description": "Stat value, e.g. '1,154+'"
+          }
+        }
+      },
+      "description": "2-5 headline statistics displayed prominently"
+    },
+    "body_sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["heading", "content"],
+        "properties": {
+          "heading": {
+            "type": "string",
+            "description": "Section heading"
+          },
+          "content": {
+            "type": "string",
+            "description": "Section content (supports basic HTML)"
+          }
+        }
+      },
+      "description": "Body content sections"
+    },
+    "cta": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Call-to-action text"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Call-to-action URL"
+        }
+      },
+      "description": "Call-to-action block"
+    },
+    "footer_text": {
+      "type": "string",
+      "description": "Optional footer line (e.g. contact info, website)"
+    }
+  }
+}

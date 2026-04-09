@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Business Letter",
+  "description": "Schema for formal business letters with letterhead, address blocks, body paragraphs, and signature.",
+  "type": "object",
+  "required": ["sender", "recipient", "date", "subject", "salutation", "body_paragraphs", "closing", "signature_name", "signature_title"],
+  "properties": {
+    "sender": {
+      "type": "object",
+      "required": ["name", "company", "address"],
+      "properties": {
+        "name": {"type": "string", "description": "Sender full name"},
+        "title": {"type": "string", "description": "Sender job title"},
+        "company": {"type": "string", "description": "Sender company name"},
+        "address": {"type": "string", "description": "Sender address (multi-line allowed)"},
+        "phone": {"type": "string", "description": "Sender phone number"},
+        "email": {"type": "string", "format": "email", "description": "Sender email"},
+        "logo": {"type": "string", "description": "Path to company logo (relative to pack root)"}
+      }
+    },
+    "recipient": {
+      "type": "object",
+      "required": ["name", "company", "address"],
+      "properties": {
+        "name": {"type": "string", "description": "Recipient full name"},
+        "title": {"type": "string", "description": "Recipient job title"},
+        "company": {"type": "string", "description": "Recipient company name"},
+        "address": {"type": "string", "description": "Recipient address"}
+      }
+    },
+    "date": {
+      "type": "string",
+      "description": "Letter date in human-readable format"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Letter subject line"
+    },
+    "reference": {
+      "type": "string",
+      "description": "Optional reference number or prior correspondence reference"
+    },
+    "salutation": {
+      "type": "string",
+      "description": "Opening salutation, e.g. 'Dear Ms. Johnson,'"
+    },
+    "body_paragraphs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"},
+      "description": "Letter body paragraphs"
+    },
+    "closing": {
+      "type": "string",
+      "description": "Closing phrase, e.g. 'Sincerely,' or 'Best regards,'"
+    },
+    "signature_name": {
+      "type": "string",
+      "description": "Printed signature name"
+    },
+    "signature_title": {
+      "type": "string",
+      "description": "Signature title/role"
+    },
+    "enclosures": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of enclosed documents"
+    },
+    "cc": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "CC recipients"
+    }
+  }
+}

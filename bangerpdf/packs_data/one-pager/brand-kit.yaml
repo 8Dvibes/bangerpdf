@@ -1,0 +1,24 @@
+name: Bold Blue One-Pager
+description: >-
+  Bold blue palette with large typography for single-page overview documents.
+  High visual impact designed to be scannable in under 60 seconds.
+
+colors:
+  primary: "#0D47A1"
+  secondary: "#1976D2"
+  accent: "#42A5F5"
+  neutral-dark: "#1a202c"
+  neutral-mid: "#64748b"
+  neutral-light: "#f0f4f8"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#cbd5e1"
+  surface: "#f8fafc"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10pt"
+  line_height: 1.45
+
+page:
+  size: Letter
+  margin: "0.5in 0.6in 0.6in 0.6in"

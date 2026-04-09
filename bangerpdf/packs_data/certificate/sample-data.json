@@ -1,0 +1,19 @@
+{
+  "recipient": "Sarah Mitchell",
+  "course_name": "Foundations 2.0: Context Engineering for Agentic Systems",
+  "completion_date": "April 6, 2026",
+  "description": "Has successfully completed the 6-week intensive program in context engineering for agentic AI systems, demonstrating proficiency in prompt architecture, multi-agent orchestration, tool use design, and production deployment of AI-powered workflows.",
+  "signatories": [
+    {
+      "name": "Tyler Fisk",
+      "title": "Founder & Lead Instructor, AI Build Lab"
+    },
+    {
+      "name": "Sara Davison",
+      "title": "Co-Founder & Program Director, AI Build Lab"
+    }
+  ],
+  "cert_id": "F2-C18-00142",
+  "org_name": "AI Build Lab",
+  "subtitle": "Certificate of Completion"
+}

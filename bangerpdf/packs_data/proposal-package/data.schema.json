@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Proposal Package",
+  "description": "Schema for multi-document consulting or sales proposals. Validates data.json for cover letter, proposal body, and signature/acceptance page.",
+  "type": "object",
+  "required": ["client", "scope", "approach", "deliverables", "pricing", "timeline", "terms", "signature"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "proposal_date": {"type": "string", "description": "Proposal date in human-readable format"},
+        "proposal_number": {"type": "string", "description": "Proposal reference number"},
+        "version": {"type": "string", "description": "Document version"},
+        "validity_days": {"type": "integer", "minimum": 1, "description": "Days the proposal remains valid"}
+      }
+    },
+    "sender": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string", "description": "Sender/firm name"},
+        "contact_name": {"type": "string", "description": "Primary contact name"},
+        "contact_title": {"type": "string", "description": "Primary contact title"},
+        "address": {"type": "string", "description": "Sender address"},
+        "phone": {"type": "string", "description": "Sender phone"},
+        "email": {"type": "string", "format": "email", "description": "Sender email"},
+        "website": {"type": "string", "description": "Sender website"},
+        "logo": {"type": "string", "description": "Path to logo image (relative to pack root)"}
+      }
+    },
+    "client": {
+      "type": "object",
+      "required": ["name", "contact_name"],
+      "properties": {
+        "name": {"type": "string", "description": "Client company name"},
+        "contact_name": {"type": "string", "description": "Client primary contact"},
+        "contact_title": {"type": "string", "description": "Client contact title"},
+        "address": {"type": "string", "description": "Client address"}
+      }
+    },
+    "project_name": {
+      "type": "string",
+      "description": "Project or engagement name"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "1-2 paragraph executive summary of the proposal"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Detailed description of the project scope"
+    },
+    "out_of_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Items explicitly excluded from scope"
+    },
+    "approach": {
+      "type": "string",
+      "description": "Methodology and approach description"
+    },
+    "deliverables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {"type": "string", "description": "Deliverable name"},
+          "description": {"type": "string", "description": "Deliverable description"},
+          "format": {"type": "string", "description": "Deliverable format, e.g. 'PDF report', 'Working prototype'"}
+        }
+      },
+      "description": "List of project deliverables"
+    },
+    "pricing": {
+      "type": "object",
+      "required": ["total", "total_label"],
+      "properties": {
+        "total": {"type": "number", "minimum": 0, "description": "Total project investment"},
+        "total_label": {"type": "string", "description": "Formatted total, e.g. '$125,000'"},
+        "tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "amount", "description"],
+            "properties": {
+              "name": {"type": "string", "description": "Tier name"},
+              "amount": {"type": "number", "description": "Tier price"},
+              "amount_label": {"type": "string", "description": "Formatted price"},
+              "description": {"type": "string", "description": "What is included"},
+              "recommended": {"type": "boolean", "description": "Whether this tier is recommended"}
+            }
+          },
+          "description": "Pricing tiers or options"
+        },
+        "payment_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["milestone", "percentage", "amount_label"],
+            "properties": {
+              "milestone": {"type": "string"},
+              "percentage": {"type": "string"},
+              "amount_label": {"type": "string"}
+            }
+          },
+          "description": "Payment milestone schedule"
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["phase", "duration", "description"],
+        "properties": {
+          "phase": {"type": "string", "description": "Phase name"},
+          "duration": {"type": "string", "description": "Duration description"},
+          "description": {"type": "string", "description": "Phase activities"}
+        }
+      },
+      "description": "Project timeline phases"
+    },
+    "terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"},
+      "description": "Terms and conditions"
+    },
+    "signature": {
+      "type": "object",
+      "required": ["sender_name", "sender_title", "client_name", "client_title"],
+      "properties": {
+        "sender_name": {"type": "string"},
+        "sender_title": {"type": "string"},
+        "client_name": {"type": "string"},
+        "client_title": {"type": "string"}
+      },
+      "description": "Signature block names and titles"
+    },
+    "team": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role"],
+        "properties": {
+          "name": {"type": "string"},
+          "role": {"type": "string"},
+          "bio": {"type": "string"}
+        }
+      },
+      "description": "Optional team members assigned to the project"
+    },
+    "why_us": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Key reasons to choose this firm"
+    }
+  }
+}

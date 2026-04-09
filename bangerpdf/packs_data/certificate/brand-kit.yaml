@@ -1,0 +1,26 @@
+name: Gold Navy Certificate
+description: >-
+  Gold and navy palette for professional certificates. Decorative border
+  with elegant typography. Landscape orientation.
+
+colors:
+  primary: "#1B2A4A"
+  secondary: "#2C4A7C"
+  accent: "#C9A84C"
+  neutral-dark: "#1a202c"
+  neutral-mid: "#64748b"
+  neutral-light: "#faf9f6"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#C9A84C"
+  surface: "#fffef8"
+  gold: "#C9A84C"
+  gold-light: "#E8D48B"
+
+typography:
+  font_family: "'Georgia', 'Times New Roman', serif"
+  font_size_base: "11pt"
+  line_height: 1.5
+
+page:
+  size: "Letter landscape"
+  margin: "0.6in"

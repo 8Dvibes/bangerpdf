@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="hero">
+  {% if logo %}
+  <img src="{{ logo }}" alt="{{ title }}" style="width: 80pt; margin-bottom: 8pt;">
+  {% endif %}
+  <h1>{{ title }}</h1>
+  <p class="subtitle">{{ subtitle }}</p>
+</div>
+
+<div class="stat-bar">
+  {% for stat in headline_stats %}
+  <div class="stat-item">
+    <div class="stat-value">{{ stat.value }}</div>
+    <div class="stat-label">{{ stat.label }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="body-sections">
+  {% for section in body_sections %}
+  <div class="section-card">
+    <h3>{{ section.heading }}</h3>
+    <p>{{ section.content }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="cta-block">
+  <p class="cta-text">{{ cta.text }}</p>
+  {% if cta.url %}
+  <p class="cta-url">{{ cta.url }}</p>
+  {% endif %}
+</div>
+
+{% if footer_text %}
+<div class="doc-footer">
+  {{ footer_text }}
+</div>
+{% endif %}
+
+</body>
+</html>

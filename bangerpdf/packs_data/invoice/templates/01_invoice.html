@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Invoice {{ invoice_number }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="invoice-header">
+  <div class="invoice-brand">
+    {% if from.logo %}
+    <img src="{{ from.logo }}" alt="{{ from.name }}" style="width: 140pt; margin-bottom: 6pt;">
+    {% endif %}
+    <p class="brand-name">{{ from.name }}</p>
+    <div class="brand-details">
+      {{ from.address | replace('\n', '<br>') }}<br>
+      {{ from.email }}
+      {% if from.phone %} &bull; {{ from.phone }}{% endif %}
+      {% if from.website %}<br>{{ from.website }}{% endif %}
+      {% if from.tax_id %}<br>{{ from.tax_id }}{% endif %}
+    </div>
+  </div>
+  <div class="invoice-title">
+    <h1>Invoice</h1>
+    <p class="invoice-number">{{ invoice_number }}</p>
+  </div>
+</div>
+
+<div class="address-row">
+  <div class="address-block">
+    <p class="address-label">Bill To</p>
+    <p class="address-name">{{ to.name }}</p>
+    <div class="address-details">{{ to.address }}
+{% if to.email %}{{ to.email }}{% endif %}</div>
+  </div>
+  <div class="address-block">
+    <!-- intentionally blank for layout balance -->
+  </div>
+</div>
+
+<div class="invoice-meta">
+  <div class="meta-item">
+    <div class="meta-label">Invoice Date</div>
+    <div class="meta-value">{{ date }}</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Due Date</div>
+    <div class="meta-value">{{ due_date }}</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Amount Due</div>
+    <div class="meta-value">{{ currency | default('$') }}{{ "%.2f" | format(total) }}</div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 50%;">Description</th>
+      <th class="amount" style="width: 12%;">Qty</th>
+      <th class="amount" style="width: 18%;">Rate</th>
+      <th class="amount" style="width: 20%;">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in line_items %}
+    <tr>
+      <td>{{ item.description }}</td>
+      <td class="amount">{{ item.qty }}</td>
+      <td class="amount">{{ currency | default('$') }}{{ "%.2f" | format(item.rate) }}</td>
+      <td class="amount">{{ currency | default('$') }}{{ "%.2f" | format(item.amount) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="totals-row">
+  <div class="totals-table">
+    <div class="total-line subtotal">
+      <span class="label">Subtotal</span>
+      <span class="value">{{ currency | default('$') }}{{ "%.2f" | format(subtotal) }}</span>
+    </div>
+    {% if tax_rate is defined and tax is defined %}
+    <div class="total-line">
+      <span class="label">Tax ({{ "%.2f" | format(tax_rate * 100) }}%)</span>
+      <span class="value">{{ currency | default('$') }}{{ "%.2f" | format(tax) }}</span>
+    </div>
+    {% endif %}
+    <div class="total-line grand-total">
+      <span class="label">Total</span>
+      <span class="value">{{ currency | default('$') }}{{ "%.2f" | format(total) }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="payment-section">
+  <h3>Payment Terms</h3>
+  <p>{{ payment_terms }}</p>
+</div>
+
+{% if notes %}
+<div class="payment-section">
+  <h3>Notes</h3>
+  <p>{{ notes }}</p>
+</div>
+{% endif %}
+
+<div class="doc-footer">
+  {{ from.name }} &bull; {{ invoice_number }} &bull; {{ date }}
+</div>
+
+</body>
+</html>

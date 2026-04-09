@@ -1,0 +1,25 @@
+name: Conservative Business Letter
+description: >-
+  Conservative dark blue palette for formal business correspondence.
+  Professional and understated, suitable for consulting, legal, and
+  enterprise communications.
+
+colors:
+  primary: "#2C3E50"
+  secondary: "#3498DB"
+  accent: "#3498DB"
+  neutral-dark: "#2c3e50"
+  neutral-mid: "#7f8c8d"
+  neutral-light: "#f8f9fa"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#cbd5e1"
+  surface: "#f8f9fa"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10.5pt"
+  line_height: 1.55
+
+page:
+  size: Letter
+  margin: "0.75in 0.85in 0.85in 0.85in"

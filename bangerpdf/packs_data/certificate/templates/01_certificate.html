@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Certificate -- {{ recipient }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="certificate-frame">
+
+  {% if org_logo %}
+  <img src="{{ org_logo }}" alt="{{ org_name }}" style="width: 80pt; margin-bottom: 8pt;">
+  {% endif %}
+
+  <p class="cert-org">{{ org_name }}</p>
+
+  {% if subtitle %}
+  <p class="cert-subtitle">{{ subtitle }}</p>
+  {% else %}
+  <p class="cert-subtitle">Certificate of Completion</p>
+  {% endif %}
+
+  <div class="cert-divider"></div>
+
+  <p class="cert-presented">This is to certify that</p>
+
+  <h1 class="cert-recipient">{{ recipient }}</h1>
+
+  <div class="cert-divider"></div>
+
+  <p class="cert-course">{{ course_name }}</p>
+
+  <p class="cert-description">{{ description }}</p>
+
+  <p class="cert-date">{{ completion_date }}</p>
+
+  <div class="cert-signatures">
+    {% for sig in signatories %}
+    <div class="cert-sig">
+      <div class="cert-sig-line">
+        <p class="cert-sig-name">{{ sig.name }}</p>
+        <p class="cert-sig-title">{{ sig.title }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <p class="cert-id">Certificate ID: {{ cert_id }}</p>
+
+</div>
+
+</body>
+</html>

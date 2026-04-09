@@ -1,0 +1,204 @@
+/* Certificate — Gold/navy decorative certificate CSS
+ * All colors use CSS custom properties set by brand-kit.yaml.
+ * Designed for WeasyPrint US Letter LANDSCAPE output.
+ */
+
+:root {
+  --primary: #1B2A4A;
+  --secondary: #2C4A7C;
+  --accent: #C9A84C;
+  --neutral-dark: #1a202c;
+  --neutral-mid: #64748b;
+  --neutral-light: #faf9f6;
+  --neutral-border: #e2e8f0;
+  --neutral-border-dark: #C9A84C;
+  --surface: #fffef8;
+  --gold: #C9A84C;
+  --gold-light: #E8D48B;
+  --font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+@page {
+  size: letter landscape;
+  margin: 0.6in;
+
+  @bottom-center {
+    content: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 11pt;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === DECORATIVE BORDER === */
+
+.certificate-frame {
+  border: 3pt solid var(--gold);
+  outline: 1pt solid var(--gold-light);
+  outline-offset: 6pt;
+  padding: 28pt 36pt;
+  min-height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--surface);
+  position: relative;
+}
+
+/* Corner accents */
+.certificate-frame::before,
+.certificate-frame::after {
+  content: "";
+  position: absolute;
+  width: 40pt;
+  height: 40pt;
+  border: 2pt solid var(--gold);
+}
+
+.certificate-frame::before {
+  top: 10pt;
+  left: 10pt;
+  border-right: none;
+  border-bottom: none;
+}
+
+.certificate-frame::after {
+  bottom: 10pt;
+  right: 10pt;
+  border-left: none;
+  border-top: none;
+}
+
+/* === ORG HEADER === */
+
+.cert-org {
+  font-size: 10pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2pt;
+  color: var(--secondary);
+  margin-bottom: 4pt;
+}
+
+.cert-subtitle {
+  font-size: 13pt;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 3pt;
+  color: var(--gold);
+  margin-bottom: 6pt;
+}
+
+/* === DIVIDER === */
+
+.cert-divider {
+  width: 120pt;
+  height: 2pt;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 10pt auto;
+}
+
+/* === RECIPIENT === */
+
+.cert-presented {
+  font-size: 10pt;
+  color: var(--neutral-mid);
+  margin-bottom: 4pt;
+  font-style: italic;
+}
+
+.cert-recipient {
+  font-size: 28pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.3pt;
+}
+
+/* === COURSE & DESCRIPTION === */
+
+.cert-course {
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-top: 10pt;
+  margin-bottom: 4pt;
+}
+
+.cert-description {
+  font-size: 9.5pt;
+  color: var(--neutral-dark);
+  max-width: 520pt;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* === DATE === */
+
+.cert-date {
+  font-size: 10pt;
+  color: var(--neutral-mid);
+  margin-top: 12pt;
+}
+
+/* === SIGNATORIES === */
+
+.cert-signatures {
+  display: flex;
+  justify-content: center;
+  gap: 60pt;
+  margin-top: 20pt;
+}
+
+.cert-sig {
+  text-align: center;
+  min-width: 140pt;
+}
+
+.cert-sig-line {
+  border-top: 1pt solid var(--neutral-dark);
+  padding-top: 4pt;
+  margin-top: 24pt;
+}
+
+.cert-sig-name {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.cert-sig-title {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  margin: 1pt 0 0 0;
+}
+
+/* === CERT ID === */
+
+.cert-id {
+  font-size: 7.5pt;
+  color: var(--neutral-mid);
+  margin-top: 14pt;
+  letter-spacing: 0.5pt;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.avoid-break { page-break-inside: avoid; }

@@ -1,0 +1,66 @@
+{
+  "title": "Southeast Regional Expansion Readiness Assessment",
+  "audience": "Executive Leadership Team",
+  "date": "April 6, 2026",
+  "author": "Strategy & Operations",
+  "classification": "Confidential - Internal Only",
+  "tldr": "Our Southeast expansion is viable but should be delayed 60 days to address two critical gaps: the Atlanta warehouse lease has not been finalized, and our regional sales hire pipeline has only 2 qualified candidates versus the 5 we need by launch. The market opportunity remains strong and no competitor has moved to fill the gap we identified in Q1.",
+  "context": "In Q1 2026 the board approved a $2.4M budget for Southeast regional expansion targeting Atlanta, Nashville, and Charlotte. The original timeline called for Atlanta market entry by June 1. This briefing assesses readiness against the 14 launch criteria established in the expansion playbook and identifies gaps requiring executive decision.",
+  "findings": [
+    {
+      "title": "Atlanta Warehouse Lease Stalled",
+      "detail": "The preferred Fulton Industrial site (42,000 SF, $8.75/SF NNN) is in final negotiation but the landlord is pushing for a 7-year term vs our 5-year target. Legal has counter-proposed a 5-year with 2-year option. Expected resolution in 2-3 weeks.",
+      "severity": "critical"
+    },
+    {
+      "title": "Sales Hiring Below Target",
+      "detail": "Regional sales manager hired (starts April 14). However, only 2 of 5 territory reps have accepted offers. Recruiting pipeline has 6 candidates in final rounds. Compensation benchmarking shows our base is 8% below market for Atlanta territory roles.",
+      "severity": "warning"
+    },
+    {
+      "title": "Market Conditions Remain Favorable",
+      "detail": "Competitor analysis shows no new entrants in our segment since Q1 review. Primary competitor (Apex Distribution) lost their Atlanta operations manager in March. Customer discovery calls confirm strong demand: 34 of 40 target accounts expressed interest in a local supplier.",
+      "severity": "info"
+    },
+    {
+      "title": "Logistics Infrastructure on Track",
+      "detail": "LTL carrier contracts signed with two regional providers. Last-mile delivery partnership with CourierPro executed. IT systems integration (WMS, TMS, CRM) at 85% completion with May 1 target.",
+      "severity": "info"
+    }
+  ],
+  "recommendations": [
+    "Delay Atlanta launch from June 1 to August 1 to allow warehouse lease finalization and full sales team onboarding",
+    "Increase territory rep base compensation by 8-10% to match Atlanta market rates and accelerate hiring",
+    "Authorize a $15,000 signing bonus pool for the remaining 3 territory rep positions",
+    "Proceed with Nashville and Charlotte market entry timeline as planned (Q3 and Q4 respectively)",
+    "Schedule a 30-day readiness checkpoint for May 15 to confirm lease execution and hiring progress"
+  ],
+  "next_actions": [
+    {
+      "action": "Finalize Atlanta warehouse lease with 5+2 year structure",
+      "owner": "VP Operations / Legal",
+      "due": "April 25, 2026"
+    },
+    {
+      "action": "Submit revised compensation package to HR for territory rep roles",
+      "owner": "VP Sales",
+      "due": "April 10, 2026"
+    },
+    {
+      "action": "Complete IT systems integration and run UAT",
+      "owner": "CTO / IT Ops",
+      "due": "May 1, 2026"
+    },
+    {
+      "action": "Present updated launch timeline to Board",
+      "owner": "CEO",
+      "due": "April 18, 2026"
+    },
+    {
+      "action": "30-day readiness checkpoint meeting",
+      "owner": "Strategy & Operations",
+      "due": "May 15, 2026"
+    }
+  ],
+  "appendix_notes": "Full expansion playbook and 14-point launch criteria available in the shared Strategy drive. Competitor analysis detail in the Q1 2026 Market Intelligence Report."
+}

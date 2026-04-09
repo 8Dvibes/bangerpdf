@@ -433,6 +433,164 @@ def cmd_not_yet_implemented(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Phase 8: Review Bundle commands
+# ---------------------------------------------------------------------------
+
+def cmd_review_init(args: argparse.Namespace) -> int:
+    """Scaffold a review bundle from a rendered pack."""
+    from bangerpdf.review.builder import init_review
+
+    review_dir = args.review_dir or "./review-bundle"
+    source = args.source
+
+    if not source:
+        print("ERROR: --from is required. Point it at a pack with rendered PDFs.", file=sys.stderr)
+        return 1
+
+    try:
+        init_review(source, review_dir)
+    except (FileNotFoundError, ValueError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    return 0
+
+
+def cmd_review_build(args: argparse.Namespace) -> int:
+    """Render the review HTML templates."""
+    from bangerpdf.review.builder import build_review
+
+    review_dir = args.review_dir or "./review-bundle"
+
+    meta_path = Path(review_dir) / "meta.json"
+    if not meta_path.exists():
+        print(f"ERROR: No meta.json found in {review_dir}. "
+              f"Run 'bangerpdf review init' first.", file=sys.stderr)
+        return 1
+
+    try:
+        build_review(review_dir)
+    except Exception as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    return 0
+
+
+def cmd_review_annotate(args: argparse.Namespace) -> int:
+    """Add an annotation to a document in the review bundle."""
+    from bangerpdf.review.workflow import add_annotation
+
+    review_dir = args.review_dir or "./review-bundle"
+
+    meta_path = Path(review_dir) / "meta.json"
+    if not meta_path.exists():
+        print(f"ERROR: No meta.json found in {review_dir}. "
+              f"Run 'bangerpdf review init' first.", file=sys.stderr)
+        return 1
+
+    try:
+        meta = add_annotation(review_dir, args.doc, args.page, args.note)
+    except (FileNotFoundError, ValueError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    decision = meta["decisions"][-1]
+    print(f"Added annotation {decision['id']}: {args.doc} p{args.page} - {args.note}")
+    print(f"Status: {meta['status']} ({len(meta['decisions'])} total annotation(s))")
+    return 0
+
+
+def cmd_review_revise(args: argparse.Namespace) -> int:
+    """Bump version and enter revision state."""
+    from bangerpdf.review.workflow import revise
+
+    review_dir = args.review_dir or "./review-bundle"
+
+    meta_path = Path(review_dir) / "meta.json"
+    if not meta_path.exists():
+        print(f"ERROR: No meta.json found in {review_dir}. "
+              f"Run 'bangerpdf review init' first.", file=sys.stderr)
+        return 1
+
+    try:
+        meta = revise(review_dir)
+    except (FileNotFoundError, ValueError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    print(f"Revised to {meta['version']}. Status: {meta['status']}")
+    print(f"PDFs copied to assets/pdfs/{meta['version']}/")
+    print(f"Run 'bangerpdf review build {review_dir}' to regenerate HTML.")
+    return 0
+
+
+def cmd_review_approve(args: argparse.Namespace) -> int:
+    """Approve the review bundle."""
+    from bangerpdf.review.workflow import approve
+
+    review_dir = args.review_dir or "./review-bundle"
+
+    meta_path = Path(review_dir) / "meta.json"
+    if not meta_path.exists():
+        print(f"ERROR: No meta.json found in {review_dir}. "
+              f"Run 'bangerpdf review init' first.", file=sys.stderr)
+        return 1
+
+    try:
+        meta = approve(review_dir, approver_name=args.approver)
+    except (FileNotFoundError, ValueError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    print(f"Review bundle APPROVED by {meta['approved_by']} at {meta['approved_at']}")
+    return 0
+
+
+def cmd_review_status(args: argparse.Namespace) -> int:
+    """Show current review bundle status."""
+    from bangerpdf.review.workflow import get_meta
+
+    review_dir = args.review_dir or "./review-bundle"
+
+    meta_path = Path(review_dir) / "meta.json"
+    if not meta_path.exists():
+        print(f"ERROR: No meta.json found in {review_dir}.", file=sys.stderr)
+        return 1
+
+    try:
+        meta = get_meta(review_dir)
+    except (FileNotFoundError, ValueError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    docs = meta.get("documents", [])
+    decisions = meta.get("decisions", [])
+    resolved = sum(1 for d in decisions if d.get("resolved"))
+
+    print(f"Review Bundle: {review_dir}")
+    print(f"  Status:      {meta['status']}")
+    print(f"  Version:     {meta['version']}")
+    print(f"  Source:      {meta.get('source_pack', 'unknown')}")
+    print(f"  Created:     {meta.get('created_at', 'unknown')}")
+    print(f"  Documents:   {len(docs)}")
+    print(f"  Annotations: {len(decisions)} ({resolved} resolved, {len(decisions) - resolved} open)")
+
+    if meta.get("approved_by"):
+        print(f"  Approved by: {meta['approved_by']}")
+        print(f"  Approved at: {meta['approved_at']}")
+
+    if decisions:
+        print()
+        print("  Annotations:")
+        for d in decisions:
+            status_mark = "[x]" if d.get("resolved") else "[ ]"
+            print(f"    {status_mark} {d['id']}: {d['doc']} p{d['page']} - {d['note']}")
+
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Parser
 # ---------------------------------------------------------------------------
 
@@ -555,10 +713,61 @@ def build_parser() -> argparse.ArgumentParser:
                        help="Project directory (default: current dir)")
     p_set.set_defaults(func=cmd_set)
 
+    # --- review (with subcommands: init, build, annotate, revise, approve, status) ---
+    p_review = sub.add_parser("review", help="Manage Review Bundles (init, build, annotate, revise, approve, status)")
+    review_sub = p_review.add_subparsers(dest="review_action", metavar="ACTION")
+
+    # review init
+    p_review_init = review_sub.add_parser("init", help="Scaffold a review bundle from a pack")
+    p_review_init.add_argument("review_dir", nargs="?", default=None,
+                               help="Review bundle directory (default: ./review-bundle)")
+    p_review_init.add_argument("--from", dest="source", required=True,
+                               help="Source pack directory with rendered PDFs")
+    p_review_init.set_defaults(func=cmd_review_init)
+
+    # review build
+    p_review_build = review_sub.add_parser("build", help="Render review HTML templates")
+    p_review_build.add_argument("review_dir", nargs="?", default=None,
+                                help="Review bundle directory (default: ./review-bundle)")
+    p_review_build.set_defaults(func=cmd_review_build)
+
+    # review annotate
+    p_review_annotate = review_sub.add_parser("annotate", help="Add an annotation")
+    p_review_annotate.add_argument("doc", help="PDF filename (e.g. 01_Cover_Letter.pdf)")
+    p_review_annotate.add_argument("--page", type=int, required=True,
+                                   help="Page number")
+    p_review_annotate.add_argument("--note", required=True,
+                                   help="Annotation text")
+    p_review_annotate.add_argument("review_dir", nargs="?", default=None,
+                                   help="Review bundle directory (default: ./review-bundle)")
+    p_review_annotate.set_defaults(func=cmd_review_annotate)
+
+    # review revise
+    p_review_revise = review_sub.add_parser("revise", help="Bump version (v1 -> v2)")
+    p_review_revise.add_argument("review_dir", nargs="?", default=None,
+                                 help="Review bundle directory (default: ./review-bundle)")
+    p_review_revise.set_defaults(func=cmd_review_revise)
+
+    # review approve
+    p_review_approve = review_sub.add_parser("approve", help="Approve the review bundle")
+    p_review_approve.add_argument("--approver", default=None,
+                                  help="Name of the approver (default: Client)")
+    p_review_approve.add_argument("review_dir", nargs="?", default=None,
+                                  help="Review bundle directory (default: ./review-bundle)")
+    p_review_approve.set_defaults(func=cmd_review_approve)
+
+    # review status
+    p_review_status = review_sub.add_parser("status", help="Show current status")
+    p_review_status.add_argument("review_dir", nargs="?", default=None,
+                                 help="Review bundle directory (default: ./review-bundle)")
+    p_review_status.set_defaults(func=cmd_review_status)
+
+    # Default: show help when just "bangerpdf review" is run
+    p_review.set_defaults(func=lambda args: (p_review.print_help(), 0)[-1])
+
     # --- Stubs for later phases ---
     for cmd_name, helptext in [
-        ("review", "Manage Review Bundles (Phase 7)"),
-        ("skills", "Install/uninstall bundled Claude Code skills (Phase 8)"),
+        ("skills", "Install/uninstall bundled Claude Code skills (Phase 9)"),
     ]:
         p_stub = sub.add_parser(cmd_name, help=helptext)
         p_stub.set_defaults(func=cmd_not_yet_implemented, _command=cmd_name)

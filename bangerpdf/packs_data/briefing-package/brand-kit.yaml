@@ -1,0 +1,32 @@
+name: Minimal Dark Briefing
+description: >-
+  Minimal dark palette for executive briefing documents.
+  Clean, high-contrast design optimized for quick scanning.
+
+colors:
+  primary: "#1a202c"
+  secondary: "#4a5568"
+  accent: "#3182ce"
+  neutral-dark: "#1a202c"
+  neutral-mid: "#718096"
+  neutral-light: "#f7fafc"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#cbd5e1"
+  surface: "#f7fafc"
+  warning-bg: "#fefce8"
+  warning-text: "#854d0e"
+  warning-border: "#ca8a04"
+  critical-bg: "#fef2f2"
+  critical-text: "#991b1b"
+  critical-border: "#dc2626"
+  info-bg: "#eff6ff"
+  info-text: "#1e40af"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10pt"
+  line_height: 1.5
+
+page:
+  size: Letter
+  margin: "0.75in 0.85in 0.85in 0.85in"

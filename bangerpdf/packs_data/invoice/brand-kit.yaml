@@ -1,0 +1,24 @@
+name: Clean Gray Invoice
+description: >-
+  Clean gray and blue palette for professional invoices.
+  High contrast for readability, minimal decoration.
+
+colors:
+  primary: "#1a1a1a"
+  secondary: "#4a90d9"
+  accent: "#4a90d9"
+  neutral-dark: "#1a1a1a"
+  neutral-mid: "#6b7280"
+  neutral-light: "#f9fafb"
+  neutral-border: "#e5e7eb"
+  neutral-border-dark: "#d1d5db"
+  surface: "#f9fafb"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10pt"
+  line_height: 1.5
+
+page:
+  size: Letter
+  margin: "0.6in 0.7in 0.7in 0.7in"

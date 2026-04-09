@@ -1,0 +1,11 @@
+name: invoice
+description: >-
+  Branded 1-2 page invoice with sender/recipient details, line items with
+  quantities and rates, subtotal/tax/total calculation, payment terms, and
+  notes. Clean professional layout suitable for any business.
+version: "1.0"
+documents:
+  - name: 01_Invoice
+    template: templates/01_invoice.html
+    expected_pages: 2
+default_tier: desktop

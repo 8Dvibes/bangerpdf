@@ -1,0 +1,28 @@
+name: Professional Blue Proposal
+description: >-
+  Professional blue palette for consulting and sales proposals.
+  Authoritative without being heavy, with enough visual hierarchy
+  for multi-page documents.
+
+colors:
+  primary: "#1a365d"
+  secondary: "#2b6cb0"
+  accent: "#4299e1"
+  neutral-dark: "#1a202c"
+  neutral-mid: "#64748b"
+  neutral-light: "#f7fafc"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#cbd5e1"
+  surface: "#f7fafc"
+  success: "#48bb78"
+  warning-bg: "#fefce8"
+  warning-text: "#854d0e"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10pt"
+  line_height: 1.5
+
+page:
+  size: Letter
+  margin: "0.7in 0.8in 0.8in 0.8in"

@@ -1,0 +1,312 @@
+/* Invoice — Clean professional invoice CSS
+ * All colors use CSS custom properties set by brand-kit.yaml.
+ * Designed for WeasyPrint US Letter output.
+ */
+
+:root {
+  --primary: #1a1a1a;
+  --secondary: #4a90d9;
+  --accent: #4a90d9;
+  --neutral-dark: #1a1a1a;
+  --neutral-mid: #6b7280;
+  --neutral-light: #f9fafb;
+  --neutral-border: #e5e7eb;
+  --neutral-border-dark: #d1d5db;
+  --surface: #f9fafb;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.6in 0.7in 0.7in 0.7in;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+@page :first {
+  @top-right { content: none; }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === INVOICE HEADER === */
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20pt;
+  padding-bottom: 14pt;
+  border-bottom: 3pt solid var(--secondary);
+}
+
+.invoice-brand {
+  flex: 1;
+}
+
+.invoice-brand .brand-name {
+  font-size: 18pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3pt;
+}
+
+.invoice-brand .brand-details {
+  font-size: 8.5pt;
+  color: var(--neutral-mid);
+  margin-top: 4pt;
+  line-height: 1.6;
+}
+
+.invoice-title {
+  text-align: right;
+}
+
+.invoice-title h1 {
+  font-size: 28pt;
+  font-weight: 800;
+  color: var(--secondary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1pt;
+}
+
+.invoice-title .invoice-number {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 4pt;
+}
+
+/* === ADDRESS BLOCKS === */
+
+.address-row {
+  display: flex;
+  gap: 20pt;
+  margin-bottom: 16pt;
+}
+
+.address-block {
+  flex: 1;
+}
+
+.address-block .address-label {
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8pt;
+  color: var(--neutral-mid);
+  margin-bottom: 4pt;
+}
+
+.address-block .address-name {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 2pt;
+}
+
+.address-block .address-details {
+  font-size: 9pt;
+  color: var(--neutral-dark);
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* === INVOICE META === */
+
+.invoice-meta {
+  display: flex;
+  gap: 20pt;
+  margin-bottom: 16pt;
+}
+
+.meta-item {
+  flex: 1;
+  background: var(--neutral-light);
+  padding: 8pt 12pt;
+  border-radius: 3pt;
+  border-top: 2pt solid var(--secondary);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.meta-item .meta-label {
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  color: var(--neutral-mid);
+}
+
+.meta-item .meta-value {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 2pt;
+}
+
+/* === LINE ITEMS TABLE === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 14pt 0;
+  font-size: 9pt;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  text-align: left;
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  padding: 7pt 10pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+th.amount {
+  text-align: right;
+}
+
+td {
+  padding: 7pt 10pt;
+  border-bottom: 0.5pt solid var(--neutral-border);
+  vertical-align: top;
+}
+
+td.amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+tr:nth-child(even) td {
+  background: var(--surface);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* === TOTALS === */
+
+.totals-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4pt;
+}
+
+.totals-table {
+  width: 260pt;
+}
+
+.totals-table .total-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 4pt 10pt;
+  font-size: 9pt;
+}
+
+.totals-table .total-line.subtotal {
+  border-bottom: 0.5pt solid var(--neutral-border);
+}
+
+.totals-table .total-line.grand-total {
+  background: var(--primary);
+  color: white;
+  font-weight: 800;
+  font-size: 12pt;
+  padding: 8pt 10pt;
+  border-radius: 3pt;
+  margin-top: 4pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.totals-table .total-line .label {
+  font-weight: 600;
+}
+
+.totals-table .total-line .value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* === PAYMENT & NOTES === */
+
+.payment-section {
+  margin-top: 20pt;
+  padding-top: 12pt;
+  border-top: 1pt solid var(--neutral-border);
+}
+
+.payment-section h3 {
+  font-size: 9pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  color: var(--secondary);
+  margin: 0 0 4pt 0;
+}
+
+.payment-section p {
+  font-size: 9pt;
+  color: var(--neutral-dark);
+  margin: 2pt 0;
+}
+
+/* === FOOTER === */
+
+.doc-footer {
+  margin-top: 20pt;
+  padding-top: 8pt;
+  border-top: 1pt solid var(--neutral-border);
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-small { font-size: 8pt; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.spacer-sm { height: 6pt; }
+.spacer-md { height: 12pt; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }

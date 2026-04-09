@@ -1,0 +1,497 @@
+/* Proposal Package — Professional consulting proposal CSS
+ * All colors use CSS custom properties set by brand-kit.yaml.
+ * Designed for WeasyPrint US Letter output.
+ */
+
+:root {
+  --primary: #1a365d;
+  --secondary: #2b6cb0;
+  --accent: #4299e1;
+  --neutral-dark: #1a202c;
+  --neutral-mid: #64748b;
+  --neutral-light: #f7fafc;
+  --neutral-border: #e2e8f0;
+  --neutral-border-dark: #cbd5e1;
+  --surface: #f7fafc;
+  --success: #48bb78;
+  --warning-bg: #fefce8;
+  --warning-text: #854d0e;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.7in 0.8in 0.8in 0.8in;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+@page :first {
+  @top-right { content: none; }
+  @bottom-center { content: none; }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === COVER PAGE === */
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 85vh;
+  text-align: center;
+}
+
+.cover-page .cover-title {
+  font-size: 28pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.5pt;
+  line-height: 1.15;
+}
+
+.cover-page .cover-project {
+  font-size: 14pt;
+  color: var(--secondary);
+  margin-top: 6pt;
+  font-weight: 600;
+}
+
+.cover-page .cover-divider {
+  width: 80pt;
+  height: 3pt;
+  background: var(--accent);
+  margin: 20pt auto;
+  border-radius: 2pt;
+}
+
+.cover-page .cover-client {
+  font-size: 13pt;
+  color: var(--neutral-dark);
+  margin-top: 8pt;
+  font-weight: 700;
+}
+
+.cover-page .cover-meta {
+  font-size: 9pt;
+  color: var(--neutral-mid);
+  margin-top: 24pt;
+  line-height: 1.6;
+}
+
+/* === DOCUMENT HEADER === */
+
+.doc-header {
+  border-bottom: 3pt solid var(--primary);
+  padding-bottom: 10pt;
+  margin-bottom: 14pt;
+}
+
+.doc-header h1 {
+  font-size: 18pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3pt;
+}
+
+.doc-header .meta-line {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  margin-top: 4pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+}
+
+/* === HEADINGS === */
+
+h2 {
+  font-size: 12pt;
+  font-weight: 800;
+  color: var(--primary);
+  border-bottom: 2pt solid var(--secondary);
+  padding-bottom: 4pt;
+  margin: 16pt 0 8pt 0;
+  page-break-after: avoid;
+}
+
+h2.section-divider {
+  background: var(--primary);
+  color: white;
+  padding: 6pt 12pt;
+  margin-top: 14pt;
+  margin-bottom: 8pt;
+  border: none;
+  border-radius: 3pt;
+  font-size: 10pt;
+}
+
+h3 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 10pt 0 4pt 0;
+  page-break-after: avoid;
+}
+
+p {
+  margin: 4pt 0 6pt 0;
+}
+
+ul, ol {
+  margin: 4pt 0 8pt 0;
+  padding-left: 18pt;
+}
+
+li {
+  margin-bottom: 3pt;
+}
+
+/* === CALLOUT BOXES === */
+
+.callout {
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 10pt 14pt;
+  margin: 10pt 0;
+  background: var(--surface);
+  border-radius: 3pt;
+}
+
+.callout.highlight {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border-left-color: var(--accent);
+}
+
+.callout-label {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6pt;
+  color: var(--secondary);
+  margin-bottom: 4pt;
+}
+
+.callout.highlight .callout-label {
+  color: #93c5fd;
+}
+
+/* === PRICING TIER CARDS === */
+
+.tier-row {
+  display: flex;
+  gap: 10pt;
+  margin: 10pt 0;
+}
+
+.tier-card {
+  flex: 1;
+  border: 1pt solid var(--neutral-border);
+  border-top: 3pt solid var(--secondary);
+  padding: 10pt 12pt;
+  border-radius: 4pt;
+  page-break-inside: avoid;
+}
+
+.tier-card.recommended {
+  border-top-color: var(--success);
+  background: var(--surface);
+}
+
+.tier-card .tier-name {
+  font-size: 10pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0 0 2pt 0;
+}
+
+.tier-card .tier-price {
+  font-size: 16pt;
+  font-weight: 800;
+  color: var(--secondary);
+  margin: 2pt 0 4pt 0;
+}
+
+.tier-card.recommended .tier-price {
+  color: var(--success);
+}
+
+.tier-card .tier-desc {
+  font-size: 8.5pt;
+  color: var(--neutral-dark);
+  margin: 0;
+}
+
+.tier-badge {
+  display: inline-block;
+  background: var(--success);
+  color: white;
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+  padding: 2pt 6pt;
+  border-radius: 8pt;
+  margin-bottom: 4pt;
+}
+
+/* === TIMELINE === */
+
+.timeline {
+  margin: 10pt 0;
+}
+
+.timeline-phase {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 6pt;
+  page-break-inside: avoid;
+}
+
+.timeline-label {
+  width: 28%;
+  padding: 8pt 10pt;
+  background: var(--neutral-light);
+  border-radius: 4pt 0 0 4pt;
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeline-label .phase-name {
+  font-size: 9pt;
+  font-weight: 700;
+  margin-bottom: 2pt;
+}
+
+.timeline-label .phase-duration {
+  font-size: 7.5pt;
+  color: var(--neutral-mid);
+  font-weight: 400;
+}
+
+.timeline-bar {
+  flex: 1;
+  padding: 8pt 12pt;
+  border-radius: 0 4pt 4pt 0;
+  font-size: 8.5pt;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.timeline-bar.phase-1 { background: var(--primary); }
+.timeline-bar.phase-2 { background: var(--secondary); }
+.timeline-bar.phase-3 { background: var(--accent); }
+.timeline-bar.phase-4 { background: #805ad5; }
+
+/* === TABLES === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 12pt 0;
+  font-size: 9pt;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  text-align: left;
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  padding: 6pt 10pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+td {
+  padding: 6pt 10pt;
+  border-bottom: 0.5pt solid var(--neutral-border);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+td.amount, th.amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* === DELIVERABLE CARDS === */
+
+.deliverable {
+  border: 1pt solid var(--neutral-border);
+  border-left: 3pt solid var(--accent);
+  padding: 8pt 12pt;
+  margin: 6pt 0;
+  border-radius: 3pt;
+  page-break-inside: avoid;
+}
+
+.deliverable h4 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 2pt 0;
+}
+
+.deliverable p {
+  font-size: 9pt;
+  margin: 2pt 0 0 0;
+}
+
+.deliverable .format-tag {
+  display: inline-block;
+  background: var(--neutral-light);
+  color: var(--secondary);
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+  padding: 2pt 6pt;
+  border-radius: 8pt;
+  margin-top: 4pt;
+}
+
+/* === TEAM CARDS === */
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8pt;
+  margin: 8pt 0;
+}
+
+.team-card {
+  flex: 1;
+  min-width: 45%;
+  border: 1pt solid var(--neutral-border);
+  padding: 8pt 10pt;
+  border-radius: 3pt;
+  page-break-inside: avoid;
+}
+
+.team-card .team-name {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.team-card .team-role {
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--secondary);
+  margin: 1pt 0 3pt 0;
+}
+
+.team-card .team-bio {
+  font-size: 8pt;
+  color: var(--neutral-dark);
+  margin: 0;
+}
+
+/* === SIGNATURE BLOCK === */
+
+.signature-section {
+  margin-top: 20pt;
+}
+
+.signature-row {
+  display: flex;
+  gap: 40pt;
+  margin-top: 14pt;
+}
+
+.signature-col {
+  flex: 1;
+}
+
+.signature-line {
+  border-top: 1pt solid var(--neutral-dark);
+  margin-top: 40pt;
+  padding-top: 4pt;
+}
+
+.signature-line .sig-name {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.signature-line .sig-title {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  margin: 1pt 0 0 0;
+}
+
+.date-line {
+  border-top: 1pt solid var(--neutral-dark);
+  margin-top: 24pt;
+  padding-top: 4pt;
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  width: 50%;
+}
+
+/* === FOOTER === */
+
+.doc-footer {
+  margin-top: 20pt;
+  padding-top: 8pt;
+  border-top: 1pt solid var(--neutral-border);
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-small { font-size: 8pt; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.spacer-sm { height: 6pt; }
+.spacer-md { height: 12pt; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }

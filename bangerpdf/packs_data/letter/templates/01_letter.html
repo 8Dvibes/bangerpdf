@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Letter -- {{ subject }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="letterhead">
+  <div class="letterhead-brand">
+    {% if sender.logo %}
+    <img src="{{ sender.logo }}" alt="{{ sender.company }}" class="letterhead-logo">
+    {% else %}
+    <span class="company-name">{{ sender.company }}</span>
+    {% endif %}
+  </div>
+  <div class="letterhead-meta">
+    {{ sender.address | replace('\n', '<br>') }}<br>
+    {% if sender.phone %}{{ sender.phone }}<br>{% endif %}
+    {% if sender.email %}{{ sender.email }}{% endif %}
+  </div>
+</div>
+
+<p class="letter-date">{{ date }}</p>
+
+<div class="letter-recipient">
+  <strong>{{ recipient.name }}</strong><br>
+  {% if recipient.title %}{{ recipient.title }}<br>{% endif %}
+  {{ recipient.company }}<br>
+  {{ recipient.address | replace('\n', '<br>') }}
+</div>
+
+<p class="letter-subject">RE: {{ subject }}</p>
+
+{% if reference %}
+<p class="letter-reference">{{ reference }}</p>
+{% endif %}
+
+<div class="letter-body">
+  <p>{{ salutation }}</p>
+
+  {% for paragraph in body_paragraphs %}
+  <p>{{ paragraph }}</p>
+  {% endfor %}
+
+  <div class="signature-block">
+    <p class="signature-closing">{{ closing }}</p>
+    <p class="signature-name">{{ signature_name }}</p>
+    <p class="signature-title">{{ signature_title }}</p>
+  </div>
+</div>
+
+{% if enclosures or cc %}
+<div class="letter-addenda">
+  {% if enclosures %}
+  <p class="addenda-label">Enclosures</p>
+  <ul>
+    {% for enc in enclosures %}
+    <li>{{ enc }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if cc %}
+  <p class="addenda-label">CC</p>
+  <ul>
+    {% for person in cc %}
+    <li>{{ person }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endif %}
+
+<div class="letterhead-footer">
+  {{ sender.company }}
+  {% if sender.phone %} &bull; {{ sender.phone }}{% endif %}
+  {% if sender.email %} &bull; {{ sender.email }}{% endif %}
+</div>
+
+</body>
+</html>

@@ -11,9 +11,28 @@ completed render-pack output so a client can:
 
 Modeled on JJ's Xona client review bundles found in ~/Downloads/.
 
-State machine in meta.json: draft → awaiting-feedback → revising → approved.
+State machine in meta.json: draft -> awaiting-feedback -> revising -> approved.
 
-Implemented in Phase 7 of the build sequence.
+Implemented in Phase 8 of the build sequence.
 """
 
-__all__ = []
+from bangerpdf.review.builder import init_review, build_review
+from bangerpdf.review.workflow import (
+    init_meta,
+    get_status,
+    get_meta,
+    add_annotation,
+    revise,
+    approve,
+)
+
+__all__ = [
+    "init_review",
+    "build_review",
+    "init_meta",
+    "get_status",
+    "get_meta",
+    "add_annotation",
+    "revise",
+    "approve",
+]

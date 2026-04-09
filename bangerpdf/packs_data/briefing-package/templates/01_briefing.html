@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>{{ title }}</h1>
+  <p class="meta-line">
+    {{ date }}
+    {% if author %} &bull; {{ author }}{% endif %}
+    &bull; Prepared for {{ audience }}
+  </p>
+  {% if classification %}
+  <span class="classification">{{ classification }}</span>
+  {% endif %}
+</div>
+
+<div class="tldr-box">
+  <p class="tldr-label">Bottom Line</p>
+  <p>{{ tldr }}</p>
+</div>
+
+<h2>Context</h2>
+<p>{{ context }}</p>
+
+<h2>Key Findings</h2>
+
+{% for finding in findings %}
+<div class="finding-card {{ finding.severity | default('info') }}">
+  <span class="severity-badge">{{ finding.severity | default('info') | upper }}</span>
+  <p class="finding-title">{{ finding.title }}</p>
+  <p class="finding-detail">{{ finding.detail }}</p>
+</div>
+{% endfor %}
+
+<h2>Recommendations</h2>
+
+<ol>
+  {% for rec in recommendations %}
+  <li>{{ rec }}</li>
+  {% endfor %}
+</ol>
+
+<h2>Next Actions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 55%;">Action</th>
+      <th style="width: 25%;">Owner</th>
+      <th style="width: 20%;">Due</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for action in next_actions %}
+    <tr>
+      <td>{{ action.action }}</td>
+      <td>{{ action.owner }}</td>
+      <td>{{ action.due }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if appendix_notes %}
+<h2>Notes</h2>
+<p class="text-small text-muted">{{ appendix_notes }}</p>
+{% endif %}
+
+<div class="doc-footer">
+  {{ title }} &bull; {{ date }}{% if author %} &bull; {{ author }}{% endif %}
+</div>
+
+</body>
+</html>

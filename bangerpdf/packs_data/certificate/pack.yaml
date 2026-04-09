@@ -1,0 +1,11 @@
+name: certificate
+description: >-
+  Single-page landscape completion or training certificate with decorative
+  border, recipient name, course details, signatories, and unique certificate
+  ID. Suitable for course completions, training certifications, and awards.
+version: "1.0"
+documents:
+  - name: 01_Certificate
+    template: templates/01_certificate.html
+    expected_pages: 1
+default_tier: desktop

@@ -1,0 +1,11 @@
+name: one-pager
+description: >-
+  Single-page overview document with bold typography, headline stats,
+  structured body sections, and a call-to-action. Ideal for product
+  overviews, program summaries, and sales collateral.
+version: "1.0"
+documents:
+  - name: 01_One_Pager
+    template: templates/01_one_pager.html
+    expected_pages: 1
+default_tier: desktop

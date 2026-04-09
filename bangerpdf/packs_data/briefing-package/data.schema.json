@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Executive Briefing",
+  "description": "Schema for 1-2 page executive briefing documents. Validates data.json for concise, action-oriented leadership communications.",
+  "type": "object",
+  "required": ["title", "audience", "date", "tldr", "context", "findings", "recommendations", "next_actions"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Briefing title, e.g. 'Q2 Market Entry Assessment'"
+    },
+    "audience": {
+      "type": "string",
+      "description": "Target audience, e.g. 'Executive Leadership Team'"
+    },
+    "date": {
+      "type": "string",
+      "description": "Briefing date in human-readable format, e.g. 'April 6, 2026'"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author name or team"
+    },
+    "classification": {
+      "type": "string",
+      "description": "Document classification, e.g. 'Confidential', 'Internal Only'"
+    },
+    "tldr": {
+      "type": "string",
+      "description": "One-paragraph executive summary (the bottom line up front)"
+    },
+    "context": {
+      "type": "string",
+      "description": "Situation background providing the 'why now' for this briefing"
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["title", "detail"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Finding headline"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Supporting detail or evidence"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "critical"],
+            "description": "Severity level for visual styling"
+          }
+        }
+      },
+      "description": "Key findings or observations"
+    },
+    "recommendations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Recommended courses of action"
+    },
+    "next_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["action", "owner", "due"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Action item description"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Person or team responsible"
+          },
+          "due": {
+            "type": "string",
+            "description": "Due date or timeframe"
+          }
+        }
+      },
+      "description": "Specific next actions with owners and deadlines"
+    },
+    "appendix_notes": {
+      "type": "string",
+      "description": "Optional additional notes or references"
+    }
+  }
+}

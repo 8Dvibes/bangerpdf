@@ -1,0 +1,57 @@
+{
+  "from": {
+    "name": "Bright Pixel Design Studio",
+    "address": "742 Creative Way, Suite 200\nAustin, TX 78701",
+    "email": "billing@brightpixel.studio",
+    "phone": "+1 512-555-0188",
+    "website": "brightpixel.studio",
+    "tax_id": "EIN 84-2345678"
+  },
+  "to": {
+    "name": "Meridian Health Systems",
+    "address": "1200 Commerce Blvd, Floor 14\nDallas, TX 75201",
+    "email": "accounts@meridianhealth.com"
+  },
+  "invoice_number": "INV-2026-0042",
+  "date": "April 6, 2026",
+  "due_date": "May 6, 2026",
+  "line_items": [
+    {
+      "description": "Brand Identity Package -- logo design, color system, typography guidelines, and brand book (40 pages)",
+      "qty": 1,
+      "rate": 8500.00,
+      "amount": 8500.00
+    },
+    {
+      "description": "Patient Portal UI/UX Design -- wireframes, high-fidelity mockups, and interactive prototype (38 screens)",
+      "qty": 1,
+      "rate": 12000.00,
+      "amount": 12000.00
+    },
+    {
+      "description": "Marketing Collateral Design -- brochure (tri-fold), one-pager, and business card templates",
+      "qty": 1,
+      "rate": 3200.00,
+      "amount": 3200.00
+    },
+    {
+      "description": "Design System Documentation -- component library specs and usage guidelines for development handoff",
+      "qty": 1,
+      "rate": 4500.00,
+      "amount": 4500.00
+    },
+    {
+      "description": "Revision rounds (additional beyond scope)",
+      "qty": 3,
+      "rate": 450.00,
+      "amount": 1350.00
+    }
+  ],
+  "subtotal": 29550.00,
+  "tax_rate": 0.0825,
+  "tax": 2437.88,
+  "total": 31987.88,
+  "payment_terms": "Net 30. Payment due by May 6, 2026. Late payments subject to 1.5% monthly interest after due date.",
+  "notes": "Wire transfer preferred. Routing: 021000021, Account: 483920175. ACH and check also accepted. Please reference invoice number INV-2026-0042 on all payments.",
+  "currency": "$"
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Foundations 2.0",
+  "subtitle": "Context Engineering for Agentic Systems",
+  "headline_stats": [
+    {"label": "Students Enrolled", "value": "1,154+"},
+    {"label": "Countries", "value": "15+"},
+    {"label": "Completion Rate", "value": "94%"},
+    {"label": "Cohorts Delivered", "value": "18"}
+  ],
+  "body_sections": [
+    {
+      "heading": "What You Will Learn",
+      "content": "Foundations 2.0 is a 6-week intensive program that teaches context engineering for agentic AI systems. You will build real production systems using Claude, GPT-4, and open-source models. Every lesson is hands-on: no slides, no theory without application. By the end, you will have a portfolio of working AI agents deployed in your own business."
+    },
+    {
+      "heading": "Who This Is For",
+      "content": "Business operators, technical founders, and solo practitioners who want to build AI-powered workflows that actually run in production. No prior AI experience required. You need a laptop, a willingness to build, and 8-10 hours per week."
+    },
+    {
+      "heading": "Program Structure",
+      "content": "Week 1-2: Prompt architecture and context window management. Week 3-4: Multi-agent orchestration and tool use. Week 5-6: Production deployment, monitoring, and iteration. Live sessions every Tuesday and Thursday. Slack community access for the duration of the cohort plus 90 days alumni access."
+    },
+    {
+      "heading": "What Makes This Different",
+      "content": "Built by operators who run AI systems in production daily, not researchers writing papers. Every technique taught is battle-tested across real businesses generating real revenue. Our students ship working systems during the program, not after."
+    }
+  ],
+  "cta": {
+    "text": "Apply for the Next Cohort at aibuildlab.com/foundations",
+    "url": "https://aibuildlab.com/foundations"
+  },
+  "footer_text": "AI Build Lab  |  hello@aibuildlab.com  |  aibuildlab.com"
+}

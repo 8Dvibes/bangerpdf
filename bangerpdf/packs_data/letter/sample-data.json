@@ -1,0 +1,39 @@
+{
+  "sender": {
+    "name": "Michael Torres",
+    "title": "Vice President of Strategic Partnerships",
+    "company": "Cascade Consulting Group",
+    "address": "1800 K Street NW, Suite 900\nWashington, DC 20006",
+    "phone": "+1 202-555-0147",
+    "email": "m.torres@cascadeconsulting.com"
+  },
+  "recipient": {
+    "name": "Jennifer Walsh",
+    "title": "Chief Operating Officer",
+    "company": "Northwind Healthcare Solutions",
+    "address": "500 Boylston Street, Floor 22\nBoston, MA 02116"
+  },
+  "date": "April 6, 2026",
+  "subject": "Strategic Advisory Engagement -- Operational Efficiency Program",
+  "reference": "REF: NWH-2026-Q2-001",
+  "salutation": "Dear Ms. Walsh,",
+  "body_paragraphs": [
+    "Thank you for the productive conversation at the Healthcare Operations Summit last week. Following our discussion about Northwind's operational efficiency goals for the coming fiscal year, I am writing to formally propose a strategic advisory engagement between Cascade Consulting Group and Northwind Healthcare Solutions.",
+    "Based on our preliminary assessment of your current operations and the benchmarking data you shared, we believe there is significant opportunity to reduce patient processing cycle times by 25-30% while simultaneously improving staff satisfaction scores. Our Healthcare Operations Practice has delivered similar results for three comparable health systems in the Northeast region over the past 18 months.",
+    "The engagement would proceed in three phases over 16 weeks: a 4-week diagnostic assessment, an 8-week redesign and pilot phase, and a 4-week implementation support and measurement period. Our team would embed two senior consultants on-site during the diagnostic and pilot phases, with additional remote analytical support.",
+    "I have enclosed a detailed scope of work document outlining deliverables, timeline, investment, and team composition. Our proposed fees for the full engagement are $285,000, inclusive of all travel and expenses. This reflects a 15% consideration from our standard rates given the potential for a multi-site expansion of the program.",
+    "I would welcome the opportunity to present this proposal to your leadership team. Please let me know if the week of April 20 works for a 60-minute presentation, either in person at your Boston office or via video conference."
+  ],
+  "closing": "Sincerely,",
+  "signature_name": "Michael Torres",
+  "signature_title": "Vice President of Strategic Partnerships\nCascade Consulting Group",
+  "enclosures": [
+    "Scope of Work: Northwind Operational Efficiency Program (12 pages)",
+    "Cascade Healthcare Operations Practice Overview",
+    "Case Study: Regional Health System Cycle Time Reduction (2025)"
+  ],
+  "cc": [
+    "David Chen, Managing Partner, Cascade Consulting Group",
+    "Rachel Kim, Director of Healthcare Operations Practice"
+  ]
+}

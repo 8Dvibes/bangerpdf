@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Proposal -- {{ project_name | default(client.name) }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="cover-page">
+  {% if sender and sender.logo %}
+  <img src="{{ sender.logo }}" alt="{{ sender.name }}" style="width: 120pt; margin: 0 auto 16pt auto;">
+  {% endif %}
+
+  <h1 class="cover-title">{{ project_name | default("Project Proposal") }}</h1>
+  <div class="cover-divider"></div>
+  <p class="cover-client">Prepared for {{ client.name }}</p>
+
+  {% if sender %}
+  <p class="cover-project">by {{ sender.name }}</p>
+  {% endif %}
+
+  <div class="cover-meta">
+    {% if meta %}
+    {{ meta.proposal_date | default("") }}<br>
+    {% if meta.proposal_number %}{{ meta.proposal_number }}<br>{% endif %}
+    {% if meta.version %}Version {{ meta.version }}{% endif %}
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html>

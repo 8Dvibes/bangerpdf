@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Proposal -- {{ project_name | default(client.name) }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>{{ project_name | default("Project Proposal") }}</h1>
+  <p class="meta-line">
+    Prepared for {{ client.name }}
+    {% if sender %} by {{ sender.name }}{% endif %}
+    {% if meta %} &bull; {{ meta.proposal_date | default("") }}{% endif %}
+  </p>
+</div>
+
+{% if executive_summary %}
+<div class="callout highlight">
+  <p class="callout-label">Executive Summary</p>
+  <p style="margin: 0;">{{ executive_summary }}</p>
+</div>
+{% endif %}
+
+<h2>Scope of Work</h2>
+<p>{{ scope }}</p>
+
+{% if out_of_scope %}
+<h3>Out of Scope</h3>
+<ul>
+  {% for item in out_of_scope %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<h2>Our Approach</h2>
+<p>{{ approach }}</p>
+
+{% if why_us %}
+<h2>Why {{ sender.name | default("Us") }}</h2>
+<ul>
+  {% for reason in why_us %}
+  <li>{{ reason }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if team %}
+<h2>Your Team</h2>
+<div class="team-grid">
+  {% for member in team %}
+  <div class="team-card">
+    <p class="team-name">{{ member.name }}</p>
+    <p class="team-role">{{ member.role }}</p>
+    {% if member.bio %}
+    <p class="team-bio">{{ member.bio }}</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="page-break"></div>
+
+<h2>Deliverables</h2>
+
+{% for d in deliverables %}
+<div class="deliverable">
+  <h4>{{ loop.index }}. {{ d.name }}</h4>
+  <p>{{ d.description }}</p>
+  {% if d.format %}
+  <span class="format-tag">{{ d.format }}</span>
+  {% endif %}
+</div>
+{% endfor %}
+
+<h2>Timeline</h2>
+
+<div class="timeline">
+  {% for phase in timeline %}
+  <div class="timeline-phase">
+    <div class="timeline-label">
+      <span class="phase-name">{{ phase.phase }}</span>
+      <span class="phase-duration">{{ phase.duration }}</span>
+    </div>
+    <div class="timeline-bar phase-{{ loop.index }}">
+      {{ phase.description }}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="page-break"></div>
+
+<h2>Investment</h2>
+
+{% if pricing.tiers %}
+<div class="tier-row">
+  {% for tier in pricing.tiers %}
+  <div class="tier-card {{ 'recommended' if tier.recommended }}">
+    {% if tier.recommended %}
+    <span class="tier-badge">Recommended</span>
+    {% endif %}
+    <p class="tier-name">{{ tier.name }}</p>
+    <p class="tier-price">{{ tier.amount_label | default("$" ~ "{:,}".format(tier.amount)) }}</p>
+    <p class="tier-desc">{{ tier.description }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="callout">
+  <p class="callout-label">Total Investment</p>
+  <p style="margin: 0; font-size: 18pt; font-weight: 800; color: var(--primary);">{{ pricing.total_label }}</p>
+</div>
+{% endif %}
+
+{% if pricing.payment_schedule %}
+<h3>Payment Schedule</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 50%;">Milestone</th>
+      <th class="amount" style="width: 25%;">Percentage</th>
+      <th class="amount" style="width: 25%;">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in pricing.payment_schedule %}
+    <tr>
+      <td>{{ payment.milestone }}</td>
+      <td class="amount">{{ payment.percentage }}</td>
+      <td class="amount">{{ payment.amount_label }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<h2>Terms & Conditions</h2>
+
+<ol>
+  {% for term in terms %}
+  <li>{{ term }}</li>
+  {% endfor %}
+</ol>
+
+<div class="doc-footer">
+  {% if sender %}{{ sender.name }} &bull; {% endif %}{{ project_name | default("Proposal") }}
+  {% if meta %} &bull; {{ meta.proposal_date | default("") }}{% endif %}
+</div>
+
+</body>
+</html>

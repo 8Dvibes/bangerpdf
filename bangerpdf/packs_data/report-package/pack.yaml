@@ -1,0 +1,23 @@
+name: report-package
+description: >-
+  Multi-page research or analysis report with cover page, auto-generated
+  table of contents, executive summary, looped content sections with
+  subsections, and appendices. Designed for 15+ page reports.
+version: "1.0"
+documents:
+  - name: 01_Cover
+    template: templates/01_cover.html
+    expected_pages: 1
+  - name: 02_Table_of_Contents
+    template: templates/02_table_of_contents.html
+    expected_pages: 1
+  - name: 03_Executive_Summary
+    template: templates/03_executive_summary.html
+    expected_pages: 2
+  - name: 04_Sections
+    template: templates/04_sections.html
+    expected_pages: 10
+  - name: 05_Appendix
+    template: templates/05_appendix.html
+    expected_pages: 3
+default_tier: desktop

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Acceptance -- {{ project_name | default(client.name) }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="doc-header">
+  <h1>Proposal Acceptance</h1>
+  <p class="meta-line">
+    {{ project_name | default("Project Proposal") }}
+    {% if meta %} &bull; {{ meta.proposal_number | default("") }}{% endif %}
+  </p>
+</div>
+
+<p>By signing below, both parties agree to the terms outlined in this proposal{% if meta and meta.proposal_number %} ({{ meta.proposal_number }}){% endif %}{% if meta and meta.version %}, Version {{ meta.version }}{% endif %}.</p>
+
+{% if pricing %}
+<div class="callout">
+  <p class="callout-label">Agreed Investment</p>
+  <p style="margin: 0; font-size: 16pt; font-weight: 800; color: var(--primary);">{{ pricing.total_label }}</p>
+  {% if meta and meta.validity_days %}
+  <p style="margin: 4pt 0 0 0; font-size: 8pt; color: var(--neutral-mid);">This proposal is valid for {{ meta.validity_days }} days from {{ meta.proposal_date | default("the proposal date") }}.</p>
+  {% endif %}
+</div>
+{% endif %}
+
+<h2>Selected Tier</h2>
+
+<p>Please indicate the selected pricing tier:</p>
+
+{% if pricing and pricing.tiers %}
+{% for tier in pricing.tiers %}
+<p style="margin: 6pt 0;">
+  &#9744; <strong>{{ tier.name }}</strong> -- {{ tier.amount_label | default("") }}
+  {% if tier.recommended %}<em>(Recommended)</em>{% endif %}
+</p>
+{% endfor %}
+{% else %}
+<p>&#9744; <strong>Standard Engagement</strong> -- {{ pricing.total_label }}</p>
+{% endif %}
+
+<div class="signature-section">
+  <h2>Authorized Signatures</h2>
+
+  <div class="signature-row">
+    <div class="signature-col">
+      <p class="text-small text-muted" style="text-transform: uppercase; letter-spacing: 0.5pt;">{{ sender.name | default("Provider") }}</p>
+      <div class="signature-line">
+        <p class="sig-name">{{ signature.sender_name }}</p>
+        <p class="sig-title">{{ signature.sender_title }}</p>
+      </div>
+      <div class="date-line">Date: ____________________</div>
+    </div>
+
+    <div class="signature-col">
+      <p class="text-small text-muted" style="text-transform: uppercase; letter-spacing: 0.5pt;">{{ client.name }}</p>
+      <div class="signature-line">
+        <p class="sig-name">{{ signature.client_name }}</p>
+        <p class="sig-title">{{ signature.client_title }}</p>
+      </div>
+      <div class="date-line">Date: ____________________</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  {% if sender %}{{ sender.name }} &bull; {% endif %}{{ project_name | default("Proposal") }}
+  {% if meta %} &bull; {{ meta.proposal_date | default("") }}{% endif %}
+</div>
+
+</body>
+</html>

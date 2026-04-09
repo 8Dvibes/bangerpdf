@@ -49,7 +49,7 @@
 </div>
 
 <div class="title-bar">
-  <h1>{{ differentiators.headline | default("Your Local Trade Partner for This Build") }}</h1>
+  <h1>{% if differentiators is defined and differentiators.headline %}{{ differentiators.headline }}{% else %}Your Local Trade Partner for This Build{% endif %}</h1>
   <p class="subtitle">Bidding the {{ project.name }} project{% if project.site_description %} -- {{ project.site_description }}{% endif %}</p>
 </div>
 

@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MGM Strategy Plan",
+  "description": "Public API schema for the Market Garden Mentor strategy plan. Any agentic workflow (Cassidy, n8n, Claude, custom) that produces valid JSON against this schema can render a professional 25-40 page strategy document via bangerpdf without further intervention.",
+  "type": "object",
+  "required": ["meta", "client", "market", "strategy", "execution", "kpis"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["plan_date", "planner", "version"],
+      "properties": {
+        "plan_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Plan creation date in ISO 8601 format (YYYY-MM-DD)"
+        },
+        "planner": {
+          "type": "string",
+          "description": "Name of the strategist or consulting firm"
+        },
+        "version": {
+          "type": "string",
+          "description": "Document version, e.g. '1.0'"
+        },
+        "confidentiality": {
+          "type": "string",
+          "description": "Confidentiality notice, e.g. 'Confidential - Do Not Distribute'"
+        }
+      }
+    },
+    "client": {
+      "type": "object",
+      "required": ["name", "industry", "stage"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Client company or venture name"
+        },
+        "industry": {
+          "type": "string",
+          "description": "Industry or sector"
+        },
+        "stage": {
+          "type": "string",
+          "description": "Business stage: seed, early, growth, mature, turnaround"
+        },
+        "arr": {
+          "type": "number",
+          "description": "Annual recurring revenue or annual revenue (numeric)"
+        },
+        "arr_label": {
+          "type": "string",
+          "description": "Formatted revenue string, e.g. '$240,000'"
+        },
+        "founded": {
+          "type": "string",
+          "description": "Year or date founded"
+        },
+        "location": {
+          "type": "string",
+          "description": "Primary location"
+        },
+        "team_size": {
+          "type": "integer",
+          "description": "Number of team members"
+        },
+        "mission": {
+          "type": "string",
+          "description": "Mission statement or company purpose"
+        },
+        "logo": {
+          "type": "string",
+          "description": "Path to client logo image (relative to pack root)"
+        }
+      }
+    },
+    "market": {
+      "type": "object",
+      "required": ["tam", "sam", "som", "competitors", "trends"],
+      "properties": {
+        "tam": {
+          "type": "number",
+          "description": "Total Addressable Market in dollars"
+        },
+        "tam_label": {
+          "type": "string",
+          "description": "Formatted TAM, e.g. '$4.2B'"
+        },
+        "sam": {
+          "type": "number",
+          "description": "Serviceable Addressable Market in dollars"
+        },
+        "sam_label": {
+          "type": "string",
+          "description": "Formatted SAM, e.g. '$680M'"
+        },
+        "som": {
+          "type": "number",
+          "description": "Serviceable Obtainable Market in dollars"
+        },
+        "som_label": {
+          "type": "string",
+          "description": "Formatted SOM, e.g. '$12M'"
+        },
+        "competitors": {
+          "type": "array",
+          "description": "Competitive landscape analysis",
+          "items": {
+            "type": "object",
+            "required": ["name", "strength", "weakness", "threat_level"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Competitor name"
+              },
+              "strength": {
+                "type": "string",
+                "description": "Primary competitive strength"
+              },
+              "weakness": {
+                "type": "string",
+                "description": "Primary competitive weakness"
+              },
+              "threat_level": {
+                "type": "string",
+                "enum": ["low", "medium", "high"],
+                "description": "Threat level assessment"
+              },
+              "market_share": {
+                "type": "string",
+                "description": "Estimated market share percentage or range"
+              }
+            }
+          }
+        },
+        "trends": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Key market trends driving opportunity or risk"
+        },
+        "swot": {
+          "type": "object",
+          "description": "SWOT analysis (optional, enhances market analysis section)",
+          "properties": {
+            "strengths": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "weaknesses": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "opportunities": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "threats": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "strategy": {
+      "type": "object",
+      "required": ["positioning", "pillars", "differentiators", "risks"],
+      "properties": {
+        "positioning": {
+          "type": "string",
+          "description": "One-paragraph strategic positioning statement"
+        },
+        "pillars": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {"type": "string"},
+          "description": "3-5 strategic pillars that form the foundation of the plan"
+        },
+        "pillar_details": {
+          "type": "array",
+          "description": "Optional detailed descriptions for each pillar",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "initiatives": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "differentiators": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Key competitive differentiators"
+        },
+        "risks": {
+          "type": "array",
+          "description": "Risk register with assessment and mitigation",
+          "items": {
+            "type": "object",
+            "required": ["name", "likelihood", "impact", "mitigation"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Risk name or category"
+              },
+              "likelihood": {
+                "type": "string",
+                "description": "Probability assessment: low, medium, high"
+              },
+              "impact": {
+                "type": "string",
+                "description": "Impact assessment: low, medium, high, critical"
+              },
+              "mitigation": {
+                "type": "string",
+                "description": "Mitigation strategy"
+              }
+            }
+          }
+        },
+        "value_proposition": {
+          "type": "string",
+          "description": "Core value proposition statement"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "required": ["phases", "budget"],
+      "properties": {
+        "phases": {
+          "type": "array",
+          "description": "Execution phases with deliverables and timelines",
+          "items": {
+            "type": "object",
+            "required": ["name", "duration_weeks", "deliverables"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Phase name"
+              },
+              "duration_weeks": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Phase duration in weeks"
+              },
+              "deliverables": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "List of phase deliverables"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Phase owner or responsible party"
+              },
+              "dependencies": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Dependencies on other phases or external factors"
+              },
+              "budget_allocation": {
+                "type": "number",
+                "description": "Budget allocated to this phase"
+              }
+            }
+          }
+        },
+        "budget": {
+          "type": "number",
+          "description": "Total execution budget in dollars"
+        },
+        "budget_label": {
+          "type": "string",
+          "description": "Formatted budget, e.g. '$150,000'"
+        },
+        "budget_breakdown": {
+          "type": "array",
+          "description": "Optional budget line items for detailed breakdown",
+          "items": {
+            "type": "object",
+            "required": ["category", "amount"],
+            "properties": {
+              "category": {"type": "string"},
+              "amount": {"type": "number"},
+              "notes": {"type": "string"}
+            }
+          }
+        },
+        "critical_path": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Critical path items that gate overall timeline"
+        }
+      }
+    },
+    "kpis": {
+      "type": "array",
+      "description": "Key Performance Indicators with targets and measurement cadence",
+      "items": {
+        "type": "object",
+        "required": ["name", "target", "baseline", "measurement_cadence"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "KPI name"
+          },
+          "target": {
+            "type": "string",
+            "description": "Target value or range"
+          },
+          "baseline": {
+            "type": "string",
+            "description": "Current baseline value"
+          },
+          "measurement_cadence": {
+            "type": "string",
+            "enum": ["daily", "weekly", "monthly", "quarterly"],
+            "description": "How often this KPI is measured"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Person or team responsible for this KPI"
+          },
+          "data_source": {
+            "type": "string",
+            "description": "Where the measurement data comes from"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "plan_date": "2026-04-15",
+    "planner": "Dope Consulting",
+    "version": "1.0",
+    "confidentiality": "Confidential - Prepared for Growers Solution Leadership Team"
+  },
+  "client": {
+    "name": "Growers Solution",
+    "industry": "Sustainable Agriculture / Direct-to-Consumer Produce",
+    "stage": "early",
+    "arr": 240000,
+    "arr_label": "$240,000",
+    "founded": "2024",
+    "location": "Middle Tennessee",
+    "team_size": 6,
+    "mission": "Provide the Upper Cumberland region with year-round, locally grown produce through sustainable market garden practices, building food security and economic resilience in rural communities."
+  },
+  "market": {
+    "tam": 4200000000,
+    "tam_label": "$4.2B",
+    "sam": 680000000,
+    "sam_label": "$680M",
+    "som": 12000000,
+    "som_label": "$12M",
+    "competitors": [
+      {
+        "name": "Regional Grocery Chains (Kroger, Publix)",
+        "strength": "Massive distribution, brand recognition, year-round availability",
+        "weakness": "Produce travels 1,500+ miles avg, quality degrades, no farm transparency",
+        "threat_level": "medium",
+        "market_share": "62%"
+      },
+      {
+        "name": "Local Farmers Markets (Nashville, Cookeville)",
+        "strength": "Established customer base, community trust, weekend foot traffic",
+        "weakness": "Seasonal only (May-Oct), inconsistent supply, no delivery infrastructure",
+        "threat_level": "medium",
+        "market_share": "8%"
+      },
+      {
+        "name": "CSA Box Programs (various)",
+        "strength": "Subscription revenue, loyal customer base, farm-to-table narrative",
+        "weakness": "Limited variety, high churn (40%+ annual), no choice in box contents",
+        "threat_level": "low",
+        "market_share": "3%"
+      },
+      {
+        "name": "Vertical Farming Startups (AppHarvest, regional indoor farms)",
+        "strength": "Year-round production, controlled environment, tech narrative",
+        "weakness": "Extremely high CAPEX, limited crop variety, energy costs, many have failed",
+        "threat_level": "low",
+        "market_share": "1%"
+      }
+    ],
+    "trends": [
+      "Farm-to-table demand growing 12% YoY in Southeast US metro areas",
+      "Restaurant sourcing shifting to local suppliers post-pandemic (68% of chefs prefer local)",
+      "Consumer willingness to pay 15-25% premium for locally grown, chemical-free produce",
+      "USDA grants for beginning farmers and sustainable agriculture at record levels ($2.1B FY2026)",
+      "Climate volatility making long-supply-chain produce less reliable and more expensive",
+      "Direct-to-consumer food sales doubled since 2020, now $3B+ annually in the US"
+    ],
+    "swot": {
+      "strengths": [
+        "Year-round production capability via high tunnel and greenhouse infrastructure",
+        "Direct relationships with 12 restaurant accounts in Cookeville/Nashville corridor",
+        "Low overhead: family-operated, owned land, no debt on primary growing infrastructure",
+        "Diversified crop rotation (40+ varieties) reduces single-crop risk",
+        "Strong social media presence with authentic farm content (8,200 followers)"
+      ],
+      "weaknesses": [
+        "Limited cold chain infrastructure for scaling delivery radius",
+        "Single production site creates concentration risk",
+        "No formal food safety certification (GAP/GHP) limits institutional sales",
+        "Small team with no dedicated sales or marketing hire",
+        "Seasonal revenue concentration (65% of revenue in May-September)"
+      ],
+      "opportunities": [
+        "Nashville restaurant market (3,800+ restaurants, growing 9% annually)",
+        "Hospital and school district food service contracts (institutional channel)",
+        "Agritourism and farm experiences ($950M industry in Tennessee)",
+        "Value-added products (sauces, pickled goods, dried herbs) for year-round revenue",
+        "USDA Organic certification opens premium wholesale channel"
+      ],
+      "threats": [
+        "Severe weather events (ice storms, drought) can destroy a season's production",
+        "Labor availability in rural Tennessee increasingly competitive",
+        "Large-scale organic competitors entering the Southeast regional market",
+        "Rising input costs (seeds, soil amendments, fuel) compressing margins",
+        "Zoning and land use changes in rapidly developing Putnam County"
+      ]
+    }
+  },
+  "strategy": {
+    "positioning": "Growers Solution will be the Upper Cumberland region's premier year-round market garden, differentiated by hyper-local production (harvested and delivered same day), transparent growing practices, and deep restaurant relationships. We compete not on price against grocery chains, but on freshness, variety, and the economic value of keeping food dollars circulating in the local economy.",
+    "pillars": [
+      "Year-Round Production Excellence",
+      "Restaurant & Institutional Channel Development",
+      "Direct-to-Consumer Community Building",
+      "Operational Scalability & Infrastructure",
+      "Brand & Market Position Strengthening"
+    ],
+    "pillar_details": [
+      {
+        "name": "Year-Round Production Excellence",
+        "description": "Maximize growing season through high tunnel expansion, succession planting optimization, and winter crop specialization. Target 48-week production calendar by end of Year 2.",
+        "initiatives": [
+          "Add 2 additional high tunnels (30x96 each) for winter greens and early spring starts",
+          "Implement IoT soil monitoring for precision irrigation and fertilization",
+          "Develop winter crop specialization: microgreens, cold-hardy greens, root vegetables",
+          "Establish seed-starting greenhouse to reduce dependency on external transplant suppliers"
+        ]
+      },
+      {
+        "name": "Restaurant & Institutional Channel Development",
+        "description": "Grow from 12 to 35 active restaurant accounts and secure 3 institutional contracts (hospital, school, corporate cafeteria) within 18 months.",
+        "initiatives": [
+          "Hire part-time restaurant sales liaison (Nashville-focused)",
+          "Obtain GAP (Good Agricultural Practices) certification for institutional eligibility",
+          "Launch chef partnership program: seasonal menu collaboration with top 5 accounts",
+          "Develop reliable Tuesday/Friday delivery route Nashville corridor"
+        ]
+      },
+      {
+        "name": "Direct-to-Consumer Community Building",
+        "description": "Build a subscription-based farm share program with 200+ members and launch an on-farm market/agritourism experience generating $60K+ in supplemental revenue.",
+        "initiatives": [
+          "Launch customizable weekly farm box subscription (not traditional CSA -- customer picks contents)",
+          "Build on-farm market stand with Saturday hours and U-pick experiences",
+          "Expand social media to 25,000 followers with weekly farm update content",
+          "Host quarterly farm dinners and seasonal workshops"
+        ]
+      },
+      {
+        "name": "Operational Scalability & Infrastructure",
+        "description": "Invest in cold chain, logistics, and systems to support 3x revenue growth without proportional headcount increase.",
+        "initiatives": [
+          "Install walk-in cooler and packing station for post-harvest handling",
+          "Purchase refrigerated delivery van for Nashville corridor",
+          "Implement farm management software for crop planning, inventory, and order management",
+          "Develop standard operating procedures for all critical growing and harvesting operations"
+        ]
+      },
+      {
+        "name": "Brand & Market Position Strengthening",
+        "description": "Establish Growers Solution as a recognized regional brand that commands premium pricing and generates inbound demand from both consumers and chefs.",
+        "initiatives": [
+          "Pursue USDA Organic certification for premium positioning",
+          "Develop professional brand identity and packaging",
+          "Launch content marketing program: farm blog, recipe partnerships, local media features",
+          "Apply for Tennessee Agricultural Enhancement Program and USDA beginning farmer grants"
+        ]
+      }
+    ],
+    "differentiators": [
+      "Same-day harvest-to-delivery: produce is in the restaurant kitchen within 6 hours of being picked",
+      "40+ crop variety rotation means chefs get seasonal variety no distributor can match",
+      "Transparent growing practices: customers can visit the farm any time, no appointment needed",
+      "Owner-operated with personal relationships at every account",
+      "Year-round production in a market where most local farms shut down November through March"
+    ],
+    "risks": [
+      {
+        "name": "Severe Weather / Crop Loss",
+        "likelihood": "medium",
+        "impact": "critical",
+        "mitigation": "Diversified crop rotation across multiple growing structures, crop insurance for high tunnels, 60-day operating reserve fund, relationships with partner farms for emergency sourcing"
+      },
+      {
+        "name": "Key Person Risk",
+        "likelihood": "low",
+        "impact": "high",
+        "mitigation": "Document all SOPs, cross-train family team members on critical operations, establish relationships with experienced farm managers in region for emergency coverage"
+      },
+      {
+        "name": "Nashville Market Saturation",
+        "likelihood": "medium",
+        "impact": "medium",
+        "mitigation": "Focus on exclusive chef relationships rather than commodity sales, differentiate on variety and reliability rather than price, develop institutional channel as hedge"
+      },
+      {
+        "name": "Input Cost Inflation",
+        "likelihood": "high",
+        "impact": "medium",
+        "mitigation": "On-farm composting program reduces purchased amendment costs, seed saving for open-pollinated varieties, bulk purchasing co-op with neighboring farms"
+      },
+      {
+        "name": "Regulatory / Zoning Changes",
+        "likelihood": "low",
+        "impact": "high",
+        "mitigation": "Active participation in Putnam County agricultural advisory board, maintain Right to Farm Act protections, agricultural zoning documentation current"
+      }
+    ],
+    "value_proposition": "Growers Solution delivers the freshest, most diverse locally-grown produce in Middle Tennessee -- harvested the same morning it arrives at your kitchen, grown transparently on a family farm you can visit any day of the week, available 48 weeks a year when every other local farm is closed for winter."
+  },
+  "execution": {
+    "phases": [
+      {
+        "name": "Phase 1: Foundation & Certification",
+        "duration_weeks": 12,
+        "deliverables": [
+          "GAP certification application submitted and audit scheduled",
+          "Farm management software selected and implemented",
+          "Walk-in cooler installed and operational",
+          "SOPs documented for top 10 critical operations",
+          "Part-time sales liaison hired"
+        ],
+        "owner": "Operations Lead",
+        "budget_allocation": 35000
+      },
+      {
+        "name": "Phase 2: Channel Expansion",
+        "duration_weeks": 16,
+        "deliverables": [
+          "10 new restaurant accounts onboarded (total: 22)",
+          "Nashville delivery route established (Tuesday/Friday)",
+          "Farm box subscription launched with 50 founding members",
+          "Chef partnership program launched with 3 anchor restaurants",
+          "First institutional RFP submitted"
+        ],
+        "owner": "Sales Liaison",
+        "dependencies": ["Phase 1: GAP certification progress required for institutional channel"],
+        "budget_allocation": 42000
+      },
+      {
+        "name": "Phase 3: Infrastructure Scale-Up",
+        "duration_weeks": 20,
+        "deliverables": [
+          "2 new high tunnels constructed and planted",
+          "Refrigerated delivery van acquired and route-optimized",
+          "On-farm market stand built and open for Saturday hours",
+          "IoT soil monitoring deployed across all growing structures",
+          "Packing station buildout complete"
+        ],
+        "owner": "Operations Lead",
+        "dependencies": ["Phase 2: Revenue validation before major CAPEX"],
+        "budget_allocation": 58000
+      },
+      {
+        "name": "Phase 4: Brand & Market Position",
+        "duration_weeks": 12,
+        "deliverables": [
+          "USDA Organic certification application submitted",
+          "Professional brand identity and packaging launched",
+          "Content marketing program producing weekly content",
+          "Farm dinner series launched (first 2 events complete)",
+          "USDA grant application submitted"
+        ],
+        "owner": "Marketing Lead",
+        "budget_allocation": 15000
+      }
+    ],
+    "budget": 150000,
+    "budget_label": "$150,000",
+    "budget_breakdown": [
+      {"category": "Infrastructure (cooler, tunnels, packing station)", "amount": 62000, "notes": "Walk-in cooler: $12K, 2 high tunnels: $38K, packing station: $12K"},
+      {"category": "Equipment (delivery van, IoT sensors)", "amount": 38000, "notes": "Used refrigerated van: $32K, IoT system: $6K"},
+      {"category": "Personnel (part-time sales, seasonal labor)", "amount": 28000, "notes": "Sales liaison 20hrs/wk x 12mo, seasonal harvest help"},
+      {"category": "Certification & Compliance (GAP, Organic)", "amount": 8000, "notes": "GAP audit: $3K, Organic application + transition costs: $5K"},
+      {"category": "Marketing & Brand (identity, content, events)", "amount": 9000, "notes": "Brand design: $4K, farm dinner startup: $3K, content tools: $2K"},
+      {"category": "Contingency Reserve (10%)", "amount": 5000, "notes": "Unforeseen costs, weather recovery, supply chain disruptions"}
+    ],
+    "critical_path": [
+      "Walk-in cooler installation gates all Nashville delivery expansion",
+      "GAP certification gates all institutional sales",
+      "Sales liaison hire gates restaurant channel growth rate",
+      "High tunnel construction must complete before October for winter crop planting"
+    ]
+  },
+  "kpis": [
+    {
+      "name": "Monthly Revenue",
+      "target": "$35,000/month (annualized $420K)",
+      "baseline": "$20,000/month ($240K annualized)",
+      "measurement_cadence": "monthly",
+      "owner": "Operations Lead",
+      "data_source": "Farm management software sales reports"
+    },
+    {
+      "name": "Active Restaurant Accounts",
+      "target": "35 accounts",
+      "baseline": "12 accounts",
+      "measurement_cadence": "monthly",
+      "owner": "Sales Liaison",
+      "data_source": "CRM / order system"
+    },
+    {
+      "name": "Farm Box Subscribers",
+      "target": "200 active subscribers",
+      "baseline": "0 (program not yet launched)",
+      "measurement_cadence": "weekly",
+      "owner": "Marketing Lead",
+      "data_source": "Subscription platform"
+    },
+    {
+      "name": "Crop Yield per Square Foot",
+      "target": "$8.50/sq ft annually",
+      "baseline": "$6.20/sq ft annually",
+      "measurement_cadence": "quarterly",
+      "owner": "Operations Lead",
+      "data_source": "Harvest logs + revenue per bed"
+    },
+    {
+      "name": "Customer Retention Rate",
+      "target": "85% (restaurant) / 70% (subscription)",
+      "baseline": "78% (restaurant) / N/A (subscription)",
+      "measurement_cadence": "quarterly",
+      "owner": "Sales Liaison",
+      "data_source": "Order history analysis"
+    },
+    {
+      "name": "Delivery Route Efficiency",
+      "target": "$450 revenue per delivery run",
+      "baseline": "$280 revenue per delivery run",
+      "measurement_cadence": "weekly",
+      "owner": "Operations Lead",
+      "data_source": "Route logs + delivery invoices"
+    },
+    {
+      "name": "Production Weeks per Year",
+      "target": "48 weeks",
+      "baseline": "36 weeks",
+      "measurement_cadence": "quarterly",
+      "owner": "Operations Lead",
+      "data_source": "Harvest calendar"
+    },
+    {
+      "name": "Social Media Following",
+      "target": "25,000 followers (all platforms)",
+      "baseline": "8,200 followers",
+      "measurement_cadence": "monthly",
+      "owner": "Marketing Lead",
+      "data_source": "Platform analytics"
+    }
+  ]
+}

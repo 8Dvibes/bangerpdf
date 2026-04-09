@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Execution Roadmap -- {{ client.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<p class="section-num">Section 4</p>
+<div class="doc-header">
+  <h1>Execution Roadmap</h1>
+  <p class="subtitle">Phase Timeline, Deliverables &amp; Budget Allocation</p>
+</div>
+
+<h2>Phase Overview</h2>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-value">{{ execution.phases | length }}</div>
+    <div class="stat-label">Execution Phases</div>
+  </div>
+  <div class="stat-card accent">
+    <div class="stat-value">{{ execution.phases | sum(attribute='duration_weeks') }} wks</div>
+    <div class="stat-label">Total Duration</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ execution.budget_label | default("$" ~ "{:,}".format(execution.budget)) }}</div>
+    <div class="stat-label">Total Budget</div>
+  </div>
+</div>
+
+<h2>Execution Timeline</h2>
+
+<div class="timeline">
+  {% set phase_colors = ['phase-1', 'phase-2', 'phase-3', 'phase-4'] %}
+  {% for phase in execution.phases %}
+  <div class="timeline-phase">
+    <div class="timeline-label">
+      <span class="phase-name">{{ phase.name }}</span>
+      <span class="phase-duration">{{ phase.duration_weeks }} weeks{% if phase.owner %} &bull; {{ phase.owner }}{% endif %}</span>
+    </div>
+    <div class="timeline-bar {{ phase_colors[loop.index0 % 4] }}">
+      <ul>
+        {% for deliverable in phase.deliverables %}
+        <li>{{ deliverable }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if execution.critical_path %}
+<div class="callout">
+  <p class="callout-label">Critical Path Items</p>
+  <ul style="margin: 0;">
+    {% for item in execution.critical_path %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="page-break"></div>
+
+<h2>Phase Details</h2>
+
+{% for phase in execution.phases %}
+<div class="avoid-break" style="margin-bottom: 12pt;">
+  <h3>{{ phase.name }}</h3>
+
+  <table>
+    <tr>
+      <td style="width: 25%; border: none; padding: 4pt 8pt;">
+        <span class="text-small text-muted">Duration</span><br>
+        <strong>{{ phase.duration_weeks }} weeks</strong>
+      </td>
+      {% if phase.owner %}
+      <td style="width: 25%; border: none; padding: 4pt 8pt;">
+        <span class="text-small text-muted">Owner</span><br>
+        <strong>{{ phase.owner }}</strong>
+      </td>
+      {% endif %}
+      {% if phase.budget_allocation %}
+      <td style="width: 25%; border: none; padding: 4pt 8pt;">
+        <span class="text-small text-muted">Budget</span><br>
+        <strong>${{ "{:,}".format(phase.budget_allocation) }}</strong>
+      </td>
+      {% endif %}
+    </tr>
+  </table>
+
+  <h4>Deliverables</h4>
+  <ol>
+    {% for deliverable in phase.deliverables %}
+    <li>{{ deliverable }}</li>
+    {% endfor %}
+  </ol>
+
+  {% if phase.dependencies %}
+  <p class="text-small text-muted"><strong>Dependencies:</strong> {{ phase.dependencies | join("; ") }}</p>
+  {% endif %}
+</div>
+{% endfor %}
+
+{% if execution.budget_breakdown %}
+<div class="page-break"></div>
+
+<h2>Budget Allocation</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th class="amount">Amount</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in execution.budget_breakdown %}
+    <tr>
+      <td><strong>{{ item.category }}</strong></td>
+      <td class="amount">${{ "{:,}".format(item.amount) }}</td>
+      <td class="text-small">{{ item.notes | default("") }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="table-total">
+      <td><strong>TOTAL</strong></td>
+      <td class="amount budget-total">${{ "{:,}".format(execution.budget) }}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
+<div class="doc-footer">
+  {{ meta.planner }} &bull; {{ client.name }} Strategic Growth Plan &bull; {{ meta.plan_date }}
+</div>
+
+</body>
+</html>

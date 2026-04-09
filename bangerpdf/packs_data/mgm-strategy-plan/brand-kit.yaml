@@ -1,0 +1,31 @@
+name: Dope Consulting Strategy Plan
+description: >-
+  Professional consulting palette with deep blue primary and green accent.
+  Designed for strategic business plans, market analysis reports, and
+  executive-facing documents.
+
+colors:
+  primary: "#1F4E79"
+  secondary: "#2E75B6"
+  accent: "#70AD47"
+  neutral-dark: "#1f2937"
+  neutral-mid: "#64748b"
+  neutral-light: "#f1f5f9"
+  neutral-border: "#e2e8f0"
+  neutral-border-dark: "#cbd5e1"
+  surface: "#f8fafc"
+  warning-bg: "#fef3c7"
+  warning-text: "#92400e"
+  warning-border: "#d97706"
+  success: "#70AD47"
+  danger: "#E74C3C"
+  info: "#3498DB"
+
+typography:
+  font_family: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  font_size_base: "10pt"
+  line_height: 1.5
+
+page:
+  size: Letter
+  margin: "0.75in 0.85in 0.85in 0.85in"

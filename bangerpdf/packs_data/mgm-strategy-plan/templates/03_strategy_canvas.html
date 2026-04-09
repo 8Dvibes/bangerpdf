@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Strategy Canvas -- {{ client.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<p class="section-num">Section 3</p>
+<div class="doc-header">
+  <h1>Strategy Canvas</h1>
+  <p class="subtitle">Strategic Pillars, Differentiation &amp; Risk Assessment</p>
+</div>
+
+<h2>Strategic Positioning</h2>
+
+<div class="callout highlight">
+  <p style="margin: 0; font-size: 10pt;">{{ strategy.positioning }}</p>
+</div>
+
+{% if strategy.value_proposition %}
+<h3>Core Value Proposition</h3>
+<p>{{ strategy.value_proposition }}</p>
+{% endif %}
+
+<h2>Strategic Pillars</h2>
+
+{% if strategy.pillar_details %}
+  {% for pillar in strategy.pillar_details %}
+  <div class="pillar-card">
+    <h3>Pillar {{ loop.index }}: {{ pillar.name }}</h3>
+    <p>{{ pillar.description }}</p>
+    {% if pillar.initiatives %}
+    <h4>Key Initiatives</h4>
+    <ul>
+      {% for initiative in pillar.initiatives %}
+      <li>{{ initiative }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+{% else %}
+  {% for pillar in strategy.pillars %}
+  <div class="pillar-card">
+    <h3>Pillar {{ loop.index }}: {{ pillar }}</h3>
+  </div>
+  {% endfor %}
+{% endif %}
+
+<div class="page-break"></div>
+
+<h2>Competitive Differentiators</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">#</th>
+      <th>Differentiator</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for diff in strategy.differentiators %}
+    <tr>
+      <td><strong>{{ loop.index }}</strong></td>
+      <td>{{ diff }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Risk Assessment</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Risk</th>
+      <th style="text-align: center;">Likelihood</th>
+      <th style="text-align: center;">Impact</th>
+      <th>Mitigation Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for risk in strategy.risks %}
+    <tr>
+      <td><strong>{{ risk.name }}</strong></td>
+      <td style="text-align: center;">
+        <span class="risk-badge {{ risk.likelihood }}">{{ risk.likelihood }}</span>
+      </td>
+      <td style="text-align: center;">
+        <span class="risk-badge {{ risk.impact }}">{{ risk.impact }}</span>
+      </td>
+      <td>{{ risk.mitigation }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="callout">
+  <p class="callout-label">Risk Management Approach</p>
+  <p style="margin: 0;">The risk register above identifies {{ strategy.risks | length }} key risks with mitigation strategies for each. Risks rated "high" or "critical" on either likelihood or impact receive priority attention during execution, with monthly review cadence. The mitigation strategies are designed to be actionable within existing operational capacity and budget constraints.</p>
+</div>
+
+<div class="doc-footer">
+  {{ meta.planner }} &bull; {{ client.name }} Strategic Growth Plan &bull; {{ meta.plan_date }}
+</div>
+
+</body>
+</html>

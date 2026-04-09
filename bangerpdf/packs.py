@@ -133,6 +133,12 @@ def init_pack(
     # Copy the entire pack directory
     shutil.copytree(str(pack.path), str(target))
 
+    # Rename sample-data.json → data.json so the render engine finds it
+    sample_data = target / "sample-data.json"
+    data_json = target / "data.json"
+    if sample_data.exists() and not data_json.exists():
+        sample_data.rename(data_json)
+
     # Apply brand overrides if provided
     if brand_overrides:
         brand_yaml_path = target / "brand-kit.yaml"

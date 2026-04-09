@@ -1,0 +1,24 @@
+name: mgm-strategy-plan
+description: >-
+  Schema-driven 25-40 page strategic business plan with executive summary,
+  market analysis, strategy canvas, execution roadmap, and KPI dashboard.
+  Designed as a public API for agentic workflows: any system that produces
+  valid data.json against the schema can render a professional strategy plan.
+version: "1.0"
+documents:
+  - name: 01_Executive_Summary
+    template: templates/01_exec_summary.html
+    expected_pages: 3
+  - name: 02_Market_Analysis
+    template: templates/02_market_analysis.html
+    expected_pages: 5
+  - name: 03_Strategy_Canvas
+    template: templates/03_strategy_canvas.html
+    expected_pages: 4
+  - name: 04_Execution_Roadmap
+    template: templates/04_execution_roadmap.html
+    expected_pages: 5
+  - name: 05_KPI_Dashboard
+    template: templates/05_kpi_dashboard.html
+    expected_pages: 3
+default_tier: desktop

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Executive Summary -- {{ client.name }} Strategy Plan</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<!-- Cover Page -->
+<div class="cover-page">
+  {% if client.logo %}
+  <img src="{{ client.logo }}" alt="{{ client.name }}" style="width: 120pt; margin: 0 auto 24pt auto;">
+  {% endif %}
+
+  <h1 class="cover-title">Strategic Growth Plan</h1>
+  <div class="cover-divider"></div>
+  <p class="cover-client">{{ client.name }}</p>
+  <p class="cover-subtitle">{{ client.industry }}</p>
+
+  <div class="cover-meta">
+    Prepared by <strong>{{ meta.planner }}</strong><br>
+    {{ meta.plan_date }}<br>
+    Version {{ meta.version }}<br>
+    {% if meta.confidentiality %}
+    <br><em>{{ meta.confidentiality }}</em>
+    {% endif %}
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Table of Contents -->
+<div class="doc-header">
+  <h1>Table of Contents</h1>
+</div>
+
+<div class="toc">
+  <p class="toc-section">Section 1</p>
+  <div class="toc-entry">
+    <span class="toc-title">Executive Summary</span>
+    <span class="toc-page">This document</span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Company Overview</span>
+    <span class="toc-page"></span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Strategic Positioning</span>
+    <span class="toc-page"></span>
+  </div>
+
+  <p class="toc-section">Section 2</p>
+  <div class="toc-entry">
+    <span class="toc-title">Market Analysis</span>
+    <span class="toc-page">02_market_analysis</span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Market Sizing (TAM / SAM / SOM)</span>
+    <span class="toc-page"></span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Competitive Landscape</span>
+    <span class="toc-page"></span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">SWOT Analysis</span>
+    <span class="toc-page"></span>
+  </div>
+
+  <p class="toc-section">Section 3</p>
+  <div class="toc-entry">
+    <span class="toc-title">Strategy Canvas</span>
+    <span class="toc-page">03_strategy_canvas</span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Strategic Pillars</span>
+    <span class="toc-page"></span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Risk Assessment</span>
+    <span class="toc-page"></span>
+  </div>
+
+  <p class="toc-section">Section 4</p>
+  <div class="toc-entry">
+    <span class="toc-title">Execution Roadmap</span>
+    <span class="toc-page">04_execution_roadmap</span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Phase Timeline</span>
+    <span class="toc-page"></span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Budget Allocation</span>
+    <span class="toc-page"></span>
+  </div>
+
+  <p class="toc-section">Section 5</p>
+  <div class="toc-entry">
+    <span class="toc-title">KPI Dashboard</span>
+    <span class="toc-page">05_kpi_dashboard</span>
+  </div>
+  <div class="toc-entry">
+    <span class="toc-title">Performance Targets</span>
+    <span class="toc-page"></span>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Executive Summary Content -->
+<p class="section-num">Section 1</p>
+<div class="doc-header">
+  <h1>Executive Summary</h1>
+  <p class="subtitle">{{ client.name }} -- {{ client.industry }}</p>
+  <p class="meta-line">Prepared {{ meta.plan_date }} by {{ meta.planner }} &bull; Version {{ meta.version }}</p>
+</div>
+
+<h2>Company Overview</h2>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-value">{{ client.arr_label | default("N/A") }}</div>
+    <div class="stat-label">Annual Revenue</div>
+  </div>
+  <div class="stat-card accent">
+    <div class="stat-value">{{ client.stage | title }}</div>
+    <div class="stat-label">Business Stage</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ client.team_size | default("--") }}</div>
+    <div class="stat-label">Team Size</div>
+  </div>
+  {% if client.founded %}
+  <div class="stat-card">
+    <div class="stat-value">{{ client.founded }}</div>
+    <div class="stat-label">Founded</div>
+  </div>
+  {% endif %}
+</div>
+
+{% if client.mission %}
+<div class="callout accent">
+  <p class="callout-label">Mission</p>
+  <p style="margin: 0;">{{ client.mission }}</p>
+</div>
+{% endif %}
+
+<p><strong>{{ client.name }}</strong> operates in the <strong>{{ client.industry }}</strong> sector{% if client.location %}, based in {{ client.location }}{% endif %}. This strategic plan outlines a comprehensive growth strategy designed to capitalize on market opportunity, strengthen competitive positioning, and establish sustainable operational infrastructure for the next 12-18 months.</p>
+
+<h2>Strategic Positioning</h2>
+
+<p>{{ strategy.positioning }}</p>
+
+{% if strategy.value_proposition %}
+<div class="callout highlight">
+  <p class="callout-label">Value Proposition</p>
+  <p style="margin: 0;">{{ strategy.value_proposition }}</p>
+</div>
+{% endif %}
+
+<h2>Strategic Pillars</h2>
+
+<ol>
+  {% for pillar in strategy.pillars %}
+  <li><strong>{{ pillar }}</strong></li>
+  {% endfor %}
+</ol>
+
+<h2>Key Differentiators</h2>
+
+<ul>
+  {% for diff in strategy.differentiators %}
+  <li>{{ diff }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Investment Summary</h2>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-value">{{ execution.budget_label | default("$" ~ "{:,}".format(execution.budget)) }}</div>
+    <div class="stat-label">Total Budget</div>
+  </div>
+  <div class="stat-card accent">
+    <div class="stat-value">{{ execution.phases | length }} Phases</div>
+    <div class="stat-label">Execution Plan</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ kpis | length }}</div>
+    <div class="stat-label">Tracked KPIs</div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  {{ meta.planner }} &bull; {{ client.name }} Strategic Growth Plan &bull; {{ meta.plan_date }}
+</div>
+
+</body>
+</html>

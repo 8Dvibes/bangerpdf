@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KPI Dashboard -- {{ client.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<p class="section-num">Section 5</p>
+<div class="doc-header">
+  <h1>KPI Dashboard</h1>
+  <p class="subtitle">Performance Targets, Baselines &amp; Measurement Cadence</p>
+</div>
+
+<h2>Performance Overview</h2>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-value">{{ kpis | length }}</div>
+    <div class="stat-label">Tracked KPIs</div>
+  </div>
+  <div class="stat-card accent">
+    <div class="stat-value">{{ kpis | selectattr("measurement_cadence", "equalto", "weekly") | list | length + kpis | selectattr("measurement_cadence", "equalto", "daily") | list | length }}</div>
+    <div class="stat-label">Weekly+ Cadence</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ kpis | selectattr("measurement_cadence", "equalto", "monthly") | list | length }}</div>
+    <div class="stat-label">Monthly Cadence</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ kpis | selectattr("measurement_cadence", "equalto", "quarterly") | list | length }}</div>
+    <div class="stat-label">Quarterly Cadence</div>
+  </div>
+</div>
+
+<h2>KPI Scorecard</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>KPI</th>
+      <th>Baseline</th>
+      <th>Target</th>
+      <th style="text-align: center;">Cadence</th>
+      {% if kpis[0].owner is defined %}
+      <th>Owner</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for kpi in kpis %}
+    <tr>
+      <td><strong>{{ kpi.name }}</strong></td>
+      <td>{{ kpi.baseline }}</td>
+      <td><strong>{{ kpi.target }}</strong></td>
+      <td style="text-align: center;">
+        <span class="risk-badge {% if kpi.measurement_cadence == 'daily' or kpi.measurement_cadence == 'weekly' %}high{% elif kpi.measurement_cadence == 'monthly' %}medium{% else %}low{% endif %}">
+          {{ kpi.measurement_cadence }}
+        </span>
+      </td>
+      {% if kpi.owner is defined %}
+      <td>{{ kpi.owner }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>KPI Detail Cards</h2>
+
+{% for kpi in kpis %}
+<div class="kpi-card">
+  <div class="kpi-name">{{ kpi.name }}</div>
+  <div class="kpi-values">
+    <div class="kpi-metric">
+      <span class="metric-label">Baseline</span>
+      <strong>{{ kpi.baseline }}</strong>
+    </div>
+    <div class="kpi-metric">
+      <span class="metric-label">Target</span>
+      <strong style="color: var(--accent);">{{ kpi.target }}</strong>
+    </div>
+    <div class="kpi-metric">
+      <span class="metric-label">Cadence</span>
+      <strong>{{ kpi.measurement_cadence | title }}</strong>
+    </div>
+    {% if kpi.owner %}
+    <div class="kpi-metric">
+      <span class="metric-label">Owner</span>
+      <strong>{{ kpi.owner }}</strong>
+    </div>
+    {% endif %}
+  </div>
+  {% if kpi.data_source %}
+  <p class="text-small text-muted" style="margin-top: 4pt;">Data source: {{ kpi.data_source }}</p>
+  {% endif %}
+</div>
+{% endfor %}
+
+<div class="page-break"></div>
+
+<h2>Measurement Framework</h2>
+
+<div class="callout accent">
+  <p class="callout-label">Review Cadence</p>
+  <p style="margin: 0;">KPIs are reviewed on the following schedule:</p>
+  <ul style="margin: 4pt 0 0 0;">
+    <li><strong>Daily/Weekly KPIs:</strong> Reviewed in weekly operations standup</li>
+    <li><strong>Monthly KPIs:</strong> Reviewed in monthly strategy check-in with full team</li>
+    <li><strong>Quarterly KPIs:</strong> Reviewed in quarterly board/advisory meeting with plan adjustment authority</li>
+  </ul>
+</div>
+
+<h3>Escalation Protocol</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Condition</th>
+      <th>Action</th>
+      <th>Timeline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>KPI trending 10%+ below target for 2+ measurement periods</td>
+      <td>Root cause analysis and corrective action plan</td>
+      <td>Within 1 week of identification</td>
+    </tr>
+    <tr>
+      <td>KPI trending 25%+ below target for 1+ measurement period</td>
+      <td>Escalate to strategy owner; evaluate pillar adjustment</td>
+      <td>Within 48 hours of identification</td>
+    </tr>
+    <tr>
+      <td>3+ KPIs simultaneously below target</td>
+      <td>Full strategy review and potential plan pivot</td>
+      <td>Emergency strategy session within 1 week</td>
+    </tr>
+    <tr>
+      <td>KPI exceeding target by 25%+</td>
+      <td>Evaluate acceleration opportunity; reallocate budget</td>
+      <td>Next scheduled review</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Next Steps</h2>
+
+<div class="callout highlight">
+  <p class="callout-label">Implementation Kickoff</p>
+  <p style="margin: 0;">This strategic plan is designed to be executed immediately upon approval. The recommended next steps are:</p>
+  <ol style="margin: 4pt 0 0 0;">
+    <li>Approve final plan and budget allocation</li>
+    <li>Assign phase owners and establish weekly review cadence</li>
+    <li>Begin Phase 1 deliverables within the first week</li>
+    <li>Set up KPI tracking dashboards in the designated data sources</li>
+    <li>Schedule first monthly strategy check-in for 30 days from kickoff</li>
+  </ol>
+</div>
+
+<div class="doc-footer">
+  {{ meta.planner }} &bull; {{ client.name }} Strategic Growth Plan &bull; {{ meta.plan_date }}
+</div>
+
+</body>
+</html>

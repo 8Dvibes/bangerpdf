@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Market Analysis -- {{ client.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<p class="section-num">Section 2</p>
+<div class="doc-header">
+  <h1>Market Analysis</h1>
+  <p class="subtitle">{{ client.industry }} -- Competitive Landscape &amp; Opportunity Assessment</p>
+</div>
+
+<h2>Market Sizing</h2>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-value">{{ market.tam_label | default("$" ~ "{:,.0f}".format(market.tam)) }}</div>
+    <div class="stat-label">Total Addressable Market (TAM)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">{{ market.sam_label | default("$" ~ "{:,.0f}".format(market.sam)) }}</div>
+    <div class="stat-label">Serviceable Addressable Market (SAM)</div>
+  </div>
+  <div class="stat-card accent">
+    <div class="stat-value">{{ market.som_label | default("$" ~ "{:,.0f}".format(market.som)) }}</div>
+    <div class="stat-label">Serviceable Obtainable Market (SOM)</div>
+  </div>
+</div>
+
+<div class="callout">
+  <p class="callout-label">Market Opportunity</p>
+  <p style="margin: 0;">The total addressable market of {{ market.tam_label | default("$" ~ "{:,.0f}".format(market.tam)) }} narrows to a serviceable obtainable market of {{ market.som_label | default("$" ~ "{:,.0f}".format(market.som)) }} based on {{ client.name }}'s current geographic reach, channel capabilities, and operational capacity. This represents the realistic revenue opportunity over the planning horizon.</p>
+</div>
+
+<h2>Market Trends</h2>
+
+<ol>
+  {% for trend in market.trends %}
+  <li>{{ trend }}</li>
+  {% endfor %}
+</ol>
+
+<h2>Competitive Landscape</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Competitor</th>
+      <th>Strength</th>
+      <th>Weakness</th>
+      <th style="text-align: center;">Threat</th>
+      {% if market.competitors[0].market_share is defined %}
+      <th style="text-align: right;">Share</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for comp in market.competitors %}
+    <tr>
+      <td><strong>{{ comp.name }}</strong></td>
+      <td>{{ comp.strength }}</td>
+      <td>{{ comp.weakness }}</td>
+      <td style="text-align: center;">
+        <span class="risk-badge {{ comp.threat_level }}">{{ comp.threat_level }}</span>
+      </td>
+      {% if comp.market_share is defined %}
+      <td style="text-align: right;">{{ comp.market_share }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if market.swot %}
+<div class="page-break"></div>
+
+<h2>SWOT Analysis</h2>
+
+<div class="swot-grid">
+  <div class="swot-cell swot-strengths">
+    <h4>Strengths</h4>
+    <ul>
+      {% for item in market.swot.strengths %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="swot-cell swot-weaknesses">
+    <h4>Weaknesses</h4>
+    <ul>
+      {% for item in market.swot.weaknesses %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="swot-cell swot-opportunities">
+    <h4>Opportunities</h4>
+    <ul>
+      {% for item in market.swot.opportunities %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="swot-cell swot-threats">
+    <h4>Threats</h4>
+    <ul>
+      {% for item in market.swot.threats %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+<h2>Key Implications for Strategy</h2>
+
+<div class="callout accent">
+  <p style="margin: 0;">The market analysis reveals a meaningful window of opportunity for {{ client.name }}. The combination of favorable macro trends, identifiable competitor weaknesses, and a serviceable market of {{ market.som_label | default("$" ~ "{:,.0f}".format(market.som)) }} supports the strategic pillars outlined in Section 3. The primary competitive advantage lies in areas where incumbents are structurally unable to compete -- specifically, the attributes that require local presence, operational agility, and direct customer relationships.</p>
+</div>
+
+<div class="doc-footer">
+  {{ meta.planner }} &bull; {{ client.name }} Strategic Growth Plan &bull; {{ meta.plan_date }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bid Proposal -- {{ project.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="letterhead">
+  {% if bidder.logo %}
+  <img src="{{ bidder.logo }}" alt="{{ bidder.name }}" class="letterhead-logo">
+  {% endif %}
+  <div class="letterhead-meta">
+    <p class="meta-name">Bid Proposal &amp; Schedule of Values</p>
+    <p class="meta-tagline">{{ project.name }} &middot; {{ project.site_address }}</p>
+    Bid Date: <strong>{{ meta.bid_date }}</strong><br>
+    Validity: <strong>{{ meta.bid_validity_days }} days</strong><br>
+    Document version: {{ meta.version }}<br>
+    License {{ bidder.license }}
+  </div>
+</div>
+
+<div class="title-bar">
+  <h1>{{ project.name }}</h1>
+  <p class="subtitle">Subcontractor Proposal  &bull;  {{ project.site_address }}</p>
+</div>
+
+<table style="margin-top: 4pt;">
+  <tr>
+    <td style="width: 50%; padding: 6pt 8pt;">
+      <p style="margin: 0; font-size: 8pt; text-transform: uppercase; color: var(--neutral-mid); letter-spacing: 0.5pt;">Submitted To</p>
+      <p style="margin: 2pt 0 0 0;"><strong>{{ project.gc }}</strong></p>
+      <p style="margin: 0;">{{ project.gc_attn_primary }}</p>
+      {% if project.gc_attn_secondary %}
+      <p style="margin: 0;">{{ project.gc_attn_secondary }}</p>
+      {% endif %}
+      <p style="margin: 0; color: var(--neutral-mid);">{{ project.gc_location | default("") }}</p>
+    </td>
+    <td style="width: 50%; padding: 6pt 8pt;">
+      <p style="margin: 0; font-size: 8pt; text-transform: uppercase; color: var(--neutral-mid); letter-spacing: 0.5pt;">Submitted By</p>
+      <p style="margin: 2pt 0 0 0;"><strong>{{ bidder.name }}</strong></p>
+      <p style="margin: 0;">{{ bidder.owner }}, Owner</p>
+      <p style="margin: 0;">{{ bidder.address_line }}</p>
+      <p style="margin: 0; color: var(--neutral-mid);">{{ bidder.phone }}  &bull;  {{ bidder.email }}</p>
+      <p style="margin: 0; color: var(--neutral-mid);">License: {{ bidder.license }}{% if bidder.monetary_limit %}  &bull;  Limit: {{ bidder.monetary_limit }}{% endif %}</p>
+    </td>
+  </tr>
+</table>
+
+<div class="headline-number">
+  <div class="label">Total Base Bid</div>
+  <div class="amount">{{ bid.headline_label }}</div>
+  <div class="sub">Detailed estimate against issued plans, full scope, visible risk loading. Valid {{ meta.bid_validity_days }} days from {{ meta.bid_date }}.</div>
+</div>
+
+<h2>Project Description</h2>
+
+<p>Subcontractor scope of work for a new <strong>{{ "{:,}".format(project.building_size_sf) }} SF {{ project.building_type }}</strong> for {{ project.owner_dba | default(project.gc) }}{% if project.owner_legal %} (legally {{ project.owner_legal }}){% endif %} at {{ project.site_address }}.{% if project.site_description %} Site is {{ project.site_description }}.{% endif %}{% if project.layout %} The building program is <strong>{{ project.layout }}</strong>.{% endif %}</p>
+
+<h2 class="section-divider">Schedule of Values</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th class="amount">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for section in schedule_of_values %}
+    <tr class="sov-section-row"><td colspan="2">{{ section.section }}</td></tr>
+      {% for item in section.lines %}
+      <tr>
+        <td>{{ item.desc }}</td>
+        <td class="amount">${{ "{:,}".format(item.amount) }}</td>
+      </tr>
+      {% endfor %}
+      <tr class="sov-subtotal">
+        <td>Subtotal -- {{ section.section }}</td>
+        <td class="amount">${{ "{:,}".format(section.lines | sum(attribute='amount')) }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="sov-total">
+      <td>TOTAL BASE BID</td>
+      <td class="amount">{{ bid.headline_label }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section-divider">Allowances</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 8%">No.</th>
+      <th>Description</th>
+      <th class="amount">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for allow in allowances %}
+    <tr>
+      <td><strong>{{ allow.num }}</strong></td>
+      <td>{{ allow.desc }}</td>
+      <td class="amount">${{ "{:,}".format(allow.amount) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="text-small text-muted">Allowances are included within the base bid above. Unused allowance balances will be returned as a deductive change order at project closeout. Allowance overruns require prior written approval before proceeding.</p>
+
+<h2 class="section-divider">Clarifications</h2>
+
+<p>This bid is submitted with the following clarifications, which are part of the proposal:</p>
+
+<ol>
+  {% for c in clarifications %}
+  <li>{{ c }}</li>
+  {% endfor %}
+</ol>
+
+<h2 class="section-divider">Exclusions</h2>
+
+<p>The following items are explicitly <strong>excluded</strong> from this bid:</p>
+
+<ol>
+  {% for e in exclusions %}
+  <li>{{ e }}</li>
+  {% endfor %}
+</ol>
+
+{% if about %}
+<div class="page-break"></div>
+
+<h2 class="section-divider">About {{ bidder.name }}</h2>
+
+<p>{{ about }}</p>
+
+{% if licensure %}
+<table>
+  <tr>
+    <td style="width: 50%; padding: 6pt 8pt; border: none;">
+      <p style="margin: 0; font-size: 8pt; text-transform: uppercase; color: var(--neutral-mid); letter-spacing: 0.5pt;"><strong>Licensure</strong></p>
+      <p style="margin: 2pt 0 0 0; font-size: 9pt;">{{ licensure.number }}<br>Monetary limit: {{ licensure.limit }}<br>Valid through {{ licensure.valid_through }}<br>{{ licensure.type }}</p>
+    </td>
+    <td style="width: 50%; padding: 6pt 8pt; border: none;">
+      <p style="margin: 0; font-size: 8pt; text-transform: uppercase; color: var(--neutral-mid); letter-spacing: 0.5pt;"><strong>Insurance &amp; Bonding</strong></p>
+      <p style="margin: 2pt 0 0 0; font-size: 9pt;">{{ insurance | default("Certificate of Insurance available on request.") }}</p>
+    </td>
+  </tr>
+</table>
+{% endif %}
+{% endif %}
+
+{% if schedule_milestones %}
+<h2 class="section-divider">Proposed Project Schedule</h2>
+
+<p>Subject to refinement during the project schedule reconciliation, {{ bidder.name }} commits to the following milestones from the date of award:</p>
+
+<table>
+  <thead>
+    <tr><th>Milestone</th><th>Target</th></tr>
+  </thead>
+  <tbody>
+    {% for m in schedule_milestones %}
+    <tr>
+      <td>{{ m.milestone }}</td>
+      <td class="amount">{{ m.target }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if payment_terms %}
+<h2 class="section-divider">Payment Terms</h2>
+
+<ul>
+  {% for term in payment_terms %}
+  <li>{{ term }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<h2 class="section-divider" style="page-break-after: avoid;">Acceptance</h2>
+
+<p style="page-break-after: avoid;">This proposal is based on current pricing and material availability as of the Bid Date shown above. This bid is firm for {{ meta.bid_validity_days }} calendar days from the Bid Date. To accept this bid, sign and date below and return one (1) copy to {{ bidder.name }}.</p>
+
+<table class="avoid-break" style="margin-top: 12pt;">
+  <tr>
+    <td style="width: 50%; border: none; padding-right: 18pt;">
+      <p style="border-top: 1pt solid var(--neutral-dark); padding-top: 4pt; margin: 0;">Authorized Signature, {{ project.gc }}</p>
+      <p style="margin-top: 18pt; border-top: 1pt solid var(--neutral-dark); padding-top: 4pt;">Print Name &amp; Title</p>
+      <p style="margin-top: 18pt; border-top: 1pt solid var(--neutral-dark); padding-top: 4pt;">Date</p>
+    </td>
+    <td style="width: 50%; border: none; padding-left: 18pt;">
+      <p style="border-top: 1pt solid var(--neutral-dark); padding-top: 4pt; margin: 0;">{{ bidder.owner }}, Owner -- {{ bidder.name }}</p>
+      <p style="margin-top: 18pt; border-top: 1pt solid var(--neutral-dark); padding-top: 4pt;">{{ bidder.license }}</p>
+      <p style="margin-top: 18pt; border-top: 1pt solid var(--neutral-dark); padding-top: 4pt;">{{ meta.bid_date }}</p>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ company.name }} — Project Summary</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="header-band">
+  <h1>Project Summary</h1>
+  <div class="subtitle">{{ project.name }} for {{ client.name }}</div>
+</div>
+
+<div class="meta-block">
+  <strong>Prepared by:</strong> {{ company.name }}<br>
+  <strong>Date:</strong> {{ meta.date }}<br>
+  <strong>Version:</strong> {{ meta.version }}
+</div>
+
+<h2>Project Overview</h2>
+<p>{{ project.description }}</p>
+
+<h2>Key Deliverables</h2>
+<ul>
+{% for item in highlights %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h2>Investment &amp; Timeline</h2>
+<div class="highlight-box">
+  <div class="label">Total Project Investment</div>
+  <div class="amount-big">{{ project.total | money }}</div>
+</div>
+
+<p><strong>Timeline:</strong> {{ project.timeline }} from signed agreement to final handoff.</p>
+
+<h2>About {{ company.name }}</h2>
+<p>{{ company.tagline }}. Based in Springfield, Illinois, we specialize in
+IT infrastructure for healthcare organizations that require HIPAA-compliant,
+high-availability systems.</p>
+
+<h2>Contact</h2>
+<p>
+  {{ company.name }}<br>
+  {{ company.address }}<br>
+  {{ company.phone }}<br>
+  {{ company.email }}<br>
+  {{ company.website }}
+</p>
+
+<div class="footer">
+  {{ company.name }} | {{ company.address }} | {{ company.phone }}
+</div>
+
+</body>
+</html>

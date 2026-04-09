@@ -1,0 +1,22 @@
+name: bid-package
+description: >-
+  Multi-document construction/trade bid package with cover letter, detailed
+  proposal, leave-behind one-pager, phone scripts, and thank-you email
+version: "1.0"
+documents:
+  - name: 01_Cover_Letter
+    template: templates/01_cover_letter.html
+    expected_pages: 2
+  - name: 02_Bid_Proposal
+    template: templates/02_proposal.html
+    expected_pages: 7
+  - name: 03_Leave_Behind
+    template: templates/03_leave_behind.html
+    expected_pages: 1
+  - name: 04_Phone_Scripts
+    template: templates/04_phone_scripts.html
+    expected_pages: 4
+  - name: 05_Thank_You_Email
+    template: templates/05_thank_you_email.html
+    expected_pages: 2
+default_tier: desktop

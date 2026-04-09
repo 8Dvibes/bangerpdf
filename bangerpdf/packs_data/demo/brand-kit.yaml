@@ -1,0 +1,14 @@
+brand:
+  name: "Acme Consulting"
+  primary: "#2B5EA7"
+  accent: "#F5A623"
+  neutral_dark: "#1A1A1A"
+  neutral_light: "#F7F7F7"
+  body_font: "Helvetica Neue, Helvetica, Arial, sans-serif"
+  heading_font: "Helvetica Neue, Helvetica, Arial, sans-serif"
+  logo: ""
+  footer_html: "&copy; 2026 Acme Consulting. All rights reserved."
+print:
+  default_tier: desktop
+  bleed_in: 0.0
+  crop_marks: false

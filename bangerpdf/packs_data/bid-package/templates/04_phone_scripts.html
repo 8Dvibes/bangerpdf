@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pre-Bid Phone Call Scripts -- {{ project.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="letterhead">
+  {% if bidder.logo %}
+  <img src="{{ bidder.logo }}" alt="{{ bidder.name }}" class="letterhead-logo">
+  {% endif %}
+  <div class="letterhead-meta">
+    <p class="meta-name">Pre-Bid Phone Call Scripts</p>
+    <p class="meta-tagline">{{ project.name }} &middot; {{ project.site_address }}</p>
+    <strong>{{ meta.bid_date }}</strong><br>
+    {{ phone_scripts | length }} calls, ~30 minutes total<br>
+    Print &amp; carry to your desk
+  </div>
+</div>
+
+<div class="title-bar">
+  <h1>Pre-Bid Phone Call Scripts</h1>
+  <p class="subtitle">Work through these calls in order. Each one has the question you ask and a place to write the answer.</p>
+</div>
+
+<p style="font-size: 9pt; color: var(--neutral-mid);">These calls confirm the assumptions baked into your bid. If any answer comes back different from what was assumed, flag it immediately so the bid number can be updated before submission.</p>
+
+{% for script in phone_scripts %}
+<div class="script-card">
+  <div class="script-header">
+    <div>
+      <p class="script-name">{{ script.call_number }}. {{ script.contact_name }}</p>
+      <p class="script-org">{{ script.organization }}</p>
+    </div>
+    <p class="script-phone">{{ script.phone }}</p>
+  </div>
+
+  {% if script.opening %}
+  <p class="script-asks"><strong>What you say:</strong></p>
+  <p class="script-says">{{ script.opening }}</p>
+  {% endif %}
+
+  <p class="script-asks"><strong>{% if script.questions | length == 1 %}The question:{% else %}The questions:{% endif %}</strong></p>
+  <ol class="script-asks">
+    {% for q in script.questions %}
+    <li>"{{ q }}"</li>
+    {% endfor %}
+  </ol>
+
+  {% if script.write_down %}
+  <div class="script-write">
+    <strong>Write down:</strong><br>
+    {{ script.write_down }}
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+
+<div class="callout">
+  <p class="callout-label">After you finish the calls</p>
+  <p style="margin: 0; font-size: 9pt;">Review your notes and flag anything that came back different from the bid assumptions. Key items to watch: utility extension costs, connection fees significantly different from estimates, lead time delays, and any zoning or permitting surprises. Any of these could move the bid number and should be addressed before submitting the proposal.</p>
+</div>
+
+<div class="letterhead-footer">
+  {{ bidder.name }}  &middot;  {{ bidder.address_line }}  &middot;  {{ bidder.phone }}  &middot;  License {{ bidder.license }}
+</div>
+
+</body>
+</html>

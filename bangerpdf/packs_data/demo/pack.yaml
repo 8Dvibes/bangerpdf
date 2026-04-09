@@ -1,0 +1,11 @@
+name: demo
+description: Minimal demo pack to validate the bangerpdf render pipeline end-to-end.
+version: "1.0"
+documents:
+  - name: 01_Cover_Letter
+    template: templates/cover_letter.html
+    expected_pages: 1
+  - name: 02_Summary
+    template: templates/summary.html
+    expected_pages: 1
+default_tier: desktop

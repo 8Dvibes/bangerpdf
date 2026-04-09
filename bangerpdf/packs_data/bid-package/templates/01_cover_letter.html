@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cover Letter -- {{ project.name }}</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="letterhead">
+  {% if bidder.logo %}
+  <img src="{{ bidder.logo }}" alt="{{ bidder.name }}" class="letterhead-logo">
+  {% endif %}
+  <div class="letterhead-meta">
+    <p class="meta-name">{{ bidder.name }}</p>
+    {% if bidder.tagline %}
+    <p class="meta-tagline">{{ bidder.tagline }}</p>
+    {% endif %}
+    {{ bidder.address_line }}<br>
+    {{ bidder.phone }}<br>
+    {{ bidder.email }}<br>
+    <strong>License {{ bidder.license }}</strong>
+  </div>
+</div>
+
+<div class="letter-body">
+
+<p class="letter-date">{{ meta.bid_date }}</p>
+
+<div class="letter-recipient">
+  <strong>{{ project.gc_attn_primary }}</strong><br>
+  {% if project.gc_attn_secondary %}
+  {{ project.gc_attn_secondary }}<br>
+  {% endif %}
+  {{ project.gc }}<br>
+  {{ project.gc_location | default("") }}
+</div>
+
+<p><strong>RE: Subcontractor Bid -- {{ project.name }}<br>
+{{ project.site_address }}</strong></p>
+
+<p>Thank you for the opportunity to bid on the {{ project.name }} project. Please find our full bid package enclosed.</p>
+
+<p><strong>Our base bid is {{ bid.headline_label }}</strong>, broken out across the schedule of values that follows. The number is built bottoms-up from a detailed estimate against the issued plans and carries explicit, visible risk loading for the items most likely to generate change orders during construction. <strong>Nothing is hidden inside the markup.</strong></p>
+
+{% if local_comps %}
+<p>For context, our number sits within the band of recent local comparable projects. {{ local_comps.psf_band | default("") }} The defensible range for the plumbing scope on this project is {{ local_comps.implied_plumbing_range | default("consistent with market") }}.</p>
+{% endif %}
+
+{% if differentiators %}
+<h3>{{ differentiators.headline | default("Why Choose Us for This Build") }}</h3>
+
+<ul>
+  {% for point in differentiators.points %}
+  <li>{{ point }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if growth_pitch %}
+<h3>The Bigger Picture</h3>
+<p>{{ growth_pitch }}</p>
+{% endif %}
+
+<p>This proposal is firm for <strong>{{ meta.bid_validity_days }} calendar days</strong> from the bid date shown above. We would value the chance to discuss the bid in person before you make a decision.</p>
+
+<p>Thank you for considering {{ bidder.name }} for this project. We are ready to start when you say go.</p>
+
+<p>Sincerely,</p>
+
+<div class="signature-block">
+  <p style="margin-bottom: 18pt;">&nbsp;</p>
+  <p style="margin: 0;"><strong>{{ bidder.owner }}</strong></p>
+  <p style="margin: 0;">Owner, {{ bidder.name }}</p>
+  <p style="margin: 0;">{{ bidder.license }}  &middot;  {{ bidder.phone }}  &middot;  {{ bidder.email }}</p>
+</div>
+
+</div>
+
+<div class="letterhead-footer">
+  {{ bidder.name }}  &bull;  {{ bidder.address_line }}  &bull;  {{ bidder.phone }}  &bull;  License {{ bidder.license }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ company.name }} — Cover Letter</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="header-band">
+  <h1>{{ company.name }}</h1>
+  <div class="subtitle">{{ company.tagline }}</div>
+</div>
+
+<div class="meta-block">
+  <strong>Date:</strong> {{ meta.date }}<br>
+  <strong>To:</strong> {{ client.contact }}<br>
+  <strong>Re:</strong> {{ project.name }}
+</div>
+
+<p>Dear {{ client.contact }},</p>
+
+<p>Thank you for the opportunity to submit this proposal for the
+<strong>{{ project.name }}</strong> project. We are confident that our team
+brings the right combination of expertise, local presence, and proven
+methodology to deliver outstanding results for
+{{ client.name }}.</p>
+
+<div class="highlight-box">
+  <div class="label">Project Investment</div>
+  <div class="amount-big">{{ project.total | money }}</div>
+  <p style="text-align: center; margin: 0; font-size: 9pt; color: #64748b;">
+    Estimated timeline: {{ project.timeline }}
+  </p>
+</div>
+
+<h2>What We Will Deliver</h2>
+<ul>
+{% for item in highlights %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<p>{{ project.description }}</p>
+
+<p>We look forward to discussing this proposal with you in detail. Please do not
+hesitate to reach out with any questions.</p>
+
+<p style="margin-top: 20pt;">
+  Sincerely,<br><br><br>
+  <strong>{{ company.name }}</strong><br>
+  {{ company.address }}<br>
+  {{ company.phone }} | {{ company.email }}
+</p>
+
+<div class="footer">
+  {{ company.name }} | {{ company.address }} | {{ company.phone }}
+</div>
+
+</body>
+</html>

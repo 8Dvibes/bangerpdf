@@ -1,0 +1,6 @@
+name: digital-press
+bleed_in: 0.125
+crop_marks: true
+color_mode: srgb
+icc_profile: null
+pdf_variant: null

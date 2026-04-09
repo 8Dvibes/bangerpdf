@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "bid_date": "April 15, 2026",
+    "bid_validity_days": 30,
+    "version": "v1.0"
+  },
+  "bidder": {
+    "name": "Example Plumbing, LLC",
+    "owner": "John Smith",
+    "tagline": "Commercial \u00b7 Residential \u00b7 Healthcare",
+    "license": "TN CMC-A #99001",
+    "monetary_limit": "$1,500,000",
+    "address_line": "123 Main Street, Nashville, TN 37201",
+    "phone": "+1 615-555-0142",
+    "email": "info@exampleplumbing.com",
+    "logo": "logo.png"
+  },
+  "project": {
+    "name": "Example ASC Project",
+    "owner_legal": "Example Health Opco Inc.",
+    "owner_dba": "Example Health Services",
+    "gc": "ABC Construction",
+    "gc_attn_primary": "Jane Doe, Director of Pre-Construction",
+    "gc_attn_secondary": "Robert Lee, Pre-Construction Coordinator",
+    "gc_location": "Nashville, Tennessee",
+    "site_address": "456 Commerce Dr, Nashville, TN",
+    "site_description": "Lot 7, Commerce Park Subdivision Phase I (Davidson Co.)",
+    "building_size_sf": 12000,
+    "building_type": "Standalone new-construction Ambulatory Surgery Center",
+    "layout": "3 procedure rooms + 8 pre/post-op bays"
+  },
+  "bid": {
+    "tiers": [
+      {
+        "name": "Aggressive",
+        "amount": 375000,
+        "use_when": "Tight budget signals under $400K"
+      },
+      {
+        "name": "Standard",
+        "amount": 425000,
+        "use_when": "Default recommendation based on scope and market"
+      },
+      {
+        "name": "Comfortable",
+        "amount": 465000,
+        "use_when": "Full scope with maximum margin"
+      }
+    ],
+    "headline": 425000,
+    "headline_label": "$425,000",
+    "floor": 365000
+  },
+  "local_comps": {
+    "comp_1": {
+      "name": "Regional Medical Center ASC",
+      "address": "789 Hospital Blvd, Nashville, TN",
+      "size_sf": 18000,
+      "permit_value": 9200000,
+      "psf": 511,
+      "gc": "Regional Builders Inc.",
+      "completed": "March 2025"
+    },
+    "comp_2": {
+      "name": "Midtown Medical Office Building",
+      "address": "321 West End Ave, Nashville, TN",
+      "size_sf": 15000,
+      "permit_value": 5400000,
+      "psf": 360,
+      "completed": "January 2025"
+    },
+    "psf_band": "$360 (MOB low) - $440 (median) - $511 (ASC high)",
+    "implied_plumbing_range": "$420K - $510K (9-11% of $4.75M total at $440/SF for 12,000 SF)"
+  },
+  "schedule_of_values": [
+    {
+      "section": "Building Plumbing",
+      "lines": [
+        {"desc": "Plumbing fixtures, trim, and stops (72 fixtures across 14 types)", "amount": 38200},
+        {"desc": "Equipment: water heater, TMV, RPZ backflow preventer, expansion tank, hot water recirculation pump, emergency eyewashes, shock arrester", "amount": 18500},
+        {"desc": "PVC Schedule 40 DWV pipe and fittings, 450 LF below slab", "amount": 2400},
+        {"desc": "Cast iron no-hub pipe and fittings, 650 LF above slab", "amount": 10200},
+        {"desc": "Copper Type L pipe and fittings, 900 LF water distribution", "amount": 15200},
+        {"desc": "Pipe insulation, 1,400 LF (hot water + condensation)", "amount": 4200},
+        {"desc": "Hangers, supports, escutcheons, miscellaneous", "amount": 3500},
+        {"desc": "Specialty plumbing connections: humidifier, RTU condensate drains, sterilizer drain", "amount": 3200},
+        {"desc": "Trap primers for floor drains, ASSE 1018 pressure-drop type", "amount": 4500},
+        {"desc": "Interior storm drainage: roof drains, internal leaders, downspout connections", "amount": 6800},
+        {"desc": "Plumbing labor: full installation, testing, certification", "amount": 168000}
+      ]
+    },
+    {
+      "section": "Outside Underground (Building to Property Line)",
+      "lines": [
+        {"desc": "Domestic water service from city meter to building entry, including RPZ backflow preventer", "amount": 4000},
+        {"desc": "Sanitary sewer lateral from building to city main (gravity, no lift station)", "amount": 6200},
+        {"desc": "Natural gas service line from meter to building, including drip leg and shutoff", "amount": 10500}
+      ]
+    },
+    {
+      "section": "Rooftop Natural Gas Distribution",
+      "lines": [
+        {"desc": "700 LF black iron Schedule 40 gas piping with supports, penetrations, and pressure tests", "amount": 28000},
+        {"desc": "Gas pressure regulators on each appliance", "amount": 1200}
+      ]
+    },
+    {
+      "section": "Permits, Testing, and Certification",
+      "lines": [
+        {"desc": "Commercial plumbing permit + plan review + inspections; chlorination, flushing, and bacteriological certification", "amount": 5500}
+      ]
+    },
+    {
+      "section": "Overhead and Profit",
+      "lines": [
+        {"desc": "General and administrative overhead and contractor profit", "amount": 94600}
+      ]
+    }
+  ],
+  "exclusions": [
+    "Medical gas systems (oxygen, medical air, vacuum, nitrogen, nitrous oxide, WAGD)",
+    "Reverse osmosis (RO) water treatment system",
+    "Water softener system",
+    "Fire protection / fire sprinkler systems",
+    "HVAC piping and controls (excluding plumbing connections to gas-fired equipment)",
+    "Concrete cutting, core drilling, and slab patching beyond allowance",
+    "Firestopping of rated penetrations",
+    "City tap to water main, water meter installation, and meter pit",
+    "City tap to sanitary sewer main",
+    "Natural gas meter installation and main tap",
+    "Outside site storm drainage (civil/site contractor scope)",
+    "Trenching and backfill outside building footprint past 200 LF",
+    "Electrical power, control wiring, and disconnects to plumbing equipment",
+    "Overtime, weekend, and shift premium work",
+    "Owner-furnished equipment installation beyond allowance",
+    "Soil compaction testing and geotechnical investigation"
+  ],
+  "clarifications": [
+    "Bid based on issued architectural and plumbing drawings plus site-specific overlay, including all addenda received as of bid date",
+    "Copper Type L above slab water distribution; cast iron no-hub above slab sanitary; Schedule 40 PVC below slab DWV",
+    "Thermostatic mixing valves included at all healthcare patient-area lavatories per applicable guidelines",
+    "RPZ backflow preventer at building water service entry included",
+    "Initial chlorination, flushing, and bacteriological testing of domestic water included",
+    "Bid based on applicable building codes and healthcare facility guidelines (most restrictive adoption)",
+    "Base bid held for the validity period from bid date; thereafter subject to material price re-verification"
+  ],
+  "allowances": [
+    {"num": 1, "desc": "Owner-furnished equipment receiving, install, and hookup", "amount": 3500},
+    {"num": 2, "desc": "Slab cutting and patching contingency", "amount": 5000},
+    {"num": 3, "desc": "Health department inspection support time", "amount": 2000},
+    {"num": 4, "desc": "Rock excavation contingency", "amount": 15000}
+  ],
+  "growth_pitch": "Example Health Services has one operating ambulatory surgery center, one under construction, and plans for additional locations across the region. We are positioning to be the preferred plumbing trade partner for the entire build-out program.",
+  "differentiators": {
+    "headline": "Why Example Plumbing for This Build",
+    "points": [
+      "Local presence within 15 minutes of the project site",
+      "Owner on site daily during plumbing rough-in",
+      "Plumbing-only specialist with no divided attention",
+      "Full greenfield site scope included in base bid",
+      "Transparent risk loading with visible allowances"
+    ]
+  },
+  "phone_scripts": [
+    {
+      "call_number": 1,
+      "contact_name": "Water Department",
+      "organization": "City Water Quality Control",
+      "phone": "615-555-0201",
+      "opening": "Hi, my name is {{bidder.owner}} with {{bidder.name}}. I'm bidding the plumbing on a new ambulatory surgery center at {{project.site_address}}. Project name is {{project.name}}, GC is {{project.gc}}. I have a few quick questions.",
+      "questions": [
+        "For a new commercial healthcare ASC of about {{project.building_size_sf}} square feet, what classification for the sewer connection fee?",
+        "For the domestic water service, does the city furnish the tap, meter, and meter box?",
+        "Any system development charges or impact fees beyond the tap fee?"
+      ],
+      "write_down": "Sewer fee: $___  Water tap confirmed: $___  City furnishes tap? Y/N  Other fees: ___"
+    },
+    {
+      "call_number": 2,
+      "contact_name": "Gas Division",
+      "organization": "City Gas Department",
+      "phone": "615-555-0202",
+      "opening": "Hi, this is {{bidder.owner}} with {{bidder.name}}. I'm bidding gas piping on a new commercial healthcare building at {{project.site_address}}.",
+      "questions": [
+        "How close is the existing gas main to the property line?",
+        "If we need to extend the main, who pays for the extension?",
+        "What's the lead time for a new commercial gas service connection?",
+        "Is there a meter set fee separate from the tap?"
+      ],
+      "write_down": "Distance to main: ___ ft  Extension needed? Y/N  Who pays: ___  Lead time: ___ weeks  Meter fee: $___"
+    },
+    {
+      "call_number": 3,
+      "contact_name": "Backflow Inspector",
+      "organization": "City Cross-Connection / Backflow",
+      "phone": "615-555-0203",
+      "opening": "Hi, this is {{bidder.owner}} with {{bidder.name}}. I'm bidding plumbing on a new healthcare facility at {{project.site_address}}.",
+      "questions": [
+        "For an ASC, do you require an RPZ at the building service entry, or a different spec for healthcare?",
+        "What's your initial test fee and the recurring annual test fee?"
+      ],
+      "write_down": "RPZ spec: ___  Initial test: $___  Annual test: $___"
+    },
+    {
+      "call_number": 4,
+      "contact_name": "Building & Codes",
+      "organization": "City Building & Codes Department",
+      "phone": "615-555-0204",
+      "opening": "Hi, this is {{bidder.owner}} with {{bidder.name}}, license {{bidder.license}}. I have questions about pulling a commercial plumbing permit at {{project.site_address}}.",
+      "questions": [
+        "Is the property inside city limits or unincorporated county?",
+        "Do I need a local plumbing license on file, or does my state license cover it?"
+      ],
+      "write_down": "Jurisdiction: City / County  Local license needed? Y/N  Cost: $___  Permit fee: $___"
+    },
+    {
+      "call_number": 5,
+      "contact_name": "Planning Department",
+      "organization": "City Planning Department",
+      "phone": "615-555-0205",
+      "opening": "Hi, this is {{bidder.owner}} with {{bidder.name}}. I'm bidding underground plumbing on a new commercial site at {{project.site_address}}.",
+      "questions": [
+        "Are there any zoning restrictions or overlay districts that affect underground plumbing routing on this parcel?"
+      ],
+      "write_down": "Restrictions: ___  Setbacks: ___ ft  Permit needed? Y/N"
+    }
+  ],
+  "schedule_milestones": [
+    {"milestone": "Submittal package delivered", "target": "15 working days from award"},
+    {"milestone": "Material orders placed (post-approval)", "target": "2 days after submittal approval"},
+    {"milestone": "Site mobilization", "target": "1 day prior to underground start"},
+    {"milestone": "Underground plumbing rough-in", "target": "Per GC schedule, ahead of slab pour"},
+    {"milestone": "Above-slab rough-in", "target": "Per GC schedule, after framing"},
+    {"milestone": "Top-out inspection coordination", "target": "Per GC schedule"},
+    {"milestone": "Trim, fixture set, and final connections", "target": "Per GC schedule, after finishes"},
+    {"milestone": "Pressure testing and certification", "target": "Per GC schedule, before owner walk-through"},
+    {"milestone": "Punch list completion and closeout", "target": "10 working days after final inspection"}
+  ],
+  "payment_terms": [
+    "Monthly progress billing using AIA G702/G703 forms or GC's preferred pay-app form",
+    "Net 30 days from receipt of approved pay application",
+    "10% retention withheld from each progress payment, released at substantial completion",
+    "50% deposit on long-lead equipment at submittal approval, against supplier lock-in pricing",
+    "Mechanic's lien rights preserved as provided by law; lien waivers provided concurrent with each pay application",
+    "All scope changes require written approval prior to commencement"
+  ],
+  "about": "Example Plumbing, LLC is a licensed mechanical contractor based in Nashville, Tennessee. We specialize in commercial new construction and healthcare facility plumbing. John Smith owns and operates the company, holds the state license personally as qualifying agent, and is on every job site during critical path work.",
+  "licensure": {
+    "number": "TN CMC-A #99001",
+    "limit": "$1,500,000",
+    "valid_through": "August 2027",
+    "type": "Open shop, right-to-work"
+  },
+  "insurance": "Certificate of Insurance available on request. General liability + workers' compensation in force. Bondability available upon request."
+}

@@ -1,0 +1,605 @@
+/* Bid Package — Brand-variable-aware CSS
+ * All colors use CSS custom properties set by brand-kit.yaml → bangerpdf brand engine.
+ * Override via brand-kit.yaml or project-level brand overrides.
+ * Designed for WeasyPrint US Letter output.
+ */
+
+:root {
+  --primary: #0D1B2A;
+  --secondary: #2B5EA7;
+  --accent: #3B7DD8;
+  --neutral-dark: #1f2937;
+  --neutral-mid: #64748b;
+  --neutral-light: #f1f5f9;
+  --neutral-border: #e2e8f0;
+  --neutral-border-dark: #cbd5e1;
+  --surface: #f8fafc;
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+  --warning-border: #d97706;
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@page {
+  size: Letter;
+  margin: 0.6in 0.7in 0.7in 0.7in;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-family);
+    font-size: 8pt;
+    color: var(--neutral-mid);
+    padding-top: 8pt;
+    border-top: 0.5pt solid var(--neutral-border-dark);
+  }
+}
+
+@page :first {
+  @top-right {
+    content: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: 10pt;
+  line-height: 1.45;
+  color: var(--neutral-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === LETTERHEAD HEADER === */
+
+.letterhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 12pt 0;
+  margin: 0 0 14pt 0;
+  border-bottom: 3pt solid var(--secondary);
+}
+
+.letterhead-logo {
+  width: 165pt;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.letterhead-meta {
+  text-align: right;
+  font-size: 8.5pt;
+  line-height: 1.55;
+  color: var(--neutral-dark);
+}
+
+.letterhead-meta .meta-name {
+  font-size: 9pt;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.6pt;
+  margin-bottom: 3pt;
+}
+
+.letterhead-meta .meta-tagline {
+  font-size: 7.5pt;
+  color: var(--neutral-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  margin-bottom: 5pt;
+}
+
+.letterhead-meta strong {
+  color: var(--primary);
+}
+
+/* === HEADER BAND (gradient banner) === */
+
+.header-band {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 14pt 18pt;
+  margin: 0 0 14pt 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4pt;
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-brand-name {
+  font-size: 18pt;
+  font-weight: 800;
+  letter-spacing: 0.4pt;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-brand-tagline {
+  font-size: 8pt;
+  font-weight: 400;
+  margin-top: 4pt;
+  opacity: 0.85;
+  letter-spacing: 0.5pt;
+  text-transform: uppercase;
+}
+
+.header-meta {
+  text-align: right;
+  font-size: 8pt;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.header-meta strong {
+  font-weight: 700;
+}
+
+/* === TITLE BAR === */
+
+.title-bar {
+  border-bottom: 2pt solid var(--secondary);
+  padding-bottom: 8pt;
+  margin-bottom: 14pt;
+}
+
+.title-bar h1 {
+  font-size: 18pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.3pt;
+}
+
+.title-bar .subtitle {
+  font-size: 9pt;
+  color: var(--neutral-mid);
+  margin-top: 3pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+}
+
+/* === SECTIONS === */
+
+h2 {
+  font-size: 11pt;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  border-bottom: 1pt solid var(--neutral-border);
+  padding-bottom: 4pt;
+  margin: 12pt 0 6pt 0;
+  page-break-after: avoid;
+}
+
+h2.section-divider {
+  background: var(--primary);
+  color: white;
+  padding: 5pt 10pt;
+  margin-top: 10pt;
+  margin-bottom: 6pt;
+  border: none;
+  border-radius: 3pt;
+  font-size: 10pt;
+}
+
+h3 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--secondary);
+  margin: 8pt 0 3pt 0;
+}
+
+p {
+  margin: 3pt 0 5pt 0;
+}
+
+ol, ul {
+  margin: 3pt 0 6pt 0;
+  padding-left: 18pt;
+}
+
+li {
+  margin-bottom: 2pt;
+}
+
+/* === TWO-COLUMN LAYOUT === */
+
+.two-col {
+  display: flex;
+  gap: 14pt;
+  margin: 8pt 0;
+}
+
+.two-col > div {
+  flex: 1;
+}
+
+/* === CALLOUT BOXES === */
+
+.callout {
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  background: var(--surface);
+  border-radius: 3pt;
+}
+
+.callout.dark {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border-left-color: var(--accent);
+}
+
+.callout.warning {
+  background: var(--warning-bg);
+  border-left-color: var(--warning-border);
+}
+
+.callout-label {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6pt;
+  color: var(--secondary);
+  margin-bottom: 4pt;
+}
+
+.callout.dark .callout-label {
+  color: #93c5fd;
+}
+
+.callout.warning .callout-label {
+  color: var(--warning-text);
+}
+
+/* === HEADLINE NUMBER === */
+
+.headline-number {
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 18pt;
+  border-radius: 4pt;
+  margin: 12pt 0;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.headline-number .label {
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 1pt;
+  opacity: 0.9;
+  margin-bottom: 6pt;
+}
+
+.headline-number .amount {
+  font-size: 36pt;
+  font-weight: 800;
+  letter-spacing: -0.5pt;
+  line-height: 1;
+}
+
+.headline-number .sub {
+  font-size: 8pt;
+  margin-top: 6pt;
+  opacity: 0.85;
+}
+
+/* === TABLES === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6pt 0 10pt 0;
+  font-size: 9pt;
+}
+
+th {
+  background: var(--neutral-light);
+  color: var(--primary);
+  text-align: left;
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  padding: 6pt 8pt;
+  border-bottom: 1pt solid var(--neutral-border-dark);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+td {
+  padding: 5pt 8pt;
+  border-bottom: 0.5pt solid var(--neutral-border);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+td.amount, th.amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sov-section-row td {
+  background: var(--neutral-light);
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  color: #475569;
+  padding: 4pt 8pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.sov-subtotal td {
+  background: var(--surface);
+  font-weight: 700;
+  border-top: 1pt solid var(--neutral-border-dark);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.sov-total td {
+  background: var(--primary);
+  color: white;
+  font-weight: 800;
+  font-size: 11pt;
+  padding: 8pt;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* === TAGS / PILLS === */
+
+.tag {
+  display: inline-block;
+  background: var(--secondary);
+  color: white;
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+  padding: 2pt 8pt;
+  border-radius: 10pt;
+  margin: 2pt 4pt 2pt 0;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.tag.outline {
+  background: white;
+  color: var(--secondary);
+  border: 0.75pt solid var(--secondary);
+}
+
+.tag.dark {
+  background: var(--primary);
+}
+
+/* === SIGNATURE BLOCK === */
+
+.signature-block {
+  margin-top: 6pt;
+  padding-top: 0;
+}
+
+.signature-line {
+  border-top: 1pt solid var(--neutral-dark);
+  width: 60%;
+  margin-top: 36pt;
+  padding-top: 4pt;
+  font-size: 8pt;
+  color: var(--neutral-mid);
+}
+
+/* === FOOTER LETTERHEAD === */
+
+.letterhead-footer {
+  margin-top: 24pt;
+  padding-top: 8pt;
+  border-top: 1pt solid var(--neutral-border);
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-align: center;
+}
+
+/* === SCRIPT CARDS (phone scripts document) === */
+
+.script-card {
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 10pt 14pt;
+  margin: 10pt 0;
+  background: white;
+  border-radius: 3pt;
+  page-break-inside: avoid;
+}
+
+.script-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 0.5pt solid var(--neutral-border);
+  padding-bottom: 4pt;
+  margin-bottom: 6pt;
+}
+
+.script-name {
+  font-size: 11pt;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+}
+
+.script-phone {
+  font-size: 11pt;
+  font-family: 'Courier New', monospace;
+  color: var(--secondary);
+}
+
+.script-org {
+  font-size: 8pt;
+  color: var(--neutral-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+}
+
+.script-says {
+  background: var(--surface);
+  padding: 6pt 10pt;
+  border-radius: 2pt;
+  margin: 4pt 0 6pt 0;
+  font-style: italic;
+  color: var(--neutral-dark);
+  font-size: 9pt;
+}
+
+.script-asks {
+  font-size: 9pt;
+}
+
+.script-asks ol {
+  margin: 4pt 0 4pt 0;
+  padding-left: 16pt;
+}
+
+.script-write {
+  background: var(--warning-bg);
+  padding: 6pt 10pt;
+  border-radius: 2pt;
+  margin-top: 6pt;
+  font-size: 8.5pt;
+}
+
+.script-write strong {
+  color: var(--warning-text);
+}
+
+/* === EMAIL BLOCK (thank-you template) === */
+
+.email-block {
+  background: var(--surface);
+  border: 1pt solid var(--neutral-border);
+  border-left: 4pt solid var(--secondary);
+  padding: 14pt;
+  margin: 10pt 0;
+  border-radius: 3pt;
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+.email-block .meta {
+  font-size: 8.5pt;
+  color: var(--neutral-mid);
+  border-bottom: 1pt dashed var(--neutral-border-dark);
+  padding-bottom: 6pt;
+  margin-bottom: 8pt;
+}
+
+.placeholder {
+  background: var(--warning-bg);
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+  font-weight: 700;
+  color: var(--warning-text);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* === STAT BLOCKS (leave-behind) === */
+
+.lb-stats {
+  display: flex;
+  gap: 6pt;
+  margin: 5pt 0;
+}
+
+.lb-stat {
+  flex: 1;
+  background: var(--neutral-light);
+  padding: 5pt;
+  border-radius: 3pt;
+  text-align: center;
+  border-top: 2pt solid var(--secondary);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.lb-stat-num {
+  font-size: 13pt;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.lb-stat-label {
+  font-size: 6pt;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  color: var(--neutral-mid);
+  margin-top: 2pt;
+}
+
+/* === UTILITY === */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-bold { font-weight: 700; }
+.text-muted { color: var(--neutral-mid); }
+.text-blue { color: var(--secondary); }
+.text-small { font-size: 8pt; }
+.mb-0 { margin-bottom: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.spacer-sm { height: 6pt; }
+.spacer-md { height: 12pt; }
+.page-break { page-break-before: always; }
+.avoid-break { page-break-inside: avoid; }
+
+/* === LETTER BODY === */
+
+.letter-body {
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+.letter-body p {
+  margin: 6pt 0 8pt 0;
+}
+
+.letter-body h3 {
+  margin: 10pt 0 4pt 0;
+}
+
+.letter-recipient {
+  margin: 16pt 0 12pt 0;
+  font-size: 10pt;
+}
+
+.letter-date {
+  margin-bottom: 8pt;
+  color: var(--neutral-mid);
+}

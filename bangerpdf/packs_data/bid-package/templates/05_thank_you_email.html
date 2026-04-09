@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thank-You Email Template -- Post-Meeting Follow-Up</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="letterhead">
+  {% if bidder.logo %}
+  <img src="{{ bidder.logo }}" alt="{{ bidder.name }}" class="letterhead-logo">
+  {% endif %}
+  <div class="letterhead-meta">
+    <p class="meta-name">Post-Meeting Follow-Up Template</p>
+    <p class="meta-tagline">For your {{ project.gc }} meeting</p>
+    Send within 24 hours<br>
+    of your in-person meeting<br>
+    with {{ project.gc_attn_primary | default("the GC") }}
+  </div>
+</div>
+
+<div class="title-bar">
+  <h1>Thank-You Email -- After Your Meeting</h1>
+  <p class="subtitle">Send within 24 hours of the in-person meeting. The yellow placeholders are what you fill in.</p>
+</div>
+
+<h2>How to use this</h2>
+<ol>
+  <li>Right after your meeting, jot down the <strong>one specific thing</strong> they cared about most. Anything: a schedule date, a pain point with a past sub, a budget number, a scope concern, even something personal.</li>
+  <li>Open your email, paste the template below, and replace each yellow placeholder with the real detail.</li>
+  <li>Send within 24 hours of the meeting. Faster is better. Most subs never send anything.</li>
+  <li>One sentence about something personal at the end is fine if it fit the tone of the meeting. Skip it if the meeting was strictly business.</li>
+</ol>
+
+<h2>The template</h2>
+
+<div class="email-block">
+<p class="meta"><strong>To:</strong> <span class="placeholder">[GC primary contact email]</span><br>
+{% if project.gc_attn_secondary %}
+<strong>CC:</strong> <span class="placeholder">[GC secondary contact email]</span><br>
+{% endif %}
+<strong>Subject:</strong> Thanks for the time today -- {{ project.name }} follow-up</p>
+
+<p><span class="placeholder">[First name]</span>,</p>
+
+<p>Thank you for taking the time today to sit down with me on the {{ project.name }} build. I appreciate you walking me through how {{ project.gc }} approaches the project schedule and what you have run into with subs in the past.</p>
+
+<p>One thing I want to commit to in writing before you make a decision: <span class="placeholder">[the specific commitment you heard them care about most -- examples: "I will be on site personally every day during rough-in," or "I will have the submittal package on your desk within three weeks of award," or "I will coordinate with the other trades before any work gets hung in the ceiling"]</span>. That is the one I will not move on.</p>
+
+<p>A couple of things you mentioned that I want to address directly in the bid:</p>
+
+<ul>
+  <li><span class="placeholder">[Their first concern from the meeting]</span> -- I have addressed this in the bid with visible allowances and explicit line items.</li>
+  <li><span class="placeholder">[Their second concern]</span> -- I have coordination time priced explicitly and will personally attend whatever meetings the GC needs.</li>
+</ul>
+
+<p>My bid is <strong>{{ bid.headline_label }}</strong> firm for {{ meta.bid_validity_days }} days. Cover letter, full schedule of values, exclusions, clarifications, and all supporting documentation are in the bid package I am sending separately. <span class="placeholder">[Optional: "I am also happy to walk through any line item with you on the phone before you make a decision."]</span></p>
+
+<p><span class="placeholder">[Optional one personal sentence. Skip if the meeting was strictly business.]</span></p>
+
+<p>I want this one. I am ready to start when you say go.</p>
+
+<p>{{ bidder.owner }}</p>
+
+<p style="font-size: 8.5pt; color: var(--neutral-mid); margin-top: 12pt;">
+{{ bidder.owner }}, Owner<br>
+{{ bidder.name }}<br>
+{{ bidder.license }}{% if bidder.monetary_limit %} &middot; Limit {{ bidder.monetary_limit }}{% endif %}<br>
+{{ bidder.phone }} &middot; {{ bidder.email }}
+</p>
+</div>
+
+<h2>Why this email works</h2>
+<ul>
+  <li><strong>It is fast.</strong> Within 24 hours of the meeting puts you in the top 5% of subs who follow up at all.</li>
+  <li><strong>It is specific.</strong> Generic "thanks for your time" emails are forgettable. Naming the specific thing they care about and the specific commitment you are making puts you in their long-term memory.</li>
+  <li><strong>It quotes the bid number.</strong> Reinforces it without being pushy.</li>
+  <li><strong>It addresses their concerns directly.</strong> Shows you were listening, not waiting to talk.</li>
+  <li><strong>It ends with a personal note.</strong> Optional, but it differentiates you from out-of-area bidders who treat every project like a transaction.</li>
+</ul>
+
+<div class="letterhead-footer">
+  {{ bidder.name }}  &middot;  {{ bidder.address_line }}  &middot;  {{ bidder.phone }}  &middot;  License {{ bidder.license }}
+</div>
+
+</body>
+</html>

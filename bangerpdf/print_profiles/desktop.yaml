@@ -1,0 +1,6 @@
+name: desktop
+bleed_in: 0.0
+crop_marks: false
+color_mode: srgb
+icc_profile: null
+pdf_variant: null

@@ -1,0 +1,6 @@
+name: commercial-offset
+bleed_in: 0.125
+crop_marks: true
+color_mode: cmyk
+icc_profile: GRACoL2013_CRPC6
+pdf_variant: pdf/x-4

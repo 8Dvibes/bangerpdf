@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "date": "April 6, 2026",
+    "version": "v1.0"
+  },
+  "company": {
+    "name": "Acme Consulting",
+    "tagline": "Building better solutions",
+    "address": "123 Main Street, Springfield, IL 62701",
+    "phone": "+1 217-555-0100",
+    "email": "hello@acme-consulting.com",
+    "website": "https://acme-consulting.com"
+  },
+  "client": {
+    "name": "Springfield Regional Medical Center",
+    "contact": "Dr. Jane Smith, VP of Operations",
+    "address": "456 Hospital Drive, Springfield, IL 62702"
+  },
+  "project": {
+    "name": "IT Infrastructure Modernization",
+    "description": "Comprehensive upgrade of network infrastructure, server consolidation, and cloud migration for the Springfield Regional Medical Center campus.",
+    "timeline": "12 weeks",
+    "total": 285000
+  },
+  "highlights": [
+    "Full network audit and topology redesign",
+    "Server consolidation from 24 physical hosts to 6 + cloud overflow",
+    "Zero-downtime migration plan with rollback capability",
+    "HIPAA-compliant cloud architecture",
+    "24/7 monitoring and support for 90 days post-migration"
+  ]
+}

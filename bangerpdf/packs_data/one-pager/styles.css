@@ -1,9 +1,14 @@
-/* One-Pager — Bold single-page overview CSS
- * All colors use CSS custom properties set by brand-kit.yaml.
- * Designed for WeasyPrint US Letter, single page output.
- */
+/* ============================================================
+   One-Pager — Bold single-page overview
+   bangerpdf design system v2.0
+   ============================================================
+   All colors reference CSS custom properties from brand-kit.yaml.
+   Designed for WeasyPrint, US Letter, single-page output.
+   ------------------------------------------------------------ */
 
+/* --- Design Tokens --- */
 :root {
+  /* Brand palette (defaults — overridden by brand-kit injection) */
   --primary: #0D47A1;
   --secondary: #1976D2;
   --accent: #42A5F5;
@@ -14,8 +19,27 @@
   --neutral-border-dark: #cbd5e1;
   --surface: #f8fafc;
   --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-xxxl: 64px;
+
+  /* Type scale — Perfect Fourth (1.333) */
+  --text-xs: 8pt;
+  --text-sm: 9pt;
+  --text-base: 11pt;
+  --text-lg: 14pt;
+  --text-xl: 19pt;
+  --text-2xl: 25pt;
+  --text-3xl: 33pt;
 }
 
+/* --- Page Setup --- */
 @page {
   size: Letter;
   margin: 0.5in 0.6in 0.6in 0.6in;
@@ -25,7 +49,8 @@
   }
 }
 
-* {
+/* --- Reset & Base --- */
+*, *::before, *::after {
   box-sizing: border-box;
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
@@ -33,143 +58,225 @@
 
 html, body {
   font-family: var(--font-family);
-  font-size: 9pt;
-  line-height: 1.45;
-  color: var(--neutral-dark);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: #111827;
+  letter-spacing: 0;
+  word-spacing: normal;
   margin: 0;
   padding: 0;
 }
 
-/* === HERO HEADER === */
+/* --- Page Break Safety --- */
+h1, h2, h3, h4, h5, h6 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+figure, table, .stat-bar, .section-card, .cta-block {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+p {
+  orphans: 3;
+  widows: 3;
+}
+
+
+/* ============================================================
+   HERO HEADER
+   Full-width gradient banner with title and subtitle.
+   ============================================================ */
 
 .hero {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: white;
-  padding: 18pt 20pt;
-  border-radius: 5pt;
-  margin-bottom: 10pt;
+  color: #ffffff;
+  padding: var(--space-l) var(--space-xl);
+  border-radius: 6pt;
+  margin-bottom: var(--space-m);
   text-align: center;
+  position: relative;
+  overflow: hidden;
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
+/* Subtle texture overlay for depth */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
 .hero h1 {
-  font-size: 26pt;
+  font-size: var(--text-2xl);
   font-weight: 800;
   margin: 0;
   letter-spacing: -0.5pt;
-  line-height: 1.1;
+  line-height: 1.15;
+  position: relative;
 }
 
 .hero .subtitle {
-  font-size: 11pt;
+  font-size: var(--text-base);
   font-weight: 400;
-  margin-top: 4pt;
-  opacity: 0.9;
-  letter-spacing: 0.3pt;
+  margin-top: var(--space-xs);
+  opacity: 0.92;
+  letter-spacing: 0.2pt;
+  line-height: 1.25;
+  position: relative;
 }
 
-/* === STAT BAR === */
+
+/* ============================================================
+   STAT BAR
+   Row of headline metric cards with colored top accent.
+   ============================================================ */
 
 .stat-bar {
   display: flex;
-  gap: 8pt;
-  margin: 10pt 0;
+  gap: var(--space-s);
+  margin: var(--space-m) 0;
 }
 
 .stat-item {
   flex: 1;
   text-align: center;
   background: var(--neutral-light);
-  padding: 8pt 4pt;
+  padding: 10pt var(--space-s);
   border-radius: 4pt;
   border-top: 3pt solid var(--secondary);
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
+  transition: none; /* no transitions in print */
 }
 
 .stat-item .stat-value {
-  font-size: 16pt;
+  font-size: var(--text-lg);
   font-weight: 800;
   color: var(--primary);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-item .stat-label {
   font-size: 6.5pt;
   text-transform: uppercase;
-  letter-spacing: 0.4pt;
+  letter-spacing: 0.5pt;
   color: var(--neutral-mid);
-  margin-top: 2pt;
+  margin-top: 3pt;
+  line-height: 1.25;
 }
 
-/* === BODY SECTIONS === */
+
+/* ============================================================
+   BODY SECTIONS
+   Two-column grid of content cards.
+   ============================================================ */
 
 .body-sections {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10pt;
-  margin: 8pt 0;
+  gap: var(--space-m) var(--space-m);
+  margin: var(--space-s) 0;
 }
 
 .section-card {
   padding: 0;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .section-card h3 {
-  font-size: 10pt;
+  font-size: var(--text-sm);
   font-weight: 800;
   color: var(--primary);
   text-transform: uppercase;
-  letter-spacing: 0.3pt;
-  margin: 0 0 3pt 0;
-  padding-bottom: 3pt;
-  border-bottom: 1.5pt solid var(--accent);
+  letter-spacing: 0.4pt;
+  margin: 0 0 var(--space-xs) 0;
+  padding-bottom: var(--space-xs);
+  border-bottom: 2pt solid var(--accent);
+  line-height: 1.15;
 }
 
 .section-card p {
-  font-size: 8.5pt;
-  margin: 3pt 0 0 0;
-  line-height: 1.45;
+  font-size: var(--text-xs);
+  margin: var(--space-xs) 0 0 0;
+  line-height: 1.5;
+  color: #111827;
 }
 
-/* === CTA BLOCK === */
+
+/* ============================================================
+   CTA BLOCK
+   Call-to-action banner at bottom of page.
+   ============================================================ */
 
 .cta-block {
   background: var(--primary);
-  color: white;
+  color: #ffffff;
   text-align: center;
-  padding: 12pt 16pt;
+  padding: var(--space-m) var(--space-l);
   border-radius: 4pt;
-  margin-top: 8pt;
+  margin-top: var(--space-s);
+  position: relative;
+  overflow: hidden;
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
+.cta-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 50%, transparent 100%);
+  pointer-events: none;
+}
+
 .cta-block .cta-text {
-  font-size: 11pt;
+  font-size: var(--text-base);
   font-weight: 700;
   margin: 0;
+  position: relative;
 }
 
 .cta-block .cta-url {
-  font-size: 9pt;
+  font-size: var(--text-sm);
   margin-top: 3pt;
   opacity: 0.85;
+  position: relative;
 }
 
-/* === FOOTER === */
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 
 .doc-footer {
-  margin-top: 6pt;
-  font-size: 7.5pt;
+  margin-top: var(--space-s);
+  font-size: 7pt;
   color: var(--neutral-mid);
   text-align: center;
+  letter-spacing: 0.2pt;
 }
 
-/* === UTILITY === */
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
 
 .text-center { text-align: center; }
-.text-bold { font-weight: 700; }
-.text-muted { color: var(--neutral-mid); }
-.avoid-break { page-break-inside: avoid; }
+.text-bold   { font-weight: 700; }
+.text-muted  { color: var(--neutral-mid); }
+
+.avoid-break {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}

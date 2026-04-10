@@ -1,0 +1,138 @@
+<!-- Pattern: hero-fullbleed | Best vibe: Bold | WeasyPrint: tested -->
+<!-- Full-page hero with background image, dark gradient overlay, white text.
+     Uses <img> with absolute positioning -- NOT background-image, which WeasyPrint clips at page boundaries.
+     Uses named @page with zero margins for true full-bleed output. -->
+
+<style>
+  /* --- Named page: zero margins for full-bleed --- */
+  @page full-bleed {
+    size: Letter;
+    margin: 0;
+    @bottom-center { content: none; }
+  }
+
+  /* --- Force print colors --- */
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .hero-fullbleed {
+    page: full-bleed;
+    width: 8.5in;
+    height: 11in;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--dark, #1A1A1A);
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  /* Background image: absolute-positioned <img>, NOT CSS background-image.
+     WeasyPrint clips background-image at page boundaries; this approach survives. */
+  .hero-fullbleed__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+  }
+
+  /* Gradient overlay: dark at bottom for text legibility */
+  .hero-fullbleed__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(26,26,26,0.3) 0%,
+      rgba(26,26,26,0.15) 30%,
+      rgba(26,26,26,0.5) 70%,
+      rgba(26,26,26,0.85) 100%
+    );
+  }
+
+  /* Content anchored to bottom of page */
+  .hero-fullbleed__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 60pt 72pt 60pt;
+    color: white;
+    z-index: 2;
+  }
+
+  .hero-fullbleed__label {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 4pt;
+    color: var(--accent, #F5A600);
+    margin-bottom: 10pt;
+    font-weight: 600;
+  }
+
+  .hero-fullbleed__title {
+    font-size: 42pt;
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.5pt;
+    color: white;
+  }
+
+  .hero-fullbleed__subtitle {
+    font-size: 12pt;
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+    max-width: 380pt;
+  }
+
+  /* Optional: logo top-left, date top-right */
+  .hero-fullbleed__logo {
+    position: absolute;
+    top: 48pt;
+    left: 60pt;
+    z-index: 2;
+  }
+
+  .hero-fullbleed__logo img {
+    height: 48pt;
+    width: auto;
+  }
+
+  .hero-fullbleed__date {
+    position: absolute;
+    top: 55pt;
+    right: 60pt;
+    z-index: 2;
+    color: rgba(255,255,255,0.7);
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+  }
+</style>
+
+<div class="hero-fullbleed">
+  <img class="hero-fullbleed__bg" src="hero-photo.jpg" alt="">
+  <div class="hero-fullbleed__overlay"></div>
+
+  <div class="hero-fullbleed__logo">
+    <img src="logo.png" alt="Company Logo">
+  </div>
+  <div class="hero-fullbleed__date">April 2026</div>
+
+  <div class="hero-fullbleed__content">
+    <div class="hero-fullbleed__label">Your Label Here</div>
+    <h1 class="hero-fullbleed__title">Document Title</h1>
+    <p class="hero-fullbleed__subtitle">
+      A concise subtitle that describes the document purpose.
+    </p>
+  </div>
+</div>

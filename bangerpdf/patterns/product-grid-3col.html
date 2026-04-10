@@ -1,0 +1,133 @@
+<!-- Pattern: product-grid-3col | Best vibe: Bold, Editorial | WeasyPrint: tested -->
+<!-- 3-column product strip for wider layouts or smaller product cards.
+     Same explicit-row approach as 2col to avoid WeasyPrint flex-wrap pagination bugs.
+     Shorter image height (120pt vs 160pt) to fit three across comfortably. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .product-grid-3 {
+    margin: 12pt 0;
+  }
+
+  /* Explicit row container -- no flex-wrap */
+  .product-row-3 {
+    display: flex;
+    gap: 12pt;
+    margin-bottom: 12pt;
+    page-break-inside: avoid;
+  }
+
+  .product-card-sm {
+    flex: 1;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+
+  .product-card-sm img {
+    width: 100%;
+    height: 120pt;
+    object-fit: cover;
+    display: block;
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+  }
+
+  .product-card-sm__name {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--dark, #1A1A1A);
+    margin-top: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+  }
+
+  .product-card-sm__price {
+    font-size: 8pt;
+    color: var(--primary, #B77729);
+    font-weight: 600;
+  }
+
+  /* Alternate style: card with border and padding (more structured) */
+  .product-card-3 {
+    flex: 1;
+    background: var(--surface, #FDFAF5);
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  .product-card-3 img {
+    width: 100%;
+    height: 120pt;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .product-card-3__body {
+    padding: 10pt 12pt;
+  }
+
+  .product-card-3__name {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--dark, #1A1A1A);
+    margin: 0 0 3pt 0;
+  }
+
+  .product-card-3__desc {
+    font-size: 7.5pt;
+    color: var(--neutral-mid, #5C5C5C);
+    margin: 0 0 6pt 0;
+    line-height: 1.3;
+  }
+
+  .product-card-3__price {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--primary, #B77729);
+  }
+</style>
+
+<!-- Variant A: Minimal strip (no card border) -->
+<div class="product-grid-3">
+  <div class="product-row-3">
+    <div class="product-card-sm">
+      <img src="product-1.jpg" alt="Product 1">
+      <p class="product-card-sm__name">Product Name</p>
+      <p class="product-card-sm__price">$29.99</p>
+    </div>
+    <div class="product-card-sm">
+      <img src="product-2.jpg" alt="Product 2">
+      <p class="product-card-sm__name">Product Name</p>
+      <p class="product-card-sm__price">$29.99</p>
+    </div>
+    <div class="product-card-sm">
+      <img src="product-3.jpg" alt="Product 3">
+      <p class="product-card-sm__name">Product Name</p>
+      <p class="product-card-sm__price">$29.99</p>
+    </div>
+  </div>
+</div>
+
+<!-- Variant B: Structured cards with descriptions -->
+<!--
+<div class="product-grid-3">
+  <div class="product-row-3">
+    <div class="product-card-3">
+      <img src="product-1.jpg" alt="Product 1">
+      <div class="product-card-3__body">
+        <p class="product-card-3__name">Product Name</p>
+        <p class="product-card-3__desc">Brief product description.</p>
+        <p class="product-card-3__price">$29.99</p>
+      </div>
+    </div>
+    <div class="product-card-3">...</div>
+    <div class="product-card-3">...</div>
+  </div>
+</div>
+-->

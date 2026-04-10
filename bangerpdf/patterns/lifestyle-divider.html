@@ -1,0 +1,97 @@
+<!-- Pattern: lifestyle-divider | Best vibe: Bold | WeasyPrint: tested -->
+<!-- Full-width image section with gradient overlay and white text.
+     Used as a visual break between data-heavy sections.
+     From the Carhartt "Built to Last" section.
+     Uses <img> not background-image for WeasyPrint compatibility. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .lifestyle-divider {
+    width: 100%;
+    height: 180pt;
+    position: relative;
+    overflow: hidden;
+    margin: 28pt 0;
+    page-break-inside: avoid;
+  }
+
+  .lifestyle-divider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Gradient: dark on left for text, fading to transparent on right */
+  .lifestyle-divider__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(26,26,26,0.75) 0%,
+      rgba(26,26,26,0.2) 100%
+    );
+    display: flex;
+    align-items: center;
+    padding: 0 40pt;
+  }
+
+  .lifestyle-divider__text {
+    color: white;
+    max-width: 280pt;
+  }
+
+  .lifestyle-divider__heading {
+    color: var(--accent, #F5A600);
+    font-size: 16pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    border: none;
+    margin: 0 0 6pt 0;
+    padding: 0;
+  }
+
+  .lifestyle-divider__body {
+    color: rgba(255,255,255,0.85);
+    font-size: 9pt;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Variant: centered text overlay (for wider messages) */
+  .lifestyle-divider__overlay--center {
+    background: linear-gradient(
+      180deg,
+      rgba(26,26,26,0.4) 0%,
+      rgba(26,26,26,0.7) 100%
+    );
+    justify-content: center;
+    text-align: center;
+  }
+
+  .lifestyle-divider__overlay--center .lifestyle-divider__text {
+    max-width: 400pt;
+  }
+</style>
+
+<div class="lifestyle-divider">
+  <img src="lifestyle-photo.jpg" alt="Lifestyle">
+  <div class="lifestyle-divider__overlay">
+    <div class="lifestyle-divider__text">
+      <h2 class="lifestyle-divider__heading">Built to Last</h2>
+      <p class="lifestyle-divider__body">
+        Over 137 years of rugged construction, premium materials,
+        and attention to detail. Every garment carries a lifetime guarantee.
+      </p>
+    </div>
+  </div>
+</div>

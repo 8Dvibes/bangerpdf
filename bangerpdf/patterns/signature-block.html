@@ -1,0 +1,90 @@
+<!-- Pattern: signature-block | Best vibe: All | WeasyPrint: tested -->
+<!-- Dual-column signature area with signature lines, name, title, date.
+     CRITICAL: page-break-inside: avoid -- this must NEVER split across pages.
+     Signature lines use border-top for the line, with padding-top for label text below. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .signature-block {
+    page-break-inside: avoid;
+    margin-top: 24pt;
+  }
+
+  .signature-block__heading {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--primary, #B77729);
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    margin: 0 0 12pt 0;
+    padding-bottom: 6pt;
+    padding-left: 12pt;
+    border-left: 4pt solid var(--accent, #F5A600);
+    page-break-after: avoid;
+  }
+
+  .signature-block__intro {
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin-bottom: 16pt;
+    color: var(--dark, #1A1A1A);
+  }
+
+  .signature-block__columns {
+    display: flex;
+    gap: 24pt;
+    margin-top: 16pt;
+  }
+
+  .signature-block__columns > div {
+    flex: 1;
+  }
+
+  .sig-line {
+    border-top: 1pt solid var(--dark, #1A1A1A);
+    padding-top: 4pt;
+    margin-top: 28pt;
+    font-size: 8pt;
+    color: var(--neutral-mid, #5C5C5C);
+  }
+
+  /* Pre-filled signature info (e.g., the bidder side) */
+  .sig-line--filled {
+    margin-top: 28pt;
+    border-top: 1pt solid var(--dark, #1A1A1A);
+    padding-top: 4pt;
+    font-size: 8pt;
+    color: var(--dark, #1A1A1A);
+    font-weight: 600;
+  }
+</style>
+
+<div class="signature-block">
+  <h2 class="signature-block__heading">Acceptance</h2>
+
+  <p class="signature-block__intro">
+    This proposal is valid for 30 calendar days from the date below.
+    To accept, sign below and return one copy.
+  </p>
+
+  <div class="signature-block__columns">
+    <!-- Client side (blank for signing) -->
+    <div>
+      <div class="sig-line">Authorized Signature, Client Company</div>
+      <div class="sig-line">Print Name &amp; Title</div>
+      <div class="sig-line">Date</div>
+    </div>
+
+    <!-- Bidder side (pre-filled) -->
+    <div>
+      <div class="sig-line--filled">Jane Smith -- Acme Corp</div>
+      <div class="sig-line">License / Authorization</div>
+      <div class="sig-line--filled">April 10, 2026</div>
+    </div>
+  </div>
+</div>

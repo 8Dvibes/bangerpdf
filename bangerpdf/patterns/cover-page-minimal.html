@@ -1,0 +1,98 @@
+<!-- Pattern: cover-page-minimal | Best vibe: Minimal, Corporate | WeasyPrint: tested -->
+<!-- Text-only cover page. Large title, subtle accent line, metadata.
+     Maximum whitespace. No images, no gradients, no decoration.
+     Uses named @page for zero margins so content placement is fully controlled. -->
+
+<style>
+  @page cover-minimal {
+    size: Letter;
+    margin: 0;
+    @bottom-center { content: none; }
+  }
+
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .cover-minimal {
+    page: cover-minimal;
+    width: 8.5in;
+    height: 11in;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 80pt 100pt 80pt;
+    background: white;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  /* Subtle accent line above the title */
+  .cover-minimal__rule {
+    width: 40pt;
+    height: 2pt;
+    background: var(--accent, #2563EB);
+    margin-bottom: 24pt;
+  }
+
+  .cover-minimal__title {
+    font-size: 36pt;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.5pt;
+    color: var(--dark, #111111);
+  }
+
+  .cover-minimal__subtitle {
+    font-size: 13pt;
+    font-weight: 400;
+    color: var(--neutral-mid, #6B7280);
+    line-height: 1.5;
+    max-width: 380pt;
+    margin: 0 0 32pt 0;
+  }
+
+  .cover-minimal__meta {
+    font-size: 9pt;
+    color: var(--neutral-mid, #6B7280);
+    line-height: 1.6;
+  }
+
+  .cover-minimal__meta strong {
+    color: var(--dark, #111111);
+  }
+
+  /* Logo positioned top-left */
+  .cover-minimal__logo {
+    position: absolute;
+    top: 60pt;
+    left: 80pt;
+  }
+
+  .cover-minimal__logo img {
+    height: 36pt;
+    width: auto;
+  }
+</style>
+
+<div class="cover-minimal">
+  <div class="cover-minimal__logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <div class="cover-minimal__rule"></div>
+  <h1 class="cover-minimal__title">Document Title</h1>
+  <p class="cover-minimal__subtitle">
+    A clear, concise description of the document purpose.
+  </p>
+  <div class="cover-minimal__meta">
+    <strong>Prepared for:</strong> Client Name<br>
+    <strong>Prepared by:</strong> Your Company<br>
+    <strong>Date:</strong> April 10, 2026<br>
+    <strong>Version:</strong> 1.0
+  </div>
+</div>

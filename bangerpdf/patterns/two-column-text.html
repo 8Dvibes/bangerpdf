@@ -1,0 +1,84 @@
+<!-- Pattern: two-column-text | Best vibe: Corporate, Bold | WeasyPrint: tested -->
+<!-- Side-by-side text columns using flexbox with equal widths and gap.
+     Classic use: Clarifications | Exclusions, or any paired content sections.
+     page-break-inside: avoid keeps both columns on the same page. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .two-col {
+    display: flex;
+    gap: 20pt;
+    margin: 12pt 0;
+    page-break-inside: avoid;
+  }
+
+  .two-col > div {
+    flex: 1;
+  }
+
+  /* Column heading style */
+  .two-col__heading {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--primary, #B77729);
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    margin: 0 0 12pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 1.5pt solid var(--neutral-border, #D4C5B0);
+    page-break-after: avoid;
+  }
+
+  .two-col p {
+    font-size: 9pt;
+    color: var(--neutral-mid, #5C5C5C);
+    margin: 0 0 8pt 0;
+    line-height: 1.5;
+  }
+
+  .two-col ol, .two-col ul {
+    margin: 4pt 0 10pt 0;
+    padding-left: 18pt;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .two-col li {
+    margin-bottom: 3pt;
+  }
+
+  /* Variant: bordered columns */
+  .two-col--bordered > div {
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+    padding: 14pt 16pt;
+    background: var(--surface, #FDFAF5);
+  }
+</style>
+
+<!-- Basic two-column text -->
+<div class="two-col">
+  <div>
+    <h2 class="two-col__heading">Clarifications</h2>
+    <p>This bid is submitted with the following clarifications:</p>
+    <ol>
+      <li>Pricing based on current wholesale rates.</li>
+      <li>Minimum order of 50 units per style.</li>
+      <li>Embroidery limited to 8,000 stitches per logo.</li>
+    </ol>
+  </div>
+
+  <div>
+    <h2 class="two-col__heading">Exclusions</h2>
+    <p>The following items are explicitly excluded:</p>
+    <ol>
+      <li>Individual name personalization.</li>
+      <li>Rush shipping under 5 business days.</li>
+      <li>Artwork design or logo creation.</li>
+    </ol>
+  </div>
+</div>

@@ -1,0 +1,160 @@
+<!-- Pattern: timeline-vertical | Best vibe: Corporate, Bold | WeasyPrint: tested -->
+<!-- Vertical project timeline with milestones. Left-aligned dots and connector line.
+     Two variants: styled table (simpler, from Carhartt) and custom dot-line (visual).
+     page-break-inside: avoid on the container keeps timelines together. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* === Variant A: Styled milestone table (simpler, more reliable) === */
+
+  .milestone-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin: 8pt 0 14pt 0;
+  }
+
+  .milestone-table th {
+    background: var(--dark, #1A1A1A);
+    color: white;
+    text-align: left;
+    font-weight: 600;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.8pt;
+    padding: 8pt 10pt;
+  }
+
+  .milestone-table td {
+    padding: 7pt 10pt;
+    border-bottom: 0.5pt solid var(--neutral-border, #D4C5B0);
+    vertical-align: top;
+  }
+
+  .milestone-table td:first-child {
+    font-weight: 600;
+    color: var(--dark, #1A1A1A);
+  }
+
+  .milestone-table td:last-child {
+    color: var(--neutral-mid, #5C5C5C);
+    text-align: right;
+    font-size: 9pt;
+  }
+
+  .milestone-table tr {
+    page-break-inside: avoid;
+  }
+
+  /* === Variant B: Visual dot-line timeline === */
+
+  .timeline {
+    margin: 16pt 0;
+    padding-left: 24pt;
+    position: relative;
+    page-break-inside: avoid;
+  }
+
+  /* Vertical connector line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6pt;
+    top: 4pt;
+    bottom: 4pt;
+    width: 2pt;
+    background: var(--neutral-border, #D4C5B0);
+  }
+
+  .timeline__item {
+    position: relative;
+    padding: 0 0 16pt 0;
+    page-break-inside: avoid;
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Dot on the timeline line */
+  .timeline__dot {
+    position: absolute;
+    left: -24pt;
+    top: 2pt;
+    width: 14pt;
+    height: 14pt;
+    border-radius: 50%;
+    background: var(--primary, #B77729);
+    border: 2pt solid white;
+  }
+
+  .timeline__dot--active {
+    background: var(--accent, #F5A600);
+  }
+
+  .timeline__date {
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    color: var(--neutral-mid, #5C5C5C);
+    font-weight: 600;
+    margin-bottom: 2pt;
+  }
+
+  .timeline__title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--dark, #1A1A1A);
+    margin: 0 0 2pt 0;
+  }
+
+  .timeline__desc {
+    font-size: 8.5pt;
+    color: var(--neutral-mid, #5C5C5C);
+    line-height: 1.4;
+    margin: 0;
+  }
+</style>
+
+<!-- Variant A: Table-based milestone timeline -->
+<table class="milestone-table">
+  <thead>
+    <tr><th>Milestone</th><th>Target</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Order Confirmation</td><td>Week 1</td></tr>
+    <tr><td>Artwork Approval</td><td>Week 2</td></tr>
+    <tr><td>Production Start</td><td>Week 3</td></tr>
+    <tr><td>Quality Review</td><td>Week 5</td></tr>
+    <tr><td>Delivery</td><td>Week 6</td></tr>
+  </tbody>
+</table>
+
+<!-- Variant B: Visual dot-line timeline -->
+<!--
+<div class="timeline">
+  <div class="timeline__item">
+    <div class="timeline__dot timeline__dot--active"></div>
+    <div class="timeline__date">Week 1</div>
+    <div class="timeline__title">Order Confirmation</div>
+    <p class="timeline__desc">PO received, production slot reserved.</p>
+  </div>
+  <div class="timeline__item">
+    <div class="timeline__dot"></div>
+    <div class="timeline__date">Week 2</div>
+    <div class="timeline__title">Artwork Approval</div>
+    <p class="timeline__desc">Final logo files and placement confirmed.</p>
+  </div>
+  <div class="timeline__item">
+    <div class="timeline__dot"></div>
+    <div class="timeline__date">Week 6</div>
+    <div class="timeline__title">Delivery</div>
+    <p class="timeline__desc">Shipped to site, inspection upon receipt.</p>
+  </div>
+</div>
+-->

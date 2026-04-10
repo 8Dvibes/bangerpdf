@@ -1,0 +1,116 @@
+<!-- Pattern: product-grid-2col | Best vibe: Bold | WeasyPrint: tested -->
+<!-- 2x2 product card grid using EXPLICIT ROW containers.
+     WeasyPrint bug: flex-wrap breaks pagination. Solution: explicit .product-row divs
+     with page-break-inside: avoid on each row. Each row is a self-contained flex container.
+     Card images use object-fit: cover with a fixed height. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .product-grid {
+    margin: 12pt 0;
+  }
+
+  /* CRITICAL: Each row is an explicit flex container, NOT flex-wrap.
+     WeasyPrint does not paginate flex-wrap correctly. */
+  .product-row {
+    display: flex;
+    gap: 14pt;
+    margin-bottom: 14pt;
+    page-break-inside: avoid;
+  }
+
+  .product-card {
+    flex: 1;
+    background: var(--surface, #FDFAF5);
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  /* Fixed-height image with object-fit: cover prevents layout shift.
+     object-position: top keeps faces/product tops visible when cropped. */
+  .product-card img {
+    width: 100%;
+    height: 160pt;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .product-card__body {
+    padding: 14pt 16pt;
+  }
+
+  .product-card__name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--dark, #1A1A1A);
+    margin: 0 0 4pt 0;
+  }
+
+  .product-card__desc {
+    font-size: 8.5pt;
+    color: var(--neutral-mid, #5C5C5C);
+    margin: 0 0 8pt 0;
+    line-height: 1.4;
+  }
+
+  .product-card__price {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary, #B77729);
+  }
+
+  .product-card__price .per-unit {
+    font-size: 8pt;
+    font-weight: 400;
+    color: var(--neutral-mid, #5C5C5C);
+  }
+</style>
+
+<div class="product-grid">
+  <!-- Row 1 -->
+  <div class="product-row">
+    <div class="product-card">
+      <img src="product-1.jpg" alt="Product 1">
+      <div class="product-card__body">
+        <p class="product-card__name">Product Name</p>
+        <p class="product-card__desc">Short description of the product features and benefits.</p>
+        <p class="product-card__price">$49.99 <span class="per-unit">per unit</span></p>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product-2.jpg" alt="Product 2">
+      <div class="product-card__body">
+        <p class="product-card__name">Product Name</p>
+        <p class="product-card__desc">Short description of the product features and benefits.</p>
+        <p class="product-card__price">$49.99 <span class="per-unit">per unit</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="product-row">
+    <div class="product-card">
+      <img src="product-3.jpg" alt="Product 3">
+      <div class="product-card__body">
+        <p class="product-card__name">Product Name</p>
+        <p class="product-card__desc">Short description of the product features and benefits.</p>
+        <p class="product-card__price">$49.99 <span class="per-unit">per unit</span></p>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="product-4.jpg" alt="Product 4">
+      <div class="product-card__body">
+        <p class="product-card__name">Product Name</p>
+        <p class="product-card__desc">Short description of the product features and benefits.</p>
+        <p class="product-card__price">$49.99 <span class="per-unit">per unit</span></p>
+      </div>
+    </div>
+  </div>
+</div>

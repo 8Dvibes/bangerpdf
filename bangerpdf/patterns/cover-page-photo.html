@@ -1,0 +1,143 @@
+<!-- Pattern: cover-page-photo | Best vibe: Bold, Editorial | WeasyPrint: tested -->
+<!-- Cover page with large background photo, company logo, document title, date.
+     Full-bleed, zero margins. Same technique as hero-fullbleed but optimized
+     for cover page metadata (logo, date, project info). -->
+
+<style>
+  @page cover {
+    size: Letter;
+    margin: 0;
+    @bottom-center { content: none; }
+  }
+
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .cover-photo {
+    page: cover;
+    width: 8.5in;
+    height: 11in;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--dark, #1A1A1A);
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  /* Background image: <img> not background-image for WeasyPrint */
+  .cover-photo__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .cover-photo__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(26,26,26,0.2) 0%,
+      rgba(26,26,26,0.1) 40%,
+      rgba(26,26,26,0.6) 75%,
+      rgba(26,26,26,0.9) 100%
+    );
+  }
+
+  /* Logo: top-left */
+  .cover-photo__logo {
+    position: absolute;
+    top: 48pt;
+    left: 60pt;
+    z-index: 2;
+  }
+
+  .cover-photo__logo img {
+    height: 48pt;
+    width: auto;
+  }
+
+  /* Date: top-right */
+  .cover-photo__date {
+    position: absolute;
+    top: 55pt;
+    right: 60pt;
+    z-index: 2;
+    color: rgba(255,255,255,0.7);
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+  }
+
+  /* Title block: bottom of page */
+  .cover-photo__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 60pt 60pt 60pt;
+    z-index: 2;
+  }
+
+  .cover-photo__category {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 4pt;
+    color: var(--accent, #F5A600);
+    margin-bottom: 10pt;
+    font-weight: 600;
+  }
+
+  .cover-photo__title {
+    font-size: 36pt;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 10pt 0;
+    letter-spacing: -0.5pt;
+    color: white;
+  }
+
+  .cover-photo__subtitle {
+    font-size: 11pt;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+    max-width: 380pt;
+    margin: 0 0 14pt 0;
+  }
+
+  .cover-photo__meta {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+  }
+</style>
+
+<div class="cover-photo">
+  <img class="cover-photo__bg" src="cover-photo.jpg" alt="">
+  <div class="cover-photo__overlay"></div>
+
+  <div class="cover-photo__logo">
+    <img src="logo-white.png" alt="Logo">
+  </div>
+  <div class="cover-photo__date">April 2026</div>
+
+  <div class="cover-photo__content">
+    <div class="cover-photo__category">Bid Proposal</div>
+    <h1 class="cover-photo__title">Project Name</h1>
+    <p class="cover-photo__subtitle">
+      A brief description of the project scope and deliverables.
+    </p>
+    <div class="cover-photo__meta">Prepared by Acme Corp | Version 1.0</div>
+  </div>
+</div>

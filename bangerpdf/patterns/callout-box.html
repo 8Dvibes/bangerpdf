@@ -1,0 +1,93 @@
+<!-- Pattern: callout-box | Best vibe: All | WeasyPrint: tested -->
+<!-- Accent-bordered callout box with label and content.
+     Three variants: default (primary border), gold, dark background.
+     page-break-inside: avoid keeps callouts atomic across pages. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .callout {
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+    border-left: 4pt solid var(--primary, #B77729);
+    padding: 12pt 16pt;
+    margin: 12pt 0;
+    background: var(--surface, #FDFAF5);
+    page-break-inside: avoid;
+  }
+
+  /* Gold variant: warm accent border */
+  .callout--gold {
+    border-left-color: var(--accent, #F5A600);
+    background: #FFFBF0;
+  }
+
+  /* Dark variant: inverted colors for emphasis */
+  .callout--dark {
+    background: var(--dark, #1A1A1A);
+    color: white;
+    border-left-color: var(--accent, #F5A600);
+    border-color: var(--dark, #1A1A1A);
+  }
+
+  .callout__label {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    color: var(--primary, #B77729);
+    margin-bottom: 4pt;
+  }
+
+  .callout--dark .callout__label {
+    color: var(--accent, #F5A600);
+  }
+
+  .callout__content {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .callout--dark .callout__content {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .callout__content strong {
+    color: var(--dark, #1A1A1A);
+  }
+
+  .callout--dark .callout__content strong {
+    color: white;
+  }
+</style>
+
+<!-- Default: primary border -->
+<div class="callout">
+  <p class="callout__label">Note</p>
+  <p class="callout__content">
+    This is a standard callout with the primary brand color border.
+    Use it for important context that supports the main content.
+  </p>
+</div>
+
+<!-- Gold variant -->
+<div class="callout callout--gold">
+  <p class="callout__label">Premium Addition</p>
+  <p class="callout__content">
+    <strong>Sherpa-Lined Vest</strong> -- Washed Duck construction with sherpa lining.
+    The statement piece of the collection. <strong>$89.99</strong> per unit.
+  </p>
+</div>
+
+<!-- Dark variant -->
+<div class="callout callout--dark">
+  <p class="callout__label">Important</p>
+  <p class="callout__content">
+    Dark callouts command attention. Use sparingly for critical information
+    like deadlines, warnings, or key terms.
+  </p>
+</div>

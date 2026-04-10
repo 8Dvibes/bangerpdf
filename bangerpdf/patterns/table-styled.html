@@ -1,0 +1,116 @@
+<!-- Pattern: table-styled | Best vibe: All | WeasyPrint: tested -->
+<!-- Professional table with: dark header row, alternating row backgrounds,
+     section header rows in brand color, bold subtotal rows, dark total row.
+     From the Carhartt SOV (Schedule of Values) table.
+     Key: print-color-adjust: exact on colored rows -- WeasyPrint strips backgrounds without it.
+     tr { page-break-inside: avoid } keeps rows atomic. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8pt 0 14pt 0;
+    font-size: 9pt;
+  }
+
+  /* Dark header row */
+  .styled-table th {
+    background: var(--dark, #1A1A1A);
+    color: white;
+    text-align: left;
+    font-weight: 600;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.8pt;
+    padding: 8pt 10pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .styled-table td {
+    padding: 7pt 10pt;
+    border-bottom: 0.5pt solid var(--neutral-border, #D4C5B0);
+    vertical-align: top;
+  }
+
+  .styled-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Keep rows from splitting across pages */
+  .styled-table tr {
+    page-break-inside: avoid;
+  }
+
+  /* Right-aligned amount columns */
+  .styled-table .amount {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Section header row: brand color background */
+  .styled-table .section-row td {
+    background: var(--cream, #F5F1EB);
+    font-weight: 700;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    color: var(--primary, #B77729);
+    padding: 6pt 10pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Subtotal row */
+  .styled-table .subtotal-row td {
+    background: var(--surface, #FDFAF5);
+    font-weight: 700;
+    border-top: 1pt solid var(--neutral-border, #D4C5B0);
+    color: var(--dark, #1A1A1A);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Grand total row: dark background, large text */
+  .styled-table .total-row td {
+    background: var(--dark, #1A1A1A);
+    color: white;
+    font-weight: 800;
+    font-size: 12pt;
+    padding: 10pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+</style>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th class="amount">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Section 1 -->
+    <tr class="section-row"><td colspan="2">Apparel</td></tr>
+    <tr><td>K87 Pocket Tee (50 units x $19.99)</td><td class="amount">$999</td></tr>
+    <tr><td>K121 Midweight Hoodie (50 units x $54.99)</td><td class="amount">$2,749</td></tr>
+    <tr class="subtotal-row"><td>Subtotal</td><td class="amount">$3,748</td></tr>
+
+    <!-- Section 2 -->
+    <tr class="section-row"><td colspan="2">Accessories</td></tr>
+    <tr><td>A18 Watch Cap (50 units x $19.99)</td><td class="amount">$999</td></tr>
+    <tr><td>100286 Trucker Cap (50 units x $19.99)</td><td class="amount">$999</td></tr>
+    <tr class="subtotal-row"><td>Subtotal</td><td class="amount">$1,998</td></tr>
+
+    <!-- Grand total -->
+    <tr class="total-row"><td>TOTAL PROGRAM</td><td class="amount">$6,850</td></tr>
+  </tbody>
+</table>

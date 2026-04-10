@@ -1,0 +1,97 @@
+<!-- Pattern: hero-gradient | Best vibe: Corporate, Minimal | WeasyPrint: tested -->
+<!-- Hero section with pure CSS gradient background -- no image needed.
+     Works well when photos are unavailable or inappropriate.
+     Uses named @page for zero margins. -->
+
+<style>
+  @page full-bleed {
+    size: Letter;
+    margin: 0;
+    @bottom-center { content: none; }
+  }
+
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .hero-gradient {
+    page: full-bleed;
+    width: 8.5in;
+    height: 11in;
+    position: relative;
+    overflow: hidden;
+    /* Diagonal gradient using brand colors */
+    background: linear-gradient(
+      135deg,
+      var(--dark, #1A1A1A) 0%,
+      var(--primary, #2563EB) 100%
+    );
+    page-break-after: always;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 72pt 60pt;
+  }
+
+  .hero-gradient__label {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 4pt;
+    color: var(--accent, #F5A600);
+    margin-bottom: 10pt;
+    font-weight: 600;
+  }
+
+  .hero-gradient__title {
+    font-size: 42pt;
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.5pt;
+    color: white;
+  }
+
+  .hero-gradient__subtitle {
+    font-size: 12pt;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+    max-width: 380pt;
+  }
+
+  /* Decorative accent line */
+  .hero-gradient__rule {
+    width: 48pt;
+    height: 3pt;
+    background: var(--accent, #F5A600);
+    margin-bottom: 24pt;
+  }
+
+  /* Logo positioned top-left */
+  .hero-gradient__logo {
+    position: absolute;
+    top: 48pt;
+    left: 60pt;
+  }
+
+  .hero-gradient__logo img {
+    height: 48pt;
+    width: auto;
+  }
+</style>
+
+<div class="hero-gradient">
+  <div class="hero-gradient__logo">
+    <img src="logo-white.png" alt="Company Logo">
+  </div>
+
+  <div class="hero-gradient__rule"></div>
+  <div class="hero-gradient__label">Proposal</div>
+  <h1 class="hero-gradient__title">Document Title</h1>
+  <p class="hero-gradient__subtitle">
+    A short description or tagline for the document.
+  </p>
+</div>

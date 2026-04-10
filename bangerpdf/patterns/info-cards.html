@@ -1,0 +1,99 @@
+<!-- Pattern: info-cards | Best vibe: All | WeasyPrint: tested -->
+<!-- Two side-by-side info cards (e.g., "Submitted To" / "Submitted By").
+     Bordered cards with uppercase label + content.
+     page-break-inside: avoid on both the grid and individual cards. -->
+
+<style>
+  * {
+    box-sizing: border-box;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .info-grid {
+    display: flex;
+    gap: 16pt;
+    margin: 16pt 0 24pt 0;
+    page-break-inside: avoid;
+  }
+
+  .info-card {
+    flex: 1;
+    background: var(--surface, #FDFAF5);
+    border: 1pt solid var(--neutral-border, #D4C5B0);
+    padding: 16pt 18pt;
+    page-break-inside: avoid;
+  }
+
+  .info-card__label {
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    color: var(--neutral-mid, #5C5C5C);
+    margin-bottom: 6pt;
+    font-weight: 600;
+  }
+
+  .info-card p {
+    margin: 2pt 0;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .info-card strong {
+    color: var(--dark, #1A1A1A);
+  }
+
+  .info-card .text-muted {
+    color: var(--neutral-mid, #5C5C5C);
+  }
+
+  /* Variant: 3-card grid */
+  .info-grid--3 {
+    display: flex;
+    gap: 12pt;
+    margin: 16pt 0 24pt 0;
+    page-break-inside: avoid;
+  }
+
+  .info-grid--3 .info-card {
+    flex: 1;
+    padding: 12pt 14pt;
+  }
+</style>
+
+<!-- Two-card layout (most common) -->
+<div class="info-grid">
+  <div class="info-card">
+    <div class="info-card__label">Submitted To</div>
+    <p><strong>Client Company Name</strong></p>
+    <p>Attn: Contact Person</p>
+    <p class="text-muted">123 Main Street, City, ST 12345</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card__label">Submitted By</div>
+    <p><strong>Your Company Name</strong></p>
+    <p>Owner / Contact Name</p>
+    <p class="text-muted">phone@email.com</p>
+  </div>
+</div>
+
+<!-- Three-card variant -->
+<!--
+<div class="info-grid--3">
+  <div class="info-card">
+    <div class="info-card__label">Project</div>
+    <p><strong>Project Name</strong></p>
+    <p class="text-muted">Location details</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card__label">Authorization</div>
+    <p>License #12345</p>
+    <p class="text-muted">Valid through Dec 2026</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card__label">Guarantee</div>
+    <p>Manufacturer's lifetime warranty included.</p>
+  </div>
+</div>
+-->

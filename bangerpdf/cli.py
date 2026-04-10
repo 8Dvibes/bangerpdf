@@ -591,6 +591,267 @@ def cmd_review_status(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# v2.0: Design, Brand Discovery, Preferences, Gallery, Patterns
+# ---------------------------------------------------------------------------
+
+def cmd_design(args: argparse.Namespace) -> int:
+    """Run the interactive design interview."""
+    print("Design Interview")
+    print("=" * 40)
+    print()
+    print("Answer these questions to generate a design-brief.yaml for your project.")
+    print()
+
+    questions = [
+        ("audience", "1. WHO is receiving this document? (e.g., 'C-suite executives', 'potential client')"),
+        ("purpose", "2. WHAT is the purpose? (e.g., 'bid package', 'quarterly report', 'proposal')"),
+        ("vibe", "3. VIBE — pick one: Corporate / Bold / Editorial / Minimal"),
+        ("assets", "4. ASSETS — do you have a brand URL for auto-discovery? (URL or 'skip')"),
+        ("references", "5. REFERENCES — any designs you admire? (URL, description, or 'skip')"),
+    ]
+
+    answers = {}
+    for key, prompt in questions:
+        print(prompt)
+        try:
+            answer = input("  > ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nInterview cancelled.")
+            return 1
+        answers[key] = answer
+        print()
+
+    # Generate design-brief.yaml
+    import yaml
+
+    output_dir = getattr(args, "dir", None) or "."
+    brief_path = Path(output_dir) / "design-brief.yaml"
+
+    brief = {
+        "audience": answers.get("audience", ""),
+        "purpose": answers.get("purpose", ""),
+        "vibe": answers.get("vibe", "corporate").lower(),
+        "brand_url": answers.get("assets", "") if answers.get("assets", "").startswith("http") else "",
+        "references": answers.get("references", ""),
+    }
+
+    with open(brief_path, "w") as f:
+        yaml.dump(brief, f, default_flow_style=False, sort_keys=False)
+
+    print(f"Design brief saved to {brief_path.resolve()}")
+
+    # If they provided a brand URL, offer to run discovery
+    if brief["brand_url"]:
+        print(f"\nRun 'bangerpdf brand discover {brief['brand_url']}' to auto-discover brand assets.")
+
+    return 0
+
+
+def cmd_brand_discover(args: argparse.Namespace) -> int:
+    """Discover brand identity from a URL."""
+    from bangerpdf.discovery import discover_brand, brand_to_kit
+
+    url = args.url
+    output_dir = Path(getattr(args, "dir", None) or ".")
+
+    print(f"Discovering brand from {url}...")
+    brand = discover_brand(url, output_dir=output_dir / "assets")
+
+    if not brand.name and not brand.colors:
+        print("Could not extract brand information from URL.", file=sys.stderr)
+        return 1
+
+    print(f"\n  Name:    {brand.name}")
+    print(f"  Method:  {brand.method}")
+    if brand.colors:
+        print(f"  Colors:  {brand.colors}")
+    if brand.fonts:
+        print(f"  Fonts:   {', '.join(brand.fonts)}")
+    if brand.logo_url:
+        print(f"  Logo:    {brand.logo_url}")
+    if brand.logo_local:
+        print(f"  Saved:   {brand.logo_local}")
+
+    # Write brand-kit.yaml
+    import yaml
+    kit = brand_to_kit(brand)
+    kit_path = output_dir / "brand-kit.yaml"
+    with open(kit_path, "w") as f:
+        yaml.dump(kit, f, default_flow_style=False, sort_keys=False)
+    print(f"\n  Brand kit written to {kit_path.resolve()}")
+
+    return 0
+
+
+def cmd_brand_save(args: argparse.Namespace) -> int:
+    """Save current project's brand as a named profile."""
+    from bangerpdf.preferences import save_brand
+
+    project_dir = Path(getattr(args, "dir", None) or ".")
+    name = args.name
+
+    try:
+        saved_path = save_brand(name, project_dir)
+        print(f"Brand '{name}' saved to {saved_path}")
+    except FileNotFoundError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    return 0
+
+
+def cmd_brand_load(args: argparse.Namespace) -> int:
+    """Load a saved brand profile into the current project."""
+    from bangerpdf.preferences import load_brand_profile
+
+    import shutil
+    import yaml
+
+    name = args.name
+    project_dir = Path(getattr(args, "dir", None) or ".")
+
+    profile = load_brand_profile(name)
+    if profile is None:
+        print(f"ERROR: No saved brand profile named '{name}'.", file=sys.stderr)
+        print("Run 'bangerpdf brand list-saved' to see available profiles.", file=sys.stderr)
+        return 1
+
+    # Write brand-kit.yaml to project directory
+    kit_path = project_dir / "brand-kit.yaml"
+    with open(kit_path, "w") as f:
+        yaml.dump(profile, f, default_flow_style=False, sort_keys=False)
+
+    # Copy assets if they exist
+    from bangerpdf.preferences import BRANDS_DIR
+    assets_src = BRANDS_DIR / name / "assets"
+    if assets_src.is_dir():
+        assets_dest = project_dir / "assets"
+        if assets_dest.exists():
+            shutil.rmtree(assets_dest)
+        shutil.copytree(assets_src, assets_dest)
+        print(f"Loaded brand '{name}' (brand-kit.yaml + assets/) into {project_dir.resolve()}")
+    else:
+        print(f"Loaded brand '{name}' (brand-kit.yaml) into {project_dir.resolve()}")
+
+    return 0
+
+
+def cmd_brand_list_saved(args: argparse.Namespace) -> int:
+    """List saved brand profiles."""
+    from bangerpdf.preferences import list_brands
+
+    brands = list_brands()
+
+    if not brands:
+        print("No saved brand profiles.")
+        print("Use 'bangerpdf brand save <name>' in a project directory to save one.")
+        return 0
+
+    print(f"Saved brand profiles ({len(brands)}):")
+    print()
+    name_width = max(len(b["name"]) for b in brands)
+    for b in brands:
+        extras = []
+        if b["has_brief"]:
+            extras.append("brief")
+        if b["has_assets"]:
+            extras.append("assets")
+        extra_str = f"  [{', '.join(extras)}]" if extras else ""
+        print(f"  {b['name']:<{name_width}}{extra_str}")
+
+    print()
+    print("Use: bangerpdf brand load <name>")
+    return 0
+
+
+def cmd_preferences_set(args: argparse.Namespace) -> int:
+    """Set a global preference."""
+    from bangerpdf.preferences import set_preference
+
+    try:
+        prefs = set_preference(args.key, args.value)
+        print(f"Set {args.key} = {getattr(prefs, args.key)}")
+    except ValueError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    return 0
+
+
+def cmd_preferences_show(args: argparse.Namespace) -> int:
+    """Show current global preferences."""
+    from bangerpdf.preferences import load_preferences, PREFS_FILE
+    from dataclasses import asdict
+
+    prefs = load_preferences()
+    items = asdict(prefs)
+
+    print(f"Global Preferences ({PREFS_FILE}):")
+    print()
+
+    width = max(len(k) for k in items)
+    for key, value in items.items():
+        print(f"  {key:<{width}}  {value}")
+
+    return 0
+
+
+def cmd_gallery_show(args: argparse.Namespace) -> int:
+    """List gallery reference packs."""
+    from bangerpdf.gallery import list_gallery
+
+    vibe = getattr(args, "vibe", None)
+    entries = list_gallery(vibe=vibe)
+
+    if not entries:
+        msg = f"No gallery entries found"
+        if vibe:
+            msg += f" for vibe '{vibe}'"
+        msg += ". Gallery packs are bundled in bangerpdf/gallery/."
+        print(msg)
+        return 0
+
+    label = f"Gallery reference packs"
+    if vibe:
+        label += f" (vibe: {vibe})"
+    print(f"{label} ({len(entries)}):")
+    print()
+
+    name_width = max(len(e["name"]) for e in entries)
+    for e in entries:
+        extras = []
+        if e["has_notes"]:
+            extras.append("notes")
+        if e["has_brand_kit"]:
+            extras.append("brand-kit")
+        extra_str = f"  [{', '.join(extras)}]" if extras else ""
+        print(f"  {e['name']:<{name_width}}{extra_str}")
+
+    return 0
+
+
+def cmd_patterns_list(args: argparse.Namespace) -> int:
+    """List available layout patterns."""
+    from bangerpdf.gallery import list_patterns
+
+    patterns = list_patterns()
+
+    if not patterns:
+        print("No layout patterns found. Patterns are bundled in bangerpdf/patterns/.")
+        return 0
+
+    print(f"Layout patterns ({len(patterns)}):")
+    print()
+
+    name_width = max(len(p["name"]) for p in patterns)
+    for p in patterns:
+        desc = f"  {p['description']}" if p["description"] else ""
+        print(f"  {p['name']:<{name_width}}{desc}")
+
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Skills commands
 # ---------------------------------------------------------------------------
 
@@ -702,7 +963,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_build.add_argument("--only", help="Only build documents matching this name")
     p_build.set_defaults(func=cmd_build)
 
-    # --- brand (with subcommands: show, set) ---
+    # --- design ---
+    p_design = sub.add_parser("design", help="Interactive design interview -> design-brief.yaml")
+    p_design.add_argument("--dir", default=None,
+                          help="Project directory (default: current dir)")
+    p_design.set_defaults(func=cmd_design)
+
+    # --- brand (with subcommands: show, set, discover, save, load, list-saved) ---
     p_brand = sub.add_parser("brand", help="Show or edit brand-kit.yaml")
     p_brand.add_argument("--dir", default=None,
                          help="Project directory (default: current dir)")
@@ -716,7 +983,56 @@ def build_parser() -> argparse.ArgumentParser:
     p_brand_set.add_argument("value", help="New value")
     p_brand_set.set_defaults(func=cmd_brand)
 
+    p_brand_discover = brand_sub.add_parser("discover", help="Auto-discover brand identity from a URL")
+    p_brand_discover.add_argument("url", help="Website URL to discover brand from")
+    p_brand_discover.set_defaults(func=cmd_brand_discover)
+
+    p_brand_save = brand_sub.add_parser("save", help="Save current brand as a named profile")
+    p_brand_save.add_argument("name", help="Profile name (e.g. 'carhartt', 'acme-corp')")
+    p_brand_save.set_defaults(func=cmd_brand_save)
+
+    p_brand_load = brand_sub.add_parser("load", help="Load a saved brand profile into this project")
+    p_brand_load.add_argument("name", help="Profile name to load")
+    p_brand_load.set_defaults(func=cmd_brand_load)
+
+    p_brand_list_saved = brand_sub.add_parser("list-saved", help="List saved brand profiles")
+    p_brand_list_saved.set_defaults(func=cmd_brand_list_saved)
+
     p_brand.set_defaults(func=cmd_brand)
+
+    # --- preferences ---
+    p_prefs = sub.add_parser("preferences", help="Manage global preferences")
+    prefs_sub = p_prefs.add_subparsers(dest="prefs_action", metavar="ACTION")
+
+    p_prefs_set = prefs_sub.add_parser("set", help="Set a preference value")
+    p_prefs_set.add_argument("key", help="Preference key (e.g. 'default_vibe', 'default_tier')")
+    p_prefs_set.add_argument("value", help="New value")
+    p_prefs_set.set_defaults(func=cmd_preferences_set)
+
+    p_prefs_show = prefs_sub.add_parser("show", help="Show current preferences")
+    p_prefs_show.set_defaults(func=cmd_preferences_show)
+
+    p_prefs.set_defaults(func=lambda args: (p_prefs.print_help(), 0)[-1])
+
+    # --- gallery ---
+    p_gallery = sub.add_parser("gallery", help="Browse bundled reference packs")
+    gallery_sub = p_gallery.add_subparsers(dest="gallery_action", metavar="ACTION")
+
+    p_gallery_show = gallery_sub.add_parser("show", help="List gallery reference packs")
+    p_gallery_show.add_argument("--vibe", default=None,
+                                help="Filter by vibe (corporate, bold, editorial, minimal)")
+    p_gallery_show.set_defaults(func=cmd_gallery_show)
+
+    p_gallery.set_defaults(func=lambda args: (p_gallery.print_help(), 0)[-1])
+
+    # --- patterns ---
+    p_patterns = sub.add_parser("patterns", help="Browse bundled layout patterns")
+    patterns_sub = p_patterns.add_subparsers(dest="patterns_action", metavar="ACTION")
+
+    p_patterns_list = patterns_sub.add_parser("list", help="List available layout patterns")
+    p_patterns_list.set_defaults(func=cmd_patterns_list)
+
+    p_patterns.set_defaults(func=lambda args: (p_patterns.print_help(), 0)[-1])
 
     # --- list-packs ---
     p_list_packs = sub.add_parser("list-packs", help="Inspect installed starter packs")

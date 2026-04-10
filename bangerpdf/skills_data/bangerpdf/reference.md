@@ -226,3 +226,101 @@ trimbox = page.trimbox     # where the cut happens
 - Use `in` or `mm` for page dimensions and margins
 - Prefer Inter, Helvetica Neue, or system fonts for maximum compatibility
 - For branded work, use Google Fonts (WeasyPrint auto-embeds them)
+
+## Design System
+
+bangerpdf templates use a consistent design system. See `design-taste.md` for the full reference.
+
+CSS custom properties to always define in styles.css:
+- `--space-{xs,s,m,l,xl,xxl,xxxl}` — spacing scale (4/8/16/24/32/48/64px)
+- `--text-{xs,sm,base,lg,xl,2xl,3xl}` — type scale
+- `--primary`, `--accent`, `--neutral-dark`, `--neutral-light` — from brand-kit.yaml
+- `--body-font`, `--heading-font` — from brand-kit.yaml
+
+## WeasyPrint Layout Pitfalls
+
+Quick-reference summary of the most common WeasyPrint layout bugs and their fixes. For full tested code examples, see `weasyprint-cookbook.md`.
+
+### flex-wrap + percentage widths = unreliable pagination
+
+**Problem:** A flex container with `flex-wrap: wrap` and percentage-width children (e.g., `width: 48%` for a 2-column grid) causes items to split unpredictably across page boundaries. WeasyPrint does not reliably honor `page-break-inside: avoid` on wrapped flex children.
+
+**Fix:** Use explicit row containers instead of relying on flex-wrap:
+```html
+<!-- BAD: flex-wrap -->
+<div class="product-grid" style="display: flex; flex-wrap: wrap;">
+  <div class="card" style="width: 48%;">...</div>
+  <div class="card" style="width: 48%;">...</div>
+  <div class="card" style="width: 48%;">...</div>
+  <div class="card" style="width: 48%;">...</div>
+</div>
+
+<!-- GOOD: explicit rows -->
+<div class="product-row" style="display: flex; gap: 16px; break-inside: avoid;">
+  <div class="card" style="flex: 1;">...</div>
+  <div class="card" style="flex: 1;">...</div>
+</div>
+<div class="product-row" style="display: flex; gap: 16px; break-inside: avoid;">
+  <div class="card" style="flex: 1;">...</div>
+  <div class="card" style="flex: 1;">...</div>
+</div>
+```
+
+### page-break-inside: avoid on large containers
+
+**Problem:** Applying `page-break-inside: avoid` to a container that occupies >60% of the page height causes WeasyPrint to push the entire container to the next page, leaving a massive whitespace gap on the previous page.
+
+**Fix:** Flatten the DOM. Apply `break-inside: avoid` to individual items (cards, rows), not to their parent container. If a group must stay together, keep it under 50% of the page height.
+
+### CSS Grid auto-flow + images across pages
+
+**Problem:** `grid-template-columns` works for simple text layouts, but breaks when grid cells contain images and the grid spans a page boundary. Auto-placed items may overlap or disappear.
+
+**Fix:** For image-heavy grids that may cross pages, use flexbox with explicit rows (see above) instead of CSS Grid. Reserve CSS Grid for single-page layouts or grids guaranteed to fit on one page.
+
+### background-image in @page rules
+
+**Problem:** `background-image` inside `@page { }` rules is NOT supported by WeasyPrint. The background will silently not render.
+
+**Fix:** Use an `<img>` tag with absolute positioning inside the HTML body:
+```html
+<div class="page-bg">
+  <img src="assets/bg-pattern.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+  <div class="content">...</div>
+</div>
+```
+
+### position: fixed for footers
+
+**Problem:** `position: fixed` is NOT supported in WeasyPrint. Elements with `position: fixed` will render as `position: static`.
+
+**Fix:** Use `@page` margin boxes for persistent headers and footers:
+```css
+@page {
+    @bottom-center {
+        content: "Company Name  |  Page " counter(page);
+        font-size: 8pt;
+    }
+}
+```
+
+### Named @page rules on wrong elements
+
+**Problem:** Named `@page` rules (e.g., `page: full-bleed`) only work on DIRECT children of `<body>`. Applying them to deeply nested elements silently fails.
+
+**Fix:** Structure your HTML so each "page type" section is a direct child of `<body>`:
+```html
+<body>
+  <section class="hero-page" style="page: full-bleed;">...</section>
+  <section class="content-page">...</section>
+</body>
+```
+
+For the full cookbook with tested code examples and workarounds, see `weasyprint-cookbook.md`.
+
+## Nano Banana Visuals
+
+See `visuals-guide.md` for generating custom graphics. Key integration points:
+- `embed_assets.py` handles base64 inlining of generated PNGs
+- Place generated images in the pack's `assets/` directory
+- Use descriptive kebab-case names (hero-header.png, process-flow.png)

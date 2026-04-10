@@ -127,3 +127,149 @@ bangerpdf proof brochure.pdf --dpi 300
 
 # 4. Send brochure.pdf + the 300dpi proofs to your printer
 ```
+
+## Example 4: Visual-Forward Bid Package (Carhartt Custom Merch)
+
+A complete walkthrough of the real Carhartt merch bid session -- from design interview through final delivery. This is the Bold vibe in action with generated imagery, product research, and iterative layout fixes.
+
+### Step 1: Design Interview
+
+```
+User: "We need a merch bid for AI Build Lab, Carhartt products"
+```
+
+bangerpdf triggers the design interview automatically for a new document project:
+1. **WHO** is receiving this? -- AI Build Lab team, for internal branded merch
+2. **WHAT** is the purpose? -- Bid package showing product options, pricing, embroidery details
+3. **VIBE** -- Bold (full-bleed hero imagery, lifestyle photography, look-book feel)
+4. **ASSETS** -- AI Build Lab logo available, Carhartt brand to be auto-discovered
+5. **REFERENCES** -- "Make it look like a Carhartt catalog, not a spreadsheet"
+
+### Step 2: Brand Discovery
+
+```bash
+bangerpdf brand discover https://carhartt.com
+```
+
+Discovered brand elements:
+- **Colors:** Carhartt Brown `#B77729`, Gold `#F5A600`, Black `#1A1A1A`, White
+- **Fonts:** Helvetica Neue (heading), Helvetica Neue (body)
+- **Logo:** Carhartt "C" logo + wordmark extracted
+- **Imagery style:** Workwear lifestyle, outdoor/industrial settings
+
+### Step 3: Product Research
+
+Products selected from the Carhartt/SanMar catalog:
+- **K87 Workwear Pocket Tee** -- $19.99 (base), available in 20+ colors
+- **A18 Acrylic Watch Hat (Beanie)** -- $19.99, available in 15+ colors
+- **K121 Midweight Hooded Sweatshirt** -- $54.99, pullover hoodie
+- **Sherpa-Lined Mock Neck Vest** -- $89.99, premium piece
+
+### Step 4: Embroidery Pricing
+
+- Per-unit embroidery: ~$5-8 depending on stitch count and location
+- Digitization fee: $45 one-time setup per logo
+- AI Build Lab logo: estimated 5,000 stitches, left chest placement
+
+### Step 5: Vibe Selection -- Bold
+
+Bold vibe means:
+- Full-bleed hero imagery on the cover
+- Lifestyle photography throughout (forge, farm, woodwork settings)
+- Product grid with large images, not just a table of SKUs
+- Dark hero sections with light text overlay
+- The document should feel like a brand catalog, not a purchase order
+
+### Step 6: Visual Generation
+
+Generated a product mockup using Nano Banana 2 with the BANANAS 7-layer architecture:
+
+```bash
+# AI Build Lab logo on Carhartt K87 -- product mockup
+python ~/.claude/skills/nano-banana-2/generate_image.py \
+  /tmp/k87-mockup-prompt.json \
+  ./assets/k87-logo-mockup.png \
+  "4:3" "2K"
+```
+
+### Step 7: Asset Download
+
+Downloaded from SanMar CDN and lifestyle sources:
+- Product shots: K87, A18, K121, vest (clean white background, multiple angles)
+- Lifestyle photos: forge/workshop setting, farm/outdoor setting, woodworking setting
+- Section dividers: atmospheric Carhartt-style workwear imagery
+
+```bash
+mkdir -p assets
+# Product images from SanMar CDN
+curl -o assets/k87-desert.png "https://cdn.sanmar.com/..."
+curl -o assets/a18-black.png "https://cdn.sanmar.com/..."
+# Lifestyle images for section dividers
+# (generated via Nano Banana 2 with Carhartt brand colors)
+```
+
+### Step 8: Template Customization
+
+Built with Bold vibe patterns:
+- **Cover page:** Full-bleed hero with dark overlay, Carhartt Brown accent bar, white title text
+- **Product grid:** 2x2 layout per page, large product images with pricing and color swatches
+- **Lifestyle sections:** Full-width photography as section dividers between product categories
+- **Pricing summary:** Clean table with embroidery costs broken out
+
+```bash
+bangerpdf init bid-package ./carhartt-bid --brand "Carhartt Custom" --primary "#B77729"
+# Customized templates for look-book layout
+```
+
+### Step 9: Build + QA
+
+```bash
+bangerpdf build --tier all
+bangerpdf qa pdfs/desktop/ --strict
+# Result: 5 PDFs, all 17 checks passing
+```
+
+### Step 10: Iteration -- First Draft Was "Vanilla"
+
+Tyler's feedback on v1: "This looks like a generic bid. I want a look-book with photography."
+
+Changes made:
+- Swapped plain white cover for full-bleed lifestyle hero with gradient overlay
+- Added lifestyle photography section dividers between product categories
+- Converted the pricing table into a styled product card grid
+- Added a premium callout section for the sherpa vest (highest margin item)
+
+### Step 11: Page Flow Fix
+
+The allowances table was splitting across pages, leaving orphaned header rows:
+
+```
+PROBLEM: flex-wrap + percentage widths on product cards = cards splitting mid-page
+FIX: Replaced flex-wrap grid with explicit row containers (<div class="product-row">)
+     Each row is a self-contained unit with page-break-inside: avoid
+```
+
+Also fixed:
+- Premium vest callout was alone on a page -- merged it into the product grid section
+- Consolidated sections to eliminate a nearly-empty page 4
+
+### Step 12: Brand Save
+
+```bash
+bangerpdf brand save carhartt-merch
+# Saved to ~/.config/bangerpdf/brands/carhartt-merch/
+# Contains: brand-kit.yaml, logo files, color palette, font choices
+# Reusable for future Carhartt merch bids without re-discovering
+```
+
+### Key Commands Summary
+
+```bash
+bangerpdf brand discover https://carhartt.com        # Auto-discover brand
+bangerpdf init bid-package ./carhartt-bid             # Scaffold pack
+bangerpdf build --tier all                            # Build 3 tiers
+bangerpdf qa pdfs/desktop/ --strict                   # QA all PDFs
+bangerpdf brand save carhartt-merch                   # Save for reuse
+bangerpdf brand load carhartt-merch                   # Load saved brand
+```
+

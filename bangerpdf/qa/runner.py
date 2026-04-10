@@ -22,13 +22,17 @@ from bangerpdf.qa import (
     cross_doc,
     density,
     fonts,
+    heading_orphan,
     images,
     links,
     orphans,
     overflow,
     pdfx,
+    section_split,
+    single_element,
     tables,
     variables,
+    whitespace_excess,
 )
 from bangerpdf.qa.types import CheckResult, FileReport, QAReport, Severity
 
@@ -39,6 +43,10 @@ PER_FILE_CHECKS = [
     "page_count",
     "orphan_sig",
     "orphan_hdr",
+    "heading_orphan",
+    "section_split",
+    "whitespace_excess",
+    "single_element",
     "tables",
     "overflow",
     "unresolved",
@@ -134,6 +142,18 @@ class QARunner:
 
             if self._should_run("orphan_hdr"):
                 results.extend(orphans.check_orphan_section_header(doc, str(pdf_path)))
+
+            if self._should_run("heading_orphan"):
+                results.extend(heading_orphan.check_heading_orphan(doc, str(pdf_path)))
+
+            if self._should_run("section_split"):
+                results.extend(section_split.check_section_split(doc, str(pdf_path)))
+
+            if self._should_run("whitespace_excess"):
+                results.extend(whitespace_excess.check_whitespace_excess(doc, str(pdf_path)))
+
+            if self._should_run("single_element"):
+                results.extend(single_element.check_single_element(doc, str(pdf_path)))
 
             if self._should_run("tables"):
                 results.extend(tables.check_table_split(doc, str(pdf_path)))

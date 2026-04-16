@@ -1,21 +1,6 @@
 ---
 name: bangerpdf
-description: >
-  Intelligent design partner for generating print-ready PDFs from HTML or data.
-  Jinja2 templates, three print tiers (desktop, digital press, commercial offset
-  CMYK), automated 17-check QA, HTML Review Bundles, brand discovery, design
-  interviews, and saved brand memory. Use when the user says any of these:
-  "build me a bid", "create a proposal", "make a PDF", "generate an invoice",
-  "design a document", "create a brochure", "make a report", "I need a proposal
-  for a client", "build a quote for", "make a one-pager", "polish this for the
-  client", "make it print-ready", "ship this as a PDF", "start a new document
-  project", "set up a bid package", "I have a client presentation", "create a
-  leave-behind", "turn this into a professional PDF", "run QA on these PDFs",
-  "send this to the printer", "I need an invoice", "build me a bid for [client]",
-  "make this print-ready", "polish this for the customer", "I need a certificate",
-  "create a report for", "design a one-pager", "build a proposal package",
-  "make a branded document", "set up a proposal", "I need a briefing document",
-  or any time a business document needs styling, branding, and PDF delivery.
+description: "Generate print-ready PDFs from HTML or data. Bids, proposals, invoices, brochures, reports, one-pagers, certificates. Three print tiers, 17-check QA, brand discovery, design interviews. Use for 'make a PDF', 'build a bid', 'create a proposal'."
 user-invocable: true
 allowed-tools: Read Write Edit Bash Grep Glob
 argument-hint: "[pack-name] [project-dir]"

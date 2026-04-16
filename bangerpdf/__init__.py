@@ -9,6 +9,6 @@ CLI: `bangerpdf` (or `banger`)
 Python: `from bangerpdf import convert, render, qa, review`
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "AI Build Lab"
 __license__ = "MIT"
